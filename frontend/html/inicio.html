@@ -1,24 +1,45 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
-    <title>AUTIS</title>
     <meta charset="UTF-8">
+    <title>AUTIS</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="AUTIS - A platform for autism support and resources.">
     <meta name="keywords" content="AUTIS, autism, support, resources">
     <meta name="author" content="AUTIS Team">
-
-    <link rel="stylesheet" href="/CSS/index.css">
+    <link rel="stylesheet" href="/OpenProject/frontend/css/index.css">
 </head>
+
 <body>
-    <main>
-        <div id="slots">
-            
-        </div>
-    </main>
+    <header class="header">
+        <h1>INICIO</h1>
+    </header>
+
+    <div class="container">
+        <!-- Menú lateral -->
+        <nav class="sidebar">
+            <button>Dashboard</button>
+            <button>Proyectos</button>
+            <button>Departamentos</button>
+            <button>Empleados</button>
+            <button>Estadísticas</button>
+        </nav>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Aquí va tu componente tab -->
+            <tab-component slot="content">
+                <div slot="contents">
+                    <div id="dashboard"></div>
+                    <div id="proyectos"></div>
+                    <div id="departamentos"></div>
+                    <div id="empleados"></div>
+                    <div id="estadisticas"></div>
+                </div>
+            </tab-component>
+        </main>
+    </div>
 </body>
 
-
-
-
-
+</html>

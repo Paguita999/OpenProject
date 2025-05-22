@@ -10,13 +10,13 @@
 
     <link rel="stylesheet" href="../css/index.css">
 </head>
-<body>
+<body id="index">
     <main>
         <h1> O P E N P R O J E C T<br>
              A U T I S
         </h1>
 
-        <form>
+        <form id="apiform">
             <label id="labelform" for="apikey">Apikey:</label> 
             <input type="text" id="apikey" name="apikey" placeholder="Enter your API key..." maxlength="150">
             <span id="apikeyErr" class="error"></span><br><br>
@@ -24,7 +24,7 @@
             <button type="submit" id="submit" onclick="validationKey()">Submit</button>
         </form>
 
-        <script src="/backend/scripts/index.js"></script>
+        <script src="/OpenProject/backend/scripts/index.js"></script>
         
     </main>
 </body>
