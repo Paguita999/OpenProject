@@ -1,15 +1,16 @@
 export class ProjecteModel {
-    constructor({id, identifier, name, description, createdAt, _links, statusExplanation}){
-        this.id = id;
-        this.identifier = identifier;
-        this.name = name;
-        this.description = description;
-        this.createdAt = createdAt;
-        this.status = _links.status;
-        this.statusExplanation = statusExplanation;
+    constructor({id, nom, desc, vegetariana, alergens, img, preu}){
+        this.id=id;
+        this.nom=nom;
+        this.desc=desc;
+        this.vegetariana=vegetariana;
+        this.alergens=alergens;
+        this.img=img;
+        this.preu=preu;
     }
 
+
     toString() {
-        return `${this.name} (${this.identifier}) - ${this.status.title}`;
+        return `${this.nom} - ${this.preu} €`;
     }
 }
