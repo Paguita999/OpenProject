@@ -1,13 +1,31 @@
-<html>
-    <head>
-        <meta charset="UTF-8">  
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">  
-        <title>Open Project</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <h1>Open Project</h1>
-        <div id="projectsContainer"></div>
-        <script src="index.js"></script>
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>AUTIS</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AUTIS - A platform for autism support and resources.">
+    <meta name="keywords" content="AUTIS, autism, support, resources">
+    <meta name="author" content="AUTIS Team">
+
+    <link rel="stylesheet" href="/frontend/css/index.css">
+</head>
+<body>
+    <main>
+        <h1> O P E N P R O J E C T<br>
+             A U T I S
+        </h1>
+
+        <form>
+            <label id="labelform" for="apikey">Apikey:</label> 
+            <input type="text" id="apikey" name="apikey" placeholder="Enter your API key..." maxlength="150">
+            <span id="apikeyErr" class="error"></span><br><br>
+
+            <button type="submit" id="submit" onclick="validationKey()">Submit</button>
+        </form>
+
+        <script src="/backend/scripts/index.js"></script>
+        
+    </main>
+</body>
 </html>
