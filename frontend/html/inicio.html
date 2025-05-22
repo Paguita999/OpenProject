@@ -11,35 +11,31 @@
     <link rel="stylesheet" href="/OpenProject/frontend/css/index.css">
 </head>
 
-<body>
-    <header class="header">
-        <h1>INICIO</h1>
-    </header>
+<body id="inicio">
 
-    <div class="container">
-        <!-- Menú lateral -->
-        <nav class="sidebar">
-            <button>Dashboard</button>
+    
+    <h1 id="cabecera">INICIO</h1>
+
+    
+    <div class="contenedor">
+        
+        <nav class="barra-lateral">
+            <button class="activo">Dashboard</button>
             <button>Proyectos</button>
             <button>Departamentos</button>
             <button>Empleados</button>
             <button>Estadísticas</button>
+
+            <div class="cerrar-sesion">
+            <button>Cerrar sesión</button>
+            </div>
         </nav>
 
-        <!-- Contenido principal -->
-        <main class="main-content">
-            <!-- Aquí va tu componente tab -->
-            <tab-component slot="content">
-                <div slot="contents">
-                    <div id="dashboard"></div>
-                    <div id="proyectos"></div>
-                    <div id="departamentos"></div>
-                    <div id="empleados"></div>
-                    <div id="estadisticas"></div>
-                </div>
-            </tab-component>
+        <main class="contenido">
+            
         </main>
     </div>
+
 </body>
 
 </html>

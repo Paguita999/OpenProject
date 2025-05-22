@@ -31,6 +31,7 @@ form {
 
 /*------------------------------------------------------------------------ */
 
+
 * {
     margin: 0;
     padding: 0;
@@ -38,51 +39,75 @@ form {
 }
 
 
-.header h1 {
+#inicio #cabecera {
     background-color: #1a237e;
     color: white;
-    text-align: center;
     padding: 15px 0;
-    font-size: 20px;
-    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    font-size: 24px;
     font-weight: bold;
 }
 
-
-.container .sidebar {
+.contenedor {
     display: flex;
     height: calc(100vh - 60px); 
 }
 
 
-.sidebar {
+.barra-lateral {
     background-color: #1a237e;
-    width: 200px;
+    width: 160px;
     display: flex;
     flex-direction: column;
-    align-items: stretch;
+    padding-top: 20px;
 }
 
-.sidebar button {
+.barra-lateral button {
     background: none;
-    border: 2px solid white;
+    border: 1px solid white;
     color: white;
-    padding: 10px 20px;
+    padding: 10px;
     margin: 5px;
     text-align: left;
-    font-size: 16px;
+    font-size: 15px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
-.sidebar button:hover {
+.contenedor .cerrar-sesion {
+    margin-top: auto;
+    padding: 20px 5px;
+}
+
+.contenedor .cerrar-sesion button {
+    width: 100%;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor .cerrar-sesion button:hover {
+    background-color: #b71c1c;
+}
+
+.barra-lateral button:hover {
     background-color: #3949ab;
 }
 
 
+.barra-lateral .activo {
+    background-color: #fbc02d;
+    color: #1a237e;
+    font-weight: bold;
+}
 
 
-.main-content {
+.contenido {
     flex: 1;
-    padding: 20px;
     background-color: white;
+    padding: 20px;
 }
