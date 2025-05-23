@@ -1,7 +1,7 @@
-body {
+#index {
     background-image: url('../Img/autis_ingenieros_cover.jpg');
     margin: 15%;
-    
+
 }
 
 h1 {
@@ -18,13 +18,98 @@ form {
     font-size: 100%;
 }
 
-#labelform{
+#labelform {
     font-weight: bold;
 }
 
-#submit{
-    font-family:'Times New Roman', Times, serif;
+#submit {
+    font-family: 'Times New Roman', Times, serif;
     border: #000000 1px solid;
     border-radius: 10%;
     border-color: #e0a10c;
 }
+
+/*------------------------------------------------------------------------ */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+#inicio #cabecera {
+    background-color: #1a237e;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.contenedor {
+    display: flex;
+    height: calc(100vh - 60px); 
+}
+
+
+.barra-lateral {
+    background-color: #1a237e;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+}
+
+.barra-lateral button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    padding: 10px;
+    margin: 5px;
+    text-align: left;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor .cerrar-sesion {
+    margin-top: auto;
+    padding: 20px 5px;
+}
+
+.contenedor .cerrar-sesion button {
+    width: 100%;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contenedor .cerrar-sesion button:hover {
+    background-color: #b71c1c;
+}
+
+.barra-lateral button:hover {
+    background-color: #3949ab;
+}
+
+
+.barra-lateral .activo {
+    background-color: #fbc02d;
+    color: #1a237e;
+    font-weight: bold;
+}
+
+
+.contenido {
+    flex: 1;
+    background-color: white;
+    padding: 20px;
+}
+
+

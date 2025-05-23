@@ -1,10 +1,10 @@
 import { ProjecteModel } from './model/projectemodel.js';
-
+const apikey = sessionStorage.getItem("apikey");
 async function loadProjects() {
     try {
         const response = await fetch('http://localhost:8080/api/v3/projects', {
             headers: {
-                'Authorization': 'Basic ' + btoa('apikey:68826a72943fbd4dc4abe8445ea278297c191da0f897d2dbd507c30f5f07a398'),
+                'Authorization': 'Basic ' + btoa('apikey:' + apikey),
                 'Origin': 'http://localhost:8080'
             }
         });
