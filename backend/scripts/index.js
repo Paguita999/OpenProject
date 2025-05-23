@@ -16,14 +16,16 @@ function validationKey() {
                     method: 'POST',
                     headers: {
                         'Authorization': 'Basic ' + btoa('apikey:' + key),
-                        'Origin': 'http://localhost:8080'
+                        'Origin': 'http://localhost:8080',
+
+
                     },
                     body: JSON.stringify({key})
                 });
 
                 const result = await response.json();
 
-                if (response.ok && result.valido) {
+                if (response.ok) {
 
                     sessionStorage.setItem("apikey", key);
 
