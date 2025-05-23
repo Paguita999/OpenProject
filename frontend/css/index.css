@@ -45,7 +45,7 @@ form {
     padding: 15px 0;
     text-align: center;
     font-size: 24px;
-    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .contenedor {
@@ -66,12 +66,13 @@ form {
     background: none;
     border: 1px solid white;
     color: white;
-    padding: 10px;
+    padding: 15px;
     margin: 5px;
     text-align: left;
     font-size: 15px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .contenedor .cerrar-sesion {
@@ -85,13 +86,23 @@ form {
     color: white;
     border: none;
     padding: 10px;
-    font-weight: bold;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .contenedor .cerrar-sesion button:hover {
     background-color: #b71c1c;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 20px;
+    overflow: scroll;
+    width: 100%;
+    height: 100%;
 }
 
 .barra-lateral button:hover {

@@ -8,33 +8,51 @@
     <meta name="description" content="AUTIS">
     <meta name="keywords" content="AUTIS">
     <meta name="author" content="AUTIS Team">
-    <link rel="stylesheet" href="/OpenProject/frontend/css/index.css">
+    <link rel="stylesheet" href="../css/index.css">
 </head>
 
 <body id="inicio">
 
-    
     <h1 id="cabecera">INICIO</h1>
 
     
+
     <div class="contenedor">
-        
-        <nav class="barra-lateral">
-            <button class="activo">Dashboard</button>
-            <button>Proyectos</button>
-            <button>Departamentos</button>
-            <button>Empleados</button>
-            <button>Estadísticas</button>
 
-            <div class="cerrar-sesion">
-            <button>Cerrar sesión</button>
-            </div>
-        </nav>
+        <div class="contenedor">
 
-        <main class="contenido">
-            
-        </main>
+            <nav class="barra-lateral">
+                <button id="dashboard">Dashboard</button>
+                <button id="proyectos">Proyectos</button>
+                <button id="departamentos">Departamentos</button>
+                <button id="empleados">Empleados</button>
+                <button id="estadisticas">Estadísticas</button>
+
+                <div class="cerrar-sesion">
+                    <button>Cerrar sesión</button>
+                </div>
+            </nav>
+
+            <main class="contenido">
+
+                <script src="../scripts frontend/inicio.js"></script>
+                <script>
+                    dashboards();
+                    proyectos();
+                    departamentos();
+                    empleados();
+                    estadisticas();
+                    cerrarSesion();
+                </script>
+
+            </main>
+        </div>
+
+        <div id="container"></div>
+
     </div>
+
+    
 
 </body>
 
