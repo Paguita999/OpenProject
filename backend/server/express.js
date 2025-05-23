@@ -17,7 +17,6 @@ app.use(bodyParser.json());
 
 // Servim els arxius estàtics
 app.use(express.static(path.join(__dirname, '..', '..', 'frontend')));
-app.use(express.static(path.join(__dirname, '..', '..', 'backend', 'scripts')));
 
 
 // Ruta principal
