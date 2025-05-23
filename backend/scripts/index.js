@@ -30,11 +30,11 @@ function validationKey() {
                     window.location.href = '../../frontend/inicio.html';
                     
                 } else {
-                    document.querySelector('#apikeyErr').textContent = 'Invalid key';
+                    document.querySelector('#apikeyErr').innerHTML = 'Invalid key';
                 }
             } catch (err) {
                 console.error('Connection error:', err);
-                document.querySelector('#apikeyErr').textContent = 'Server error connection';
+                document.querySelector('#apikeyErr').innerHTML = 'Server error connection';
             }
         }
     });
