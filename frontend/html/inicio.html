@@ -13,65 +13,42 @@
 
 <body id="inicio">
 
-
     <h1 id="cabecera">INICIO</h1>
 
+    <div id="container"></div>
 
     <div class="contenedor">
 
-        <nav class="barra-lateral">
-            <button id="dashboard" onclick="dashboardButton">Dashboard</button>
-            <button id="proyectos">Proyectos</button>
-            <button id="departamentos">Departamentos</button>
-            <button id="empleados">Empleados</button>
-            <button id="estadisticas">Estadísticas</button>
+        <div class="contenedor">
 
-            <div class="cerrar-sesion">
-                <button>Cerrar sesión</button>
-            </div>
-        </nav>
+            <nav class="barra-lateral">
+                <button id="dashboard">Dashboard</button>
+                <button id="proyectos">Proyectos</button>
+                <button id="departamentos">Departamentos</button>
+                <button id="empleados">Empleados</button>
+                <button id="estadisticas">Estadísticas</button>
 
-        <main class="contenido">
+                <div class="cerrar-sesion">
+                    <button>Cerrar sesión</button>
+                </div>
+            </nav>
 
-            <script>
-                function cerrarSesion() {
-                    document.querySelector('.cerrar-sesion button').addEventListener('click', () => {
-                        sessionStorage.removeItem("apikey");
-                        window.location.href = '/html/index.html';
-                    });
-                }
+            
 
-                function cargarContenido() {
-                    const dashboardButton = document.getElementById('dashboard');
-                    const proyectosButton = document.getElementById('proyectos');
-                    const departamentosButton = document.getElementById('departamentos');
-                    const empleadosButton = document.getElementById('empleados');
-                    const estadisticasButton = document.getElementById('estadisticas');
+            <main class="contenido">
 
-                    dashboardButton.addEventListener('click', () => {
-                        window.location.href = '/html/dashboard.html';
-                    });
+                <script src="../scripts frontend/inicio.js"></script>
+                <script>
+                    dashboards();
+                    proyectos();
+                    departamentos();
+                    empleados();
+                    estadisticas();
+                    cerrarSesion();
+                </script>
 
-                    proyectosButton.addEventListener('click', () => {
-                        window.location.href = '/html/proyectos.html';
-                    });
-
-                    departamentosButton.addEventListener('click', () => {
-                        window.location.href = '/html/departamentos.html';
-                    });
-
-                    empleadosButton.addEventListener('click', () => {
-                        window.location.href = '/html/empleados.html';
-                    });
-
-                    estadisticasButton.addEventListener('click', () => {
-                        window.location.href = '/html/estadisticas.html';
-                    });
-                }
-            </script>
-
-        </main>
-    </div>
+            </main>
+        </div>
 
 </body>
 
