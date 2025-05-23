@@ -2,44 +2,35 @@ function validationKey() {
 
     document.querySelector('#apiform').addEventListener('submit', async (e) => {
         e.preventDefault();
-
         const key = document.querySelector('#apikey').value.trim();
+        const errorElement = document.querySelector('#apikeyErr');
 
-        if (key === "") {
+        if (!key) {
+            errorElement.innerHTML = "Camp required";
+            return;
+        }
 
-            document.querySelector('#apikeyErr').innerHTML = "Camp required";
-
-        } else {
-
-            try {
-                const response = await fetch('https://localhost:8080/api/v3/users', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': 'Basic ' + btoa('apikey:' + key),
-                        'Origin': 'http://localhost:8080',
-
-
-                    },
-                    body: JSON.stringify({key})
-                });
-
-                const result = await response.json();
-
-                if (response.ok) {
-
-                    sessionStorage.setItem("apikey", key);
-
-                    window.location.href = '../../frontend/inicio.html';
-                    
-                } else {
-                    document.querySelector('#apikeyErr').innerHTML = 'Invalid key';
+        try {
+            const response = await fetch('http://localhost:8080/api/v3/users', {
+                method: 'GET',
+                headers: {
+                    'Authorization': 'Basic ' + btoa('apikey:' + key),
+                    'Content-Type': 'application/json',
+                    'Origin': 'http://localhost:8080'
                 }
-            } catch (err) {
-                console.error('Connection error:', err);
-                document.querySelector('#apikeyErr').innerHTML = 'Server error connection';
+            });
+
+            if (response.ok) {
+                sessionStorage.setItem("apikey", key);
+                window.location.href = '../../frontend/html/inicio.html';
+            } else {
+                errorElement.innerHTML = 'Invalid key';
             }
+        } catch (err) {
+            console.error('Connection error:', err);
+            errorElement.innerHTML = 'Server error connection';
         }
     });
 }
-
+validationKey();
 
