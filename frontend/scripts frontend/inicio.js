@@ -9,59 +9,108 @@ function dashboards() {
     const dashboardButton = document.getElementById('dashboard');
 
     dashboardButton.addEventListener('click', () => {
-        window.location.href = '../html/dashboard.html';
-    });
+        const apikey = localStorage.getItem("apikey");
+
+        fetch('/api/tasks', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+       .then(response => response.json())
+      .then(data => {
+        const container = document.querySelector('#container');
+        container.innerHTML = "";
+
+        const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
+
+        sortedTasks.forEach(task => {
+          const taskDiv = document.createElement('div');
+          taskDiv.innerHTML = `
+            <h2>${task.subject}</h2>
+            <hr>
+            <p><strong>ID:</strong> ${task.id}</p>
+            <p><strong>Tipo:</strong> ${task._type}</p>
+            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
+            <p><strong>Actualizado:</strong> ${new Date(task.updatedAt).toLocaleDateString()}</p>
+          `;
+          container.appendChild(taskDiv);
+        });
+      })
+})
 }
+
 function proyectos() {
     const proyectosButton = document.getElementById('proyectos');
 
     proyectosButton.addEventListener('click', () => {
-       const apikey = localStorage.getItem("apikey");
+        const apikey = localStorage.getItem("apikey");
 
-fetch('http://localhost:3000/api/projects', {
-    headers: {
-        'x-api-key': apikey
-    }
-})
-.then(response => response.json())
-.then(data => {
-    const container = document.querySelector('#container');
-    container.innerHTML = "";
-    const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-    sortedProjects.forEach(project => {
-        const projectDiv = document.createElement('div');
-        projectDiv.innerHTML = `
-            <h2>${project.name}</h2>
+        fetch('/api/projects', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('#container');
+                container.innerHTML = "";
+                const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedTasks.forEach(task => {
+                    const taskDiv = document.createElement('div');
+                    taskDiv.innerHTML = `
+            <h2>${task.subject}</h2>
             <hr>
-            <p><strong>ID:</strong> ${project.id}</p>
-            <p><strong>Identificador:</strong> ${project.identifier}</p>
-            <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Creado:</strong> ${new Date(project.createdAt).toLocaleDateString()}</p>
-            <p><strong>Estado:</strong> ${project._links.status.title}</p>
-            <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
+            <p><strong>ID:</strong> ${task.id}</p>
+            <p><strong>Identificador:</strong> ${task.identifier}</p>
+            <p><strong>Descripción:</strong> ${task.description.raw}</p>
+            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
+            <p><strong>Estado:</strong> ${task._links.status.title}</p>
+            <p><strong>Explicación:</strong> ${task.statusExplanation.raw}</p>
             <hr>
         `;
-        container.appendChild(projectDiv);
-    });
-})
-.catch(error => console.error('Error:', error));
+                    container.appendChild(taskDiv);
+                });
+            })
+            .catch(error => console.error('Error:', error));
     });
 }
 
-function departamentos() {
-    const departamentosButton = document.getElementById('departamentos');
 
-    departamentosButton.addEventListener('click', () => {
-        window.location.href = '../html/departamentos.html';
-    });
-}
 function empleados() {
+
     const empleadosButton = document.getElementById('empleados');
 
     empleadosButton.addEventListener('click', () => {
-        window.location.href = '../html/empleados.html';
+        const apikey = localStorage.getItem("apikey");
+
+        fetch('/api/users', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('#container');
+                container.innerHTML = "";
+                const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedUsers.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.innerHTML = `
+            <h2>${user.login}</h2>
+            <hr>
+            <p><strong>ID:</strong> ${user.id}</p>
+            <p><strong>Nombre:</strong> ${user.name}</p>
+            <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+            <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
+            <hr>
+        `;
+                    container.appendChild(userDiv);
+                });
+            })
     });
 }
+
 function estadisticas() {
     const estadisticasButton = document.getElementById('estadisticas');
 
@@ -70,55 +119,9 @@ function estadisticas() {
     });
 }
 
-function horario(){
-    document.getElementById('horario').addEventListener('click', function() {
-    window.location.href = 'atencionalcliente.html';
-});
-}
-
 function crearUsuario() {
     document.getElementById("abrirModal").addEventListener("click", function () {
         document.getElementById("modal").style.display = "block";
-    });
-
-    document.getElementById("cerrarModal").addEventListener("click", function () {
-        document.getElementById("modal").style.display = "none";
-    });
-
-
-    window.addEventListener("click", function (e) {
-        const modal = document.getElementById("modal");
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-
-    document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
-        e.preventDefault();
-        const nombre = document.getElementById("nombre").value;
-        const apellido = document.getElementById("apellido").value;
-        const email= document.getElementById("email").value;
-        const telefono = document.getElementById("telefono").value;
-        const departamento = document.getElementById("departamento").value;
-        console.log("Nuevo usuario:", nombre,apellido,email,telefono,departamento);
-
-
-        document.getElementById("modal").style.display = "none";
-
-        this.reset();
-    });
-
-}
-    function modificarUsuario(usuarioExistente) {
-    document.getElementById("modificarModal").addEventListener("click", function () {
-        document.getElementById("modal").style.display = "block";
-
-        document.getElementById("nombre").value = usuarioExistente.nombre || "";
-        document.getElementById("apellido").value = usuarioExistente.apellido || "";
-        document.getElementById("email").value = usuarioExistente.email || "";
-        document.getElementById("telefono").value = usuarioExistente.telefono || "";
-        document.getElementById("departamento").value = usuarioExistente.departamento || "";
     });
 
     document.getElementById("cerrarModal").addEventListener("click", function () {
@@ -138,55 +141,34 @@ function crearUsuario() {
         const nombre = document.getElementById("nombre").value;
         const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
-        const telefono = document.getElementById("telefono").value;
-        const departamento = document.getElementById("departamento").value;
+        const login = document.getElementById("login").value;
 
-        console.log("Usuario modificado:", nombre, apellido, email, telefono, departamento);
+        const nuevoUsuario = {
+            nombre,
+            apellido,
+            email,
+            login
+        };
+
+        fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apikey 
+            },
+            body: JSON.stringify(nuevoUsuario)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Usuario creado:", data);
+            alert("Usuario creado correctamente.");
+        })
+        .catch(error => {
+            console.error("Error al crear usuario:", error);
+            alert("Error al crear usuario.");
+        });
+
         document.getElementById("modal").style.display = "none";
         this.reset();
     });
-}
-
-function borrarUsuario(){
-    document.getElementById("borrarModal").addEventListener("click", function () {
-        document.getElementById("modal").style.display = "block";
-    });
-
-    document.getElementById("cerrarModal").addEventListener("click", function () {
-        document.getElementById("modal").style.display = "none";
-    });
-
-    window.addEventListener("click", function (e) {
-        const modal = document.getElementById("modal");
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-    
-    document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
-    e.preventDefault();
-
-    const nombre = document.getElementById("nombre").value.trim();
-    const apellido = document.getElementById("apellido").value.trim();
-    const correo = document.getElementById("correo").value.trim();
-    const telefono = document.getElementById("telefono").value.trim();
-    const departamento = document.getElementById("departamento").value;
-
-    const departamentos= ["ventas", "marketing", "desarrollo", "recursos humanos"];
-    if (!departamentos.includes(departamento.toLowerCase())) {
-      alert("Por favor, selecciona un departamento válido.");
-      return;
-    }
-    
-    console.log("Borrando usuario:");
-    console.log("Nombre:", nombre);
-    console.log("Apellido:", apellido);
-    console.log("Correo:", correo);
-    console.log("Teléfono:", telefono);
-    console.log("Departamento:", departamento);
-
-    alert(`Usuario ${nombre} ${apellido} borrado correctamente.`);
-
-    this.reset();
-  });
 }
