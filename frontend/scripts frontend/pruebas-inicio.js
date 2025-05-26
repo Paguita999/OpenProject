@@ -21,17 +21,15 @@ function crearUsuario() {
         const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
         const login = document.getElementById("login").value;
-        const password = document.getElementById("contrasena").value;
 
         const nuevoUsuario = {
             nombre,
             apellido,
             email,
-            login,
-            password    
+            login  
         };
         const apikey = localStorage.getItem("apikey");
-        fetch('/api/users', {
+        fetch('/api/userscreate', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

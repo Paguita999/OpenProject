@@ -80,8 +80,8 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
-app.post('/api/users', async (req, res) => {
-  const { nombre, apellido, email, login, password } = req.body;
+app.post('/api/userscreate', async (req, res) => {
+  const { nombre, apellido, email, login } = req.body;
   const apiKey = req.headers['x-api-key'];
 
   if (!apiKey) {
@@ -90,10 +90,9 @@ app.post('/api/users', async (req, res) => {
 
   const userPayload = {
     login,
-    nombre,
-    apellido,
-    email,
-    password
+    firstname:nombre,
+    lastname:apellido,
+    email
   };
 
   try {
