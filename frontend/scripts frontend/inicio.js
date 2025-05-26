@@ -83,7 +83,7 @@ function empleados() {
             <p><strong>Nombre:</strong> ${user.name}</p>
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
-            <p><strong>Email:</strong> ${user.email.raw}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
             <hr>
         `;
                     container.appendChild(projectDiv);
