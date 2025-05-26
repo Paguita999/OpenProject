@@ -80,6 +80,45 @@ app.get('/api/users', async (req, res) => {
     }
 });
 
+app.post('/api/users', async (req, res) => {
+  const { nombre, apellido, email, login } = req.body;
+  const apiKey = req.headers['x-api-key'];
+
+  if (!apiKey) {
+    return res.status(400).json({ error: 'Falta la API Key en los headers' });
+  }
+
+  const userPayload = {
+    login,
+    nombre,
+    apellido,
+    email,
+    status: 1
+  };
+
+  try {
+    const response = await fetch('http://localhost:8080/api/v3/users', {
+      method: 'POST',
+      headers: {
+        'Authorization': 'Basic ' + Buffer.from(`apikey:${apiKey}`).toString('base64'),
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(userPayload)
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      return res.status(response.status).json({ error: data.message || 'Error al crear usuario en OpenProject' });
+    }
+
+    res.status(201).json(data);
+  } catch (err) {
+    console.error('Error al crear usuario:', err);
+    res.status(500).json({ error: 'Error del servidor' });
+  }
+});
+
 app.get('/api/users', async (req, res) => {
     const apiKey = req.headers['x-api-key'];
 
@@ -89,6 +128,32 @@ app.get('/api/users', async (req, res) => {
 
     try {
         const response = await fetch('http://localhost:8080/api/v3/users', {
+            headers: {
+                'Authorization': 'Basic ' + Buffer.from(`apikey:${apiKey}`).toString('base64')
+            }
+        });
+
+        if (!response.ok) {
+            return res.status(response.status).json({ error: 'Failed to fetch from OpenProject API' });
+        }
+
+        const data = await response.json();
+        res.json(data);
+    } catch (error) {
+        console.error('Error fetching from OpenProject:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+
+app.get('/api/tasks', async (req, res) => {
+    const apiKey = req.headers['x-api-key'];
+
+    if (!apiKey) {
+        return res.status(400).json({ error: 'API key is missing in headers' });
+    }
+
+    try {
+        const response = await fetch('http://localhost:8080/api/v3/work_packages', {
             headers: {
                 'Authorization': 'Basic ' + Buffer.from(`apikey:${apiKey}`).toString('base64')
             }
