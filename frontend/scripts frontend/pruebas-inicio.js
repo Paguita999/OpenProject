@@ -113,14 +113,10 @@ function empleados() {
 /*-----------------------------------------------------------------------------------------*/
 
 document.getElementById("empleados").addEventListener("click", function () {
-    // Mostrar el botón de Crear Usuario
     document.getElementById("crearUsuario").style.display = "block";
-
-    // Puedes cargar también la sección de empleados aquí si lo necesitas
     console.log("Vista de empleados activada");
 });
 
-// También puedes ocultar el botón cuando se pulse otra sección (opcional)
 document.getElementById("dashboard").addEventListener("click", function () {
     document.getElementById("crearUsuario").style.display = "none";
 });
@@ -136,50 +132,30 @@ document.getElementById("estadisticas").addEventListener("click", function () {
 
 /*-----------------------------------------------------------------------------------------*/
 
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const botonesNav = document.querySelectorAll(".nav button");
-
-    botonesNav.forEach(boton => {
-        boton.addEventListener("click", () => {
-            // Quitar clase 'activo' de todos
-            botonesNav.forEach(b => b.classList.remove("activo"));
-
-            // Añadir clase 'activo' al clicado
-            boton.classList.add("activo");
-        });
-    });
-});
-
-
-
-/*-----------------------------------------------------------------------------------------*/
-
 const apikey = localStorage.getItem("apikey");
 const form = document.getElementById('userForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Evita que recargue la página
+form.addEventListener('submit', function (e) {
+    e.preventDefault();
 
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
 
-      fetch('/api/users', {
+    fetch('/api/users', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apikey 
+            'Content-Type': 'application/json',
+            'x-api-key': apikey
         },
         body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log('Usuario creado:', res);
-        alert('Usuario creado con éxito');
-        form.reset();
-      })
-      .catch(err => {
-        console.error('Error al crear usuario:', err);
-        alert('Error al crear usuario');
-      });
-    });
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log('Usuario creado:', res);
+            alert('Usuario creado con éxito');
+            form.reset();
+        })
+        .catch(err => {
+            console.error('Error al crear usuario:', err);
+            alert('Error al crear usuario');
+        });
+});
