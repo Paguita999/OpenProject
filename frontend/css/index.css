@@ -3,6 +3,13 @@
     margin: 15%;
 
 }
+.contenedor .contenedor #container {
+  padding: 10px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto; 
+  background-color: white;
+}
 
 h1 {
     color: #e0a10c;
