@@ -49,15 +49,14 @@
 }
 
 body {
-    background-color: #f0f0f0;
+    background-image: url(../img/36861.jpg);
     font-family: Arial, sans-serif;
     color: #333;
 }
 
 h1{
     margin: 1%;
-    background-color: cornflowerblue;
-    color: #ffffff;
+    color: #c16e0e;
     text-align: center;
     font-size: 300%;
     font-weight: bold;
@@ -68,7 +67,6 @@ h1{
     display: flex;
     margin: 1%;
     justify-content: space-around;
-    background-color: #e3f2fd;
     padding: 10px 0;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);

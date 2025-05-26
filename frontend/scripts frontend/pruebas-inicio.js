@@ -21,7 +21,7 @@ function crearUsuario() {
         const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
         const login = document.getElementById("login").value;
-        const password = document.getElementById("contraseña").value;
+        const password = document.getElementById("contrasena").value;
 
         const nuevoUsuario = {
             nombre,
