@@ -16,21 +16,21 @@ function proyectos() {
     const proyectosButton = document.getElementById('proyectos');
 
     proyectosButton.addEventListener('click', () => {
-       const apikey = localStorage.getItem("apikey");
+        const apikey = localStorage.getItem("apikey");
 
-fetch('http://localhost:3000/api/projects', {
-    headers: {
-        'x-api-key': apikey
-    }
-})
-.then(response => response.json())
-.then(data => {
-    const container = document.querySelector('#container');
-    container.innerHTML = "";
-    const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-    sortedProjects.forEach(project => {
-        const projectDiv = document.createElement('div');
-        projectDiv.innerHTML = `
+        fetch('http://localhost:3000/api/projects', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('#container');
+                container.innerHTML = "";
+                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedProjects.forEach(project => {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.innerHTML = `
             <h2>${project.name}</h2>
             <hr>
             <p><strong>ID:</strong> ${project.id}</p>
@@ -41,10 +41,10 @@ fetch('http://localhost:3000/api/projects', {
             <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
             <hr>
         `;
-        container.appendChild(projectDiv);
-    });
-})
-.catch(error => console.error('Error:', error));
+                    container.appendChild(projectDiv);
+                });
+            })
+            .catch(error => console.error('Error:', error));
     });
 }
 
@@ -55,13 +55,43 @@ function departamentos() {
         window.location.href = '../html/departamentos.html';
     });
 }
+
+
 function empleados() {
+
     const empleadosButton = document.getElementById('empleados');
 
-    empleadosButton.addEventListener('click', () => {
-        window.location.href = '../html/empleados.html';
+    proyectosButton.addEventListener('click', () => {
+        const apikey = localStorage.getItem("apikey");
+
+        fetch('http://localhost:3000/api/users', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+            .then(response => response.json())
+            .then(data => {
+                const container = document.querySelector('#container');
+                container.innerHTML = "";
+                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedProjects.forEach(user => {
+                    const projectDiv = document.createElement('div');
+                    projectDiv.innerHTML = `
+            <h2>${user.login}</h2>
+            <hr>
+            <p><strong>ID:</strong> ${user.id}</p>
+            <p><strong>Nombre:</strong> ${user.name}</p>
+            <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
+            <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
+            <p><strong>Email:</strong> ${user.email.raw}</p>
+            <hr>
+        `;
+                    container.appendChild(projectDiv);
+                });
+            })
     });
 }
+
 function estadisticas() {
     const estadisticasButton = document.getElementById('estadisticas');
 
