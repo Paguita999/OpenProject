@@ -18,7 +18,7 @@ function proyectos() {
     proyectosButton.addEventListener('click', () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('http://localhost:3000/api/projects', {
+        fetch('/api/projects', {
             headers: {
                 'x-api-key': apikey
             }
@@ -61,10 +61,10 @@ function empleados() {
 
     const empleadosButton = document.getElementById('empleados');
 
-    proyectosButton.addEventListener('click', () => {
+    empleadosButton.addEventListener('click', () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('http://localhost:3000/api/users', {
+        fetch('/api/users', {
             headers: {
                 'x-api-key': apikey
             }
