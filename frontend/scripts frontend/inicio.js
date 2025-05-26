@@ -18,7 +18,7 @@ function proyectos() {
     proyectosButton.addEventListener('click', () => {
         fetch('http://localhost:8080/api/v3/projects', {
             headers: {
-                'Authorization': 'Basic ' + btoa('apikey:'+ localStorage.getItem("apikey")),
+                'Authorization': 'Basic ' + btoa('apikey:' + localStorage.getItem("apikey")),
 
                 'Origin': 'http://localhost:8080'
             }
@@ -66,4 +66,38 @@ function estadisticas() {
     estadisticasButton.addEventListener('click', () => {
         window.location.href = '../html/estadisticas.html';
     });
+}
+
+function crearUsuario() {
+    document.getElementById("abrirModal").addEventListener("click", function () {
+        document.getElementById("modal").style.display = "block";
+    });
+
+    document.getElementById("cerrarModal").addEventListener("click", function () {
+        document.getElementById("modal").style.display = "none";
+    });
+
+
+    window.addEventListener("click", function (e) {
+        const modal = document.getElementById("modal");
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+
+    document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById("nombre").value;
+        const email = document.getElementById("email").value;
+
+
+        console.log("Nuevo usuario:", nombre, email);
+
+
+        document.getElementById("modal").style.display = "none";
+
+        this.reset();
+    });
+
 }
