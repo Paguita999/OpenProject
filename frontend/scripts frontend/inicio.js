@@ -75,14 +75,6 @@ function proyectos() {
     });
 }
 
-function departamentos() {
-    const departamentosButton = document.getElementById('departamentos');
-
-    departamentosButton.addEventListener('click', () => {
-        window.location.href = '../html/departamentos.html';
-    });
-}
-
 
 function empleados() {
 
@@ -136,7 +128,6 @@ function crearUsuario() {
         document.getElementById("modal").style.display = "none";
     });
 
-
     window.addEventListener("click", function (e) {
         const modal = document.getElementById("modal");
         if (e.target === modal) {
@@ -144,19 +135,40 @@ function crearUsuario() {
         }
     });
 
-
     document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
         e.preventDefault();
+
         const nombre = document.getElementById("nombre").value;
+        const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
+        const login = document.getElementById("login").value;
 
+        const nuevoUsuario = {
+            nombre,
+            apellido,
+            email,
+            login
+        };
 
-        console.log("Nuevo usuario:", nombre, email);
-
+        fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apikey 
+            },
+            body: JSON.stringify(nuevoUsuario)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Usuario creado:", data);
+            alert("Usuario creado correctamente.");
+        })
+        .catch(error => {
+            console.error("Error al crear usuario:", error);
+            alert("Error al crear usuario.");
+        });
 
         document.getElementById("modal").style.display = "none";
-
         this.reset();
     });
-
 }

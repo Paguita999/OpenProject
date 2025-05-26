@@ -81,7 +81,7 @@ app.get('/api/users', async (req, res) => {
 });
 
 app.post('/api/users', async (req, res) => {
-  const { nombre, apellido, email, login } = req.body;
+  const { nombre, apellido, email, login, password } = req.body;
   const apiKey = req.headers['x-api-key'];
 
   if (!apiKey) {
@@ -93,7 +93,7 @@ app.post('/api/users', async (req, res) => {
     nombre,
     apellido,
     email,
-    status: 1
+    password
   };
 
   try {

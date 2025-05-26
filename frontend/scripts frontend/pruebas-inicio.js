@@ -7,7 +7,6 @@ function crearUsuario() {
         document.getElementById("modal").style.display = "none";
     });
 
-
     window.addEventListener("click", function (e) {
         const modal = document.getElementById("modal");
         if (e.target === modal) {
@@ -15,21 +14,44 @@ function crearUsuario() {
         }
     });
 
-
     document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
         e.preventDefault();
+
         const nombre = document.getElementById("nombre").value;
+        const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
+        const login = document.getElementById("login").value;
+        const password = document.getElementById("contraseña").value;
 
-
-        console.log("Nuevo usuario:", nombre, email);
-
+        const nuevoUsuario = {
+            nombre,
+            apellido,
+            email,
+            login,
+            password    
+        };
+        const apikey = localStorage.getItem("apikey");
+        fetch('/api/users', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-api-key': apikey 
+            },
+            body: JSON.stringify(nuevoUsuario)
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log("Usuario creado:", data);
+            alert("Usuario creado correctamente.");
+        })
+        .catch(error => {
+            console.error("Error al crear usuario:", error);
+            alert("Error al crear usuario.");
+        });
 
         document.getElementById("modal").style.display = "none";
-
         this.reset();
     });
-
 }
 
 function cerrarSesion() {
@@ -110,6 +132,39 @@ function empleados() {
     });
 }
 
+function dashboards() {
+    const dashboardButton = document.getElementById('dashboard');
+
+    dashboardButton.addEventListener('click', () => {
+        const apikey = localStorage.getItem("apikey");
+
+        fetch('/api/tasks', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+       .then(response => response.json())
+      .then(data => {
+        const container = document.querySelector('#container');
+        container.innerHTML = "";
+
+        const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
+
+        sortedTasks.forEach(task => {
+          const taskDiv = document.createElement('div');
+          taskDiv.innerHTML = `
+            <h2>${task.subject}</h2>
+            <hr>
+            <p><strong>ID:</strong> ${task.id}</p>
+            <p><strong>Tipo:</strong> ${task._type}</p>
+            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
+            <p><strong>Actualizado:</strong> ${new Date(task.updatedAt).toLocaleDateString()}</p>
+          `;
+          container.appendChild(taskDiv);
+        });
+      })
+})
+}
 /*-----------------------------------------------------------------------------------------*/
 
 document.getElementById("empleados").addEventListener("click", function () {
@@ -125,9 +180,6 @@ document.getElementById("dashboard").addEventListener("click", function () {
     document.getElementById("crearUsuario").style.display = "none";
 });
 document.getElementById("proyectos").addEventListener("click", function () {
-    document.getElementById("crearUsuario").style.display = "none";
-});
-document.getElementById("departamentos").addEventListener("click", function () {
     document.getElementById("crearUsuario").style.display = "none";
 });
 document.getElementById("estadisticas").addEventListener("click", function () {
@@ -155,31 +207,3 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 /*-----------------------------------------------------------------------------------------*/
-
-const apikey = localStorage.getItem("apikey");
-const form = document.getElementById('userForm');
-    form.addEventListener('submit', function(e) {
-      e.preventDefault(); // Evita que recargue la página
-
-      const formData = new FormData(form);
-      const data = Object.fromEntries(formData.entries());
-
-      fetch('/api/users', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-api-key': apikey 
-        },
-        body: JSON.stringify(data)
-      })
-      .then(res => res.json())
-      .then(res => {
-        console.log('Usuario creado:', res);
-        alert('Usuario creado con éxito');
-        form.reset();
-      })
-      .catch(err => {
-        console.error('Error al crear usuario:', err);
-        alert('Error al crear usuario');
-      });
-    });
