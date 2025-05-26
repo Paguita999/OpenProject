@@ -15,8 +15,6 @@
 
     <h1 id="cabecera">INICIO</h1>
 
-    
-
     <div class="contenedor">
 
         <div class="contenedor">
@@ -27,11 +25,14 @@
                 <button id="departamentos">Departamentos</button>
                 <button id="empleados">Empleados</button>
                 <button id="estadisticas">Estadísticas</button>
+                <button id="horario">Horario de Atención al Cliente</button>
 
                 <div class="cerrar-sesion">
                     <button>Cerrar sesión</button>
                 </div>
             </nav>
+
+             <div id="container"></div>
 
             <main class="contenido">
 
@@ -43,16 +44,62 @@
                     empleados();
                     estadisticas();
                     cerrarSesion();
+                    horario();
+                    crearUsuario();
+                    modificarUsuario();
+                    borrarUsuario();
                 </script>
 
             </main>
         </div>
 
-        <div id="container"></div>
+        <div id="container">
+            <button id="abrirModal" onclick="crearUsuario()">Crear Usuario</button>
+        </div>
+
+        <div id="container1">
+            <button id="modificarModal" onclick="modificarUsuario()">Modificar Usuario</button>
+        </div>
+
+        <div id="container2">
+            <button id="borrarModal" onclick="borrarUsuario()">Borrar Usuario</button>
+        </div>
+
 
     </div>
 
-    
+    <div id="modal" class="modal">
+        <div class="modal-contenido">
+            <span class="cerrar" id="cerrarModal">&times;</span>
+            <h2>Nuevo Usuario</h2>
+            <form id="formularioUsuario">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <br><br>
+                <label for="apellido">Apellido:</label>
+                <input type="text" id="apellido" name="apellido" required>
+                <br><br>
+                <label for="email">Correo:</label>
+                <input type="email" id="email" name="email" required>
+                <br><br>
+                <label for="telefono">Teléfono:</label>
+                <input type="tel" id="telefono" name="telefono" required>
+                <br><br>
+                <label for="departamento">Departamento:</label>
+                <select id="departamento" name="departamento" required>
+                    <option value="">Seleccione un departamento</option>
+                    <option value="ventas">Ventas</option>
+                    <option value="marketing">Marketing</option>
+                    <option value="desarrollo">Desarrollo</option>
+                    <option value="recursos_humanos">Recursos Humanos</option>
+                </select><br><br>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </div>
+
+
+
 
 </body>
 
