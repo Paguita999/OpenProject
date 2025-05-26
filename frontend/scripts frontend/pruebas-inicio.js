@@ -168,14 +168,10 @@ function dashboards() {
 /*-----------------------------------------------------------------------------------------*/
 
 document.getElementById("empleados").addEventListener("click", function () {
-    // Mostrar el botón de Crear Usuario
     document.getElementById("crearUsuario").style.display = "block";
-
-    // Puedes cargar también la sección de empleados aquí si lo necesitas
     console.log("Vista de empleados activada");
 });
 
-// También puedes ocultar el botón cuando se pulse otra sección (opcional)
 document.getElementById("dashboard").addEventListener("click", function () {
     document.getElementById("crearUsuario").style.display = "none";
 });
@@ -185,25 +181,5 @@ document.getElementById("proyectos").addEventListener("click", function () {
 document.getElementById("estadisticas").addEventListener("click", function () {
     document.getElementById("crearUsuario").style.display = "none";
 });
-
-/*-----------------------------------------------------------------------------------------*/
-
-
-
-document.addEventListener("DOMContentLoaded", () => {
-    const botonesNav = document.querySelectorAll(".nav button");
-
-    botonesNav.forEach(boton => {
-        boton.addEventListener("click", () => {
-            // Quitar clase 'activo' de todos
-            botonesNav.forEach(b => b.classList.remove("activo"));
-
-            // Añadir clase 'activo' al clicado
-            boton.classList.add("activo");
-        });
-    });
-});
-
-
 
 /*-----------------------------------------------------------------------------------------*/
