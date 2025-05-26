@@ -9,9 +9,36 @@ function dashboards() {
     const dashboardButton = document.getElementById('dashboard');
 
     dashboardButton.addEventListener('click', () => {
-        window.location.href = '../html/dashboard.html';
-    });
+        const apikey = localStorage.getItem("apikey");
+
+        fetch('/api/tasks', {
+            headers: {
+                'x-api-key': apikey
+            }
+        })
+       .then(response => response.json())
+      .then(data => {
+        const container = document.querySelector('#container');
+        container.innerHTML = "";
+
+        const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
+
+        sortedTasks.forEach(task => {
+          const taskDiv = document.createElement('div');
+          taskDiv.innerHTML = `
+            <h2>${task.subject}</h2>
+            <hr>
+            <p><strong>ID:</strong> ${task.id}</p>
+            <p><strong>Tipo:</strong> ${task._type}</p>
+            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
+            <p><strong>Actualizado:</strong> ${new Date(task.updatedAt).toLocaleDateString()}</p>
+          `;
+          container.appendChild(taskDiv);
+        });
+      })
+})
 }
+
 function proyectos() {
     const proyectosButton = document.getElementById('proyectos');
 
@@ -27,21 +54,21 @@ function proyectos() {
             .then(data => {
                 const container = document.querySelector('#container');
                 container.innerHTML = "";
-                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedProjects.forEach(project => {
-                    const projectDiv = document.createElement('div');
-                    projectDiv.innerHTML = `
-            <h2>${project.name}</h2>
+                const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedTasks.forEach(task => {
+                    const taskDiv = document.createElement('div');
+                    taskDiv.innerHTML = `
+            <h2>${task.subject}</h2>
             <hr>
-            <p><strong>ID:</strong> ${project.id}</p>
-            <p><strong>Identificador:</strong> ${project.identifier}</p>
-            <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Creado:</strong> ${new Date(project.createdAt).toLocaleDateString()}</p>
-            <p><strong>Estado:</strong> ${project._links.status.title}</p>
-            <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
+            <p><strong>ID:</strong> ${task.id}</p>
+            <p><strong>Identificador:</strong> ${task.identifier}</p>
+            <p><strong>Descripción:</strong> ${task.description.raw}</p>
+            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
+            <p><strong>Estado:</strong> ${task._links.status.title}</p>
+            <p><strong>Explicación:</strong> ${task.statusExplanation.raw}</p>
             <hr>
         `;
-                    container.appendChild(projectDiv);
+                    container.appendChild(taskDiv);
                 });
             })
             .catch(error => console.error('Error:', error));
@@ -73,10 +100,10 @@ function empleados() {
             .then(data => {
                 const container = document.querySelector('#container');
                 container.innerHTML = "";
-                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedProjects.forEach(user => {
-                    const projectDiv = document.createElement('div');
-                    projectDiv.innerHTML = `
+                const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedUsers.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.innerHTML = `
             <h2>${user.login}</h2>
             <hr>
             <p><strong>ID:</strong> ${user.id}</p>
@@ -86,7 +113,7 @@ function empleados() {
             <p><strong>Email:</strong> ${user.email}</p>
             <hr>
         `;
-                    container.appendChild(projectDiv);
+                    container.appendChild(userDiv);
                 });
             })
     });

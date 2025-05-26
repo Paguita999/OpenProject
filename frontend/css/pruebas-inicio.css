@@ -1,0 +1,119 @@
+#container #abrirModal{
+    background-color: #1a237e;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 10px;
+    border-radius: 5px;
+    text-align: center;
+    right: 0;
+    width: 10%;
+}
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.4); 
+}
+
+.modal-contenido {
+  background-color: #fff;
+  margin: 10% auto;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.cerrar {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 22px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+    color: #333;
+}
+
+h1{
+    margin: 1%;
+    background-color: cornflowerblue;
+    color: #ffffff;
+    text-align: center;
+    font-size: 300%;
+    font-weight: bold;
+    text-shadow: #000000 1px 1px 1px;
+}
+
+#main-nav{
+    display: flex;
+    margin: 1%;
+    justify-content: space-around;
+    background-color: #e3f2fd;
+    padding: 10px 0;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+#dashboard, #proyectos, #usuarios, #empleados, #estadisticas {
+    font-size: 14px;
+    background-color: #0d0dd2;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 10px;
+    border-radius: 5px;
+}
+#cerrarSesion button:hover{
+    font-size: 14px;
+    background-color: #e49a99;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 10px;
+    border-radius: 5px;
+}
+#main-nav #cerrarSesion {
+    background-color: #e53935;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 10px;
+    border-radius: 5px;
+}
+#main-nav .nav button:hover {
+    background-color: #707be6;
+}
+.activo {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+#container div h2 {
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    color: #c16e0e;
+    margin-bottom: 10px;
+
+}
+#container div p {
+    font-size: 16px;
+    font-family: 'Times New Roman', Times, serif;
+    color: #555;
+    margin-bottom: 20px;
+}
