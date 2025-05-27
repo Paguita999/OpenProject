@@ -51,6 +51,8 @@ function crearUsuario() {
         .then(data => {
             console.log("Usuario creado:", data);
             alert("Usuario creado correctamente.");
+            const empleadosButton = document.getElementById('empleados');
+            empleadosButton.click();
         })
         .catch(error => {
             console.error("Error al crear usuario:", error);
