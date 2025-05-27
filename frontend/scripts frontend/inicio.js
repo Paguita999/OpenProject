@@ -87,6 +87,7 @@ function proyectos() {
                 const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
                 sortedProjects.forEach(project => {
                     const webDiv = document.createElement('div');
+                    webDiv.classList.add('webDiv');
                     webDiv.innerHTML = `
             <h2>${project.name}</h2>
             <hr>
@@ -124,6 +125,7 @@ function empleados() {
                 const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
                 sortedUsers.forEach(user => {
                     const webDiv = document.createElement('div');
+                    webDiv.classList.add('webDiv');
                     webDiv.innerHTML = `
             <h2>${user.login}</h2>
             <hr>
@@ -160,6 +162,7 @@ function dashboards() {
 
         sortedTasks.forEach(task => {
           const webDiv = document.createElement('div');
+            webDiv.classList.add('webDiv');
           webDiv.innerHTML = `
             <h2>${task.subject}</h2>
             <hr>
