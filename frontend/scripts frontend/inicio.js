@@ -86,8 +86,8 @@ function proyectos() {
                 container.innerHTML = "";
                 const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
                 sortedProjects.forEach(project => {
-                    const projectDiv = document.createElement('div');
-                    projectDiv.innerHTML = `
+                    const webDiv = document.createElement('div');
+                    webDiv.innerHTML = `
             <h2>${project.name}</h2>
             <hr>
             <p><strong>ID:</strong> ${project.id}</p>
@@ -98,7 +98,7 @@ function proyectos() {
             <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
             <hr>
         `;
-                    container.appendChild(projectDiv);
+                    container.appendChild(webDiv);
                 });
             })
             .catch(error => console.error('Error:', error));
@@ -123,8 +123,8 @@ function empleados() {
                 container.innerHTML = "";
                 const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
                 sortedUsers.forEach(user => {
-                    const userDiv = document.createElement('div');
-                    userDiv.innerHTML = `
+                    const webDiv = document.createElement('div');
+                    webDiv.innerHTML = `
             <h2>${user.login}</h2>
             <hr>
             <p><strong>ID:</strong> ${user.id}</p>
@@ -134,7 +134,7 @@ function empleados() {
             <p><strong>Email:</strong> ${user.email}</p>
             <hr>
         `;
-                    container.appendChild(userDiv);
+                    container.appendChild(webDiv);
                 });
             })
     });
@@ -159,8 +159,8 @@ function dashboards() {
         const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
 
         sortedTasks.forEach(task => {
-          const taskDiv = document.createElement('div');
-          taskDiv.innerHTML = `
+          const webDiv = document.createElement('div');
+          webDiv.innerHTML = `
             <h2>${task.subject}</h2>
             <hr>
             <p><strong>ID:</strong> ${task.id}</p>
@@ -168,7 +168,7 @@ function dashboards() {
             <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
             <p><strong>Actualizado:</strong> ${new Date(task.updatedAt).toLocaleDateString()}</p>
           `;
-          container.appendChild(taskDiv);
+          container.appendChild(webDiv);
         });
       })
 });
