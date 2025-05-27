@@ -84,9 +84,8 @@ h1 {
 }
 
 .logo{
-    height: 1em;
+    height: 20vh;
     width: 30px;
-    size: 10px;
 }
 
 #container {
