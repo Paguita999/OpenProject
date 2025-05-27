@@ -1,4 +1,10 @@
 function crearUsuario() {
+    const formulario = document.getElementById("formularioUsuario");
+
+    
+    if (formulario.dataset.listenerAdded === "true") return;
+    formulario.dataset.listenerAdded = "true";
+
     document.getElementById("abrirModal").addEventListener("click", function () {
         document.getElementById("modal").style.display = "block";
     });
@@ -14,21 +20,25 @@ function crearUsuario() {
         }
     });
 
-    document.getElementById("formularioUsuario").addEventListener("submit", function (e) {
+    formulario.addEventListener("submit", function (e) {
         e.preventDefault();
 
         const nombre = document.getElementById("nombre").value;
         const apellido = document.getElementById("apellido").value;
         const email = document.getElementById("email").value;
         const login = document.getElementById("login").value;
+        const password = document.getElementById("password").value;
 
         const nuevoUsuario = {
             nombre,
             apellido,
             email,
-            login  
+            login,
+            password
         };
+
         const apikey = localStorage.getItem("apikey");
+
         fetch('/api/userscreate', {
             method: 'POST',
             headers: {
@@ -229,7 +239,7 @@ function empleados() {
             <p><strong>Nombre:</strong> ${user.name}</p>
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
-            <p><strong>Email:</strong> ${user.email.raw}</p>
+            <p><strong>Email:</strong> ${user.email}</p>
             <hr>
         `;
                     container.appendChild(projectDiv);

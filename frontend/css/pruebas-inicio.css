@@ -1,4 +1,6 @@
-#container #abrirModal{
+/* --------------- MODAL --------------- */
+
+#container #abrirModal {
     background-color: #1a237e;
     color: white;
     padding: 10px 20px;
@@ -9,35 +11,41 @@
     right: 0;
     width: 10%;
 }
+
 .modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgba(0, 0, 0, 0.4); 
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal-contenido {
-  background-color: #fff;
-  margin: 10% auto;
-  padding: 20px;
-  width: 300px;
-  border-radius: 8px;
-  position: relative;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    position: relative;
 }
 
+
+
 .cerrar {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 22px;
-  font-weight: bold;
-  cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
 }
+
+/* --------------- PÁGINA --------------- */
+
 #encabezado {
     display: flex;
     justify-content: center;
@@ -48,69 +56,39 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-body {
-    background-image: url(../img/36861.jpg);
-    font-family: Arial, sans-serif;
-    color: #333;
+html {
+    --s: 105px;
+    /* control the size*/
+    --c1: #f2f2f2;
+    --c2: #f5f5f5;
+    --c3: #fafafa;
+
+    background:
+        conic-gradient(from 75deg, var(--c1) 15deg, var(--c2) 0 30deg, #0000 0 180deg,
+            var(--c2) 0 195deg, var(--c1) 0 210deg, #0000 0) calc(var(--s)/2) calc(.5*var(--s)/tan(30deg)),
+        conic-gradient(var(--c1) 30deg, var(--c3) 0 75deg, var(--c1) 0 90deg, var(--c2) 0 105deg,
+            var(--c3) 0 150deg, var(--c2) 0 180deg, var(--c3) 0 210deg, var(--c1) 0 256deg,
+            var(--c2) 0 270deg, var(--c1) 0 286deg, var(--c2) 0 331deg, var(--c3) 0);
+    background-size: var(--s) calc(var(--s)/tan(30deg));
 }
 
-h1{
+
+h1 {
     margin: 1%;
     color: #c16e0e;
     text-align: center;
-    font-size: 300%;
+    font-size: 200%;
     font-weight: bold;
     text-shadow: #000000 1px 1px 1px;
 }
 
-#main-nav{
-    display: flex;
-    margin: 1%;
-    justify-content: space-around;
-    padding: 10px 0;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-#dashboard, #proyectos, #usuarios, #empleados, #estadisticas {
-    font-size: 14px;
-    background-color: #0d0dd2;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 10px;
-    border-radius: 5px;
-}
-#cerrarSesion button:hover{
-    font-size: 14px;
-    background-color: #e49a99;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 10px;
-    border-radius: 5px;
-}
-#main-nav #cerrarSesion {
-    background-color: #e53935;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 10px;
-    border-radius: 5px;
-}
-#main-nav .nav button:hover {
-    background-color: #707be6;
-}
-.activo {
-    background-color: #4CAF50;
-    color: white;
-    font-weight: bold;
-}
 #container {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 20px;
 }
+
 #container div h2 {
     font-size: 24px;
     font-family: 'Courier New', Courier, monospace;
@@ -118,9 +96,63 @@ h1{
     margin-bottom: 10px;
 
 }
+
 #container div p {
     font-size: 16px;
     font-family: 'Times New Roman', Times, serif;
     color: #555;
     margin-bottom: 20px;
+}
+
+
+/* --------------- BOTONERA --------------- */
+
+.nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 1%;
+    margin-left: 2%;
+    margin-right: 2%;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav .button {
+    align-items: center;
+    text-align: center;
+    margin: 0 10px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+}
+
+.nav .right {
+    margin-left: auto;
+    display: flex;
+}
+
+.nav .cerrar-sesion {
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    border: none;
+}
+
+.nav .button:hover,
+.nav .cerrar-sesion:hover {
+    background-color: #ffefc6;
+    transition: background-color 0.3s ease;
 }
