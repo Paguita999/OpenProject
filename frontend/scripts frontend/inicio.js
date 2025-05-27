@@ -1,3 +1,12 @@
+function borrarUsuario() {
+    const formulario = document.getElementById("formularioUsuario");
+    if (formulario.dataset.listenerAdded === "true") return;
+    formulario.dataset.listenerAdded = "true";
+    document.getElementById("borrarUsuario").addEventListener("click", function () {   
+        document.getElementById("modalBorrar").style.display = "block";
+    });
+}
+
 function crearUsuario() {
     const formulario = document.getElementById("formularioUsuario");
 
