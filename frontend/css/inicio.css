@@ -83,8 +83,8 @@ h1 {
 }
 
 .logo{
-    height: 20vh;
     width: 30px;
+    height: auto;
 }
 
 .container {
