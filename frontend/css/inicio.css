@@ -58,7 +58,6 @@
 
 html {
     --s: 105px;
-    /* control the size*/
     --c1: #f2f2f2;
     --c2: #f5f5f5;
     --c3: #fafafa;
@@ -77,7 +76,7 @@ h1 {
     margin: 1%;
     color: #514d49;
     text-align: center;
-    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 200%;
     font-weight: bold;
     text-shadow: #000000 1px 1px 1px;
@@ -88,26 +87,48 @@ h1 {
     width: 30px;
 }
 
-#container {
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 20px;
+    background-color: white;
+    max-width: 50%;
+    margin: auto;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#container div h2 {
+.webDiv {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1%;
+    margin-left: 24%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    max-width: 50%;
+    padding: 10px 20px;
+
+}
+
+
+.webDiv h2 {
+    justify-content: left;
     font-size: 24px;
-    font-family: 'Courier New', Courier, monospace;
-    color: #c16e0e;
-    margin-bottom: 10px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #64605cdb;
+    text-shadow: #000000 1px 1px 1px;
 
 }
 
-#container div p {
+.webDiv p {
+    justify-content: left;
     font-size: 16px;
     font-family: 'Times New Roman', Times, serif;
     color: #555;
-    margin-bottom: 20px;
 }
 
 
@@ -120,25 +141,41 @@ h1 {
     background-color:white;
     padding: 10px;
     margin: 1%;
-    margin-left: 2%;
-    margin-right: 2%;
-    border-radius: 15px;
+    margin-left: 24%;
+    border-radius: 20px;
     border: none;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
 }
 
 .nav .button {
-    align-items: center;
+    position: relative;
+    display: inline-block; /* para que el ::after se posicione bien y el ancho se ajuste */
     text-align: center;
-    margin: 0 10px;
     padding: 10px 20px;
     background-color:white;
     color: rgb(0, 0, 0);
-    text-decoration: none;
     font-size: 14px;
     cursor: pointer;
     border-radius: 10px;
     border: none;
+    overflow: hidden;
+    user-select: none; /* evita selección accidental */
+}
+
+.nav .button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 5px; /* ajusta según quieras */
+    height: 2px;
+    width: 0;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+
+.nav .button:hover::after {
+    width: 100%;
 }
 
 .nav .right {
@@ -153,12 +190,6 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     border-radius: 10px;
-    text-decoration: none;
     border: none;
-}
-
-.nav .button:hover,
-.nav .cerrar-sesion:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
+    user-select: none;
 }
