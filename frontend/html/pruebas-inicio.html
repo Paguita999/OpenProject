@@ -32,6 +32,14 @@
             <button id="abrirModal" onclick="crearUsuario()" style="display: none;">Crear Usuario</button>
         </div>
 
+        <div id="modificarUsuario">
+            <button id="abrirModal" onclick="modificarUsuario()" style="display: none">Modificar Usuario</button>
+        </div>
+
+        <div id="borrarUsuario">
+            <button id="abrirModal" onclick="borrarUsuario()" style="display: none">Borrar Usuario</button>
+        </div>
+
         <div id="modal" class="modal">
             <div class="modal-contenido">
                 <span class="cerrar" id="cerrarModal">&times;</span>
@@ -60,6 +68,8 @@
             empleados();
             cerrarSesion();
             crearUsuario();
+            modificarUsuario();
+            borrarUsuario();
             dashboards();
         </script>
         <script>

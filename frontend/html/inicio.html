@@ -25,7 +25,7 @@
                 <button id="departamentos">Departamentos</button>
                 <button id="empleados">Empleados</button>
                 <button id="estadisticas">Estadísticas</button>
-                <button id="horario">Horario de Atención al Cliente</button>
+                <button onclick="window.location.href='atencionalcliente.html'">Horario de Atención al Cliente</button>
 
                 <div class="cerrar-sesion">
                     <button>Cerrar sesión</button>
@@ -42,13 +42,18 @@
                     empleados();
                     estadisticas();
                     cerrarSesion();
+                    abrirHorario();
                     crearUsuario();
+                    modificarUsuario();
+                    borrarUsuario();
                 </script>
 
         </div>
 
         
             <button id="abrirModal" onclick="crearUsuario()">Crear Usuario</button>
+            <button id="modificarModal" onclick="modificarUsuario()">Modificar Usuario</button>
+            <button id="borrarModal" onclick="borrarUsuario()">Borrar Usuario</button>
         
 
 
