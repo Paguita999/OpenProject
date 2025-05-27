@@ -14,30 +14,31 @@
 <body id="inicio">
     <main>
 
-        <h1 id="cabecera">AUTIS</h1>
+        <h1 id="cabecera">
+            <img src="autis.png" style=height:40px; vertical-align: middle; margin-right: 10px;>AUTIS</h1>
 
         <nav class="nav">
             <button id="dashboard" class="button">Dashboard</button>
             <button id="proyectos" class="button">Proyectos</button>
             <button id="empleados" class="button">Empleados</button>
             <button id="estadisticas" class="button">Estadísticas</button>
+            <button id="horario" class="button">Horario</button>
             <div class="right">
                 <button class="cerrar-sesion">Cerrar sesión</button>
             </div>
         </nav>
 
+        <script>
+            const boton=document.getElementById('horario');
+            boton.addEventListener('click',()=>{
+                window.location.href="atencionalcliente.html";
+            });
+        </script>
+
         <div id="container"></div>
 
         <div id="crearUsuario">
             <button id="abrirModal" onclick="crearUsuario()" style="display: none;">Crear Usuario</button>
-        </div>
-
-        <div id="modificarUsuario">
-            <button id="abrirModal" onclick="modificarUsuario()" style="display: none">Modificar Usuario</button>
-        </div>
-
-        <div id="borrarUsuario">
-            <button id="abrirModal" onclick="borrarUsuario()" style="display: none">Borrar Usuario</button>
         </div>
 
         <div id="modal" class="modal">
