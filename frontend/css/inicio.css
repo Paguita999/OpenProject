@@ -94,15 +94,33 @@ h1 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+.webDiv {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 1%;
+    margin-left: 24%;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    max-width: 50%;
+    padding: 10px 20px;
 
-.container div h2 {
-    font-size: 24px;
-    font-family: 'Courier New', Courier, monospace;
-    color: #c16e0e;
-    
 }
 
-.container div p {
+
+.webDiv h2 {
+    justify-content: left;
+    font-size: 24px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #64605cdb;
+    text-shadow: #000000 1px 1px 1px;
+
+}
+
+.webDiv p {
+    justify-content: left;
     font-size: 16px;
     font-family: 'Times New Roman', Times, serif;
     color: #555;
@@ -119,24 +137,40 @@ h1 {
     padding: 10px;
     margin: 1%;
     margin-left: 24%;
-    border-radius: 15px;
+    border-radius: 20px;
     border: none;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 50%;
 }
 
 .nav .button {
-    align-items: center;
+    position: relative;
+    display: inline-block; /* para que el ::after se posicione bien y el ancho se ajuste */
     text-align: center;
-    margin: 0 10px;
     padding: 10px 20px;
     background-color: #ffffff;
     color: rgb(0, 0, 0);
-    text-decoration: none;
     font-size: 14px;
     cursor: pointer;
     border-radius: 10px;
     border: none;
+    overflow: hidden;
+    user-select: none; /* evita selección accidental */
+}
+
+.nav .button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 5px; /* ajusta según quieras */
+    height: 2px;
+    width: 0;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+
+.nav .button:hover::after {
+    width: 100%;
 }
 
 .nav .right {
@@ -151,12 +185,6 @@ h1 {
     cursor: pointer;
     font-size: 14px;
     border-radius: 10px;
-    text-decoration: none;
     border: none;
-}
-
-.nav .button:hover,
-.nav .cerrar-sesion:hover {
-    background-color: #f1f1f1;
-    transition: background-color 0.3s ease;
+    user-select: none;
 }
