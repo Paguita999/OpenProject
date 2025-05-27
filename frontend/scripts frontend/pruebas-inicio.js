@@ -120,10 +120,10 @@ function empleados() {
             .then(data => {
                 const container = document.querySelector('#container');
                 container.innerHTML = "";
-                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedProjects.forEach(user => {
-                    const projectDiv = document.createElement('div');
-                    projectDiv.innerHTML = `
+                const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
+                sortedUsers.forEach(user => {
+                    const userDiv = document.createElement('div');
+                    userDiv.innerHTML = `
             <h2>${user.login}</h2>
             <hr>
             <p><strong>ID:</strong> ${user.id}</p>
@@ -133,7 +133,7 @@ function empleados() {
             <p><strong>Email:</strong> ${user.email}</p>
             <hr>
         `;
-                    container.appendChild(projectDiv);
+                    container.appendChild(userDiv);
                 });
             })
     });
