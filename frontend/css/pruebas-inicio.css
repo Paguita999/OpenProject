@@ -75,8 +75,9 @@ html {
 
 h1 {
     margin: 1%;
-    color: #c16e0e;
+    color: #514d49;
     text-align: center;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: 200%;
     font-weight: bold;
     text-shadow: #000000 1px 1px 1px;
@@ -118,7 +119,7 @@ h1 {
     margin-right: 2%;
     border-radius: 15px;
     border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .nav .button {
@@ -153,6 +154,6 @@ h1 {
 
 .nav .button:hover,
 .nav .cerrar-sesion:hover {
-    background-color: #ffefc6;
+    background-color: #f1f1f1;
     transition: background-color 0.3s ease;
 }
