@@ -83,6 +83,12 @@ h1 {
     text-shadow: #000000 1px 1px 1px;
 }
 
+.logo{
+    height: 1em;
+    width: 30px;
+    size: 10px;
+}
+
 #container {
     display: flex;
     flex-direction: column;
