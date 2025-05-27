@@ -133,7 +133,7 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #ffffff;
+    background-color:white;
     padding: 10px;
     margin: 1%;
     margin-left: 24%;
@@ -148,7 +148,7 @@ h1 {
     display: inline-block; /* para que el ::after se posicione bien y el ancho se ajuste */
     text-align: center;
     padding: 10px 20px;
-    background-color: #ffffff;
+    background-color:white;
     color: rgb(0, 0, 0);
     font-size: 14px;
     cursor: pointer;
@@ -179,7 +179,7 @@ h1 {
 }
 
 .nav .cerrar-sesion {
-    background-color: #ffffff;
+    background-color:white;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
     cursor: pointer;

@@ -5,8 +5,8 @@
   "main": "server/express.js",
   "type": "module",
   "scripts": {
-    "start": "node server/express.js",
-    "dev": "nodemon server/express.js"
+    "start": "node ./backend/server/express.js",
+    "dev": "nodemon ./backend/server/express.js"
   },
   "author": "",
   "license": "ISC",
