@@ -54,34 +54,9 @@ app.get('/api/projects', async (req, res) => {
 
 
 //usuarios
-app.get('/api/users', async (req, res) => {
-    const apiKey = req.headers['x-api-key'];
-
-    if (!apiKey) {
-        return res.status(400).json({ error: 'API key is missing in headers' });
-    }
-
-    try {
-        const response = await fetch('http://localhost:8080/api/v3/users', {
-            headers: {
-                'Authorization': 'Basic ' + Buffer.from(`apikey:${apiKey}`).toString('base64')
-            }
-        });
-
-        if (!response.ok) {
-            return res.status(response.status).json({ error: 'Failed to fetch from OpenProject API' });
-        }
-
-        const data = await response.json();
-        res.json(data);
-    } catch (error) {
-        console.error('Error fetching from OpenProject:', error);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
 
 app.post('/api/userscreate', async (req, res) => {
-  const { nombre, apellido, email, login } = req.body;
+  const { nombre, apellido, email, login,password } = req.body;
   const apiKey = req.headers['x-api-key'];
 
   if (!apiKey) {
@@ -89,9 +64,10 @@ app.post('/api/userscreate', async (req, res) => {
   }
 
   const userPayload = {
+    firstName: nombre,
+    lastName: apellido,
     login,
-    firstname:nombre,
-    lastname:apellido,
+    password,
     email
   };
 
