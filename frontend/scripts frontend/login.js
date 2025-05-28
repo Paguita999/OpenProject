@@ -4,7 +4,7 @@
         const errorElement = document.querySelector('#apikeyErr');
 
         if (!key) {
-            errorElement.innerHTML = "Camp required";
+            errorElement.innerHTML = "*";
             return;
         }
 
@@ -26,6 +26,6 @@
             }
         } catch (err) {
             console.error('Connection error:', err);
-            errorElement.innerHTML = 'Server error connection';
+            errorElement.innerHTML = 'Server error';
         }
     });

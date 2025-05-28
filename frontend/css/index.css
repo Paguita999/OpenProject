@@ -3,19 +3,21 @@
     margin: 15%;
 
 }
-.contenedor .contenedor #container {
-  padding: 10px;
-  height: 100%;
-  width: 100%;
-  overflow-y: auto; 
-  background-color: white;
+
+#titulo:hover {
+    color: #7b766b;
+    transition: transform 0.3s ease-in-out;
+    transform: scale(1.05);
+    cursor: default;
+
 }
 
-h1 {
+#titulo h1 {
     color: #7b766b;
     text-align: center;
     font-size: 300%;
     font-weight: bold;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     text-shadow: #000000 1px 1px 1px;
 }
 
@@ -40,13 +42,25 @@ h1 {
     display: flex;
     border-radius: 15px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.733);
     box-shadow: #000000 1px 1px 1px;
     padding: 10px;
     cursor: text;
-} 
-#apiform #submit {
-    background-color: rgb(199, 205, 210);
+}
+#apiform input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+}
+span {
+    display: flex;
+    align-items: center;
+    color: #ff0000;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-right: 10px;
+}
+.submit {
+    background-color: transparent;
+    color: black;
     font-family: 'Times New Roman', Times, serif;
     border: none;
     border-radius: 15px;
@@ -55,51 +69,3 @@ h1 {
     padding: 10px 20px;
     margin-left: auto;
 }
-
-/*
-form {
-    align-items: center;
-    text-align: center;
-    font-size: 100%;
-}
-
-#apiform {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: auto; ;
-    max-width: 50%;
-    padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 15px;
-    border: none;
-}
-
-#apiform input {
-    border-radius: 15px;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.8);
-    padding: 10px;
-    cursor:text;
-    font-family: 'Times New Roman', Times, serif;
-    font-size: 100%;
-    margin: auto;
-    box-shadow: #6f6c6c 1px 1px 1px;
-}
-#labelform {
-    font-weight: bold;
-}
-
-#submit {
-    background-color:aliceblue;
-    font-family: 'Times New Roman', Times, serif;
-    border: #000000 1px solid;
-    border-radius: 15%;
-    border:none;
-    cursor: pointer;
-    margin: auto;
-    display: flex;
-}
-*/
-

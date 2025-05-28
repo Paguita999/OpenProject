@@ -33,8 +33,6 @@
     position: relative;
 }
 
-
-
 .cerrar {
     position: absolute;
     top: 10px;
@@ -96,7 +94,7 @@ h1 {
     border: none;
     border-radius: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 1%;
+    margin: 2%;
     margin-left: 24%;
     background-color: white;
     display: flex;
@@ -104,7 +102,6 @@ h1 {
     align-items: left;
     max-width: 49%;
     padding: 10px 20px;
-
 }
 
 
@@ -127,7 +124,17 @@ h1 {
 
 /* --------------- BOTONERA --------------- */
 
-.nav {
+header {
+    position: sticky;
+    top: 0;
+    padding: 5px;
+    background-image: url(../img/249.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+nav {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -139,9 +146,10 @@ h1 {
     border: none;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
     max-width: 50%;
+    
 }
 
-.nav .button {
+nav .button {
     position: relative;
     display: inline-block; /* para que el ::after se posicione bien y el ancho se ajuste */
     text-align: center;
@@ -156,7 +164,7 @@ h1 {
     user-select: none; /* evita selección accidental */
 }
 
-.nav .button::after {
+nav .button::after {
     content: "";
     position: absolute;
     left: 0;
@@ -167,16 +175,15 @@ h1 {
     transition: width 0.3s ease;
 }
 
-.nav .button:hover::after {
+nav .button:hover::after {
     width: 100%;
 }
-
-.nav .right {
+nav .right {
     margin-left: auto;
     display: flex;
 }
 
-.nav .cerrar-sesion {
+nav .cerrar-sesion {
     background-color:white;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
