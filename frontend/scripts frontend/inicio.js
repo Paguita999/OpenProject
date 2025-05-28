@@ -89,6 +89,7 @@ function crearUsuario() {
         this.reset();
     });
 }
+
 function cerrarSesion() {
     document.querySelector('.cerrar-sesion').addEventListener('click', (event) => {
         event.preventDefault();
