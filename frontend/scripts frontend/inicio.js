@@ -1,10 +1,27 @@
-function borrarUsuario() {
-    const formulario = document.getElementById("formularioUsuario");
-    if (formulario.dataset.listenerAdded === "true") return;
-    formulario.dataset.listenerAdded = "true";
-    document.getElementById("borrarUsuario").addEventListener("click", function () {   
-        document.getElementById("modalBorrar").style.display = "block";
+function borrarUsuario(userId) {
+    const apikey = localStorage.getItem("apikey");
+
+    fetch(`http://localhost:8080/api/v3/users/${userId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa('apikey:' + apikey)
+        }
+    })
+    .then(res => {
+        if (res.ok) {
+            alert('Usuario eliminado correctamente.');
+            const empleadosButton = document.getElementById('empleados');
+            empleadosButton.click();
+        } else {
+            alert('Error al eliminar el usuario.');
+        }
+    })
+    .catch(err => {
+        console.error('Error al eliminar usuario:', err);
+        alert('Error de red al intentar eliminar el usuario.');
     });
+   
 }
 
 function crearUsuario() {
@@ -137,6 +154,7 @@ function empleados() {
                 sortedUsers.forEach(user => {
                     const webDiv = document.createElement('div');
                     webDiv.classList.add('webDiv');
+                     webDiv.setAttribute('data-id', user.id);
                     webDiv.innerHTML = `
             <h2>${user.login}</h2>
             <hr>
@@ -145,6 +163,7 @@ function empleados() {
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
             <p><strong>Email:</strong> ${user.email}</p>
+            <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             <hr>
         `;
                     container.appendChild(webDiv);

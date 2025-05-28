@@ -3,6 +3,7 @@ import fetch from 'node-fetch';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
+import { url } from 'inspector';
 
 // Inicialització d'Express
 const app = express();
@@ -26,6 +27,7 @@ app.get('/', (req, res) => {
 });
 
 //proyectos
+
 app.get('/api/projects', async (req, res) => {
     const apiKey = req.headers['x-api-key'];
 
@@ -54,6 +56,7 @@ app.get('/api/projects', async (req, res) => {
 
 
 //usuarios
+
 
 app.post('/api/userscreate', async (req, res) => {
   const { nombre, apellido, email, login,password } = req.body;
