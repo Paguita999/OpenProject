@@ -163,6 +163,7 @@ function empleados() {
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
             <p><strong>Email:</strong> ${user.email}</p>
+            <button class="modify-user-btn" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             <hr>
         `;
