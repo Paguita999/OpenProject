@@ -1,19 +1,49 @@
-
-
 function modificarUsuario(userId) {
+    const formulario = document.getElementById("formularioUsuarioModificar");
+
+    let afegiteventlist = false;
+    if (formulario.dataset.listenerAdded === "true") return;
+    formulario.dataset.listenerAdded = "true";
+        
+    if (document.getElementById("modify-user-btn")) {
+        document.getElementById("modify-user-btn").addEventListener("click", function () {
+            document.getElementById("modalmod").style.display = "block";
+            
+        });
+    }
+
+    document.getElementById("cerrarModal").addEventListener("click", function () {
+        document.getElementById("modalmod").style.display = "none";
+    });
+
+    window.addEventListener("click", function (e) {
+        const modal = document.getElementById("modalmod");
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    formulario.addEventListener("submit", function (e) {
+        e.preventDefault();
     const apikey = localStorage.getItem("apikey");
-    const nombre = document.getElementById("nombre").value;
-    const apellido = document.getElementById("apellido").value;
-    const email = document.getElementById("email").value;
-    const login = document.getElementById("login").value;
-    const password = document.getElementById("password").value;
-    const usuarioModificado = {
-        firstName: nombre,
-        lastName: apellido,
-        login: login,
-        password: password,
-        email: email
-    };
+
+    const nombre = document.getElementById("nombre").value.trim();
+    const apellido = document.getElementById("apellido").value.trim();
+    const login = document.getElementById("login").value.trim();
+    const password = document.getElementById("passwordmod").value.trim();
+    const email = document.getElementById("email").value.trim();
+
+    const usuarioModificado = {};
+    if (nombre !== "") usuarioModificado.firstName = nombre;
+    if (apellido !== "") usuarioModificado.lastName = apellido;
+    if (login !== "") usuarioModificado.login = login;
+    if (password !== "") usuarioModificado.password = password;
+    if (email !== "") usuarioModificado.email = email;
+
+    if (Object.keys(usuarioModificado).length === 0) {
+        alert("No hay campos para modificar.");
+        return;
+    }
     fetch(`http://localhost:8080/api/v3/users/${userId}`, {
         method: 'PATCH',
         headers: {
@@ -35,6 +65,7 @@ function modificarUsuario(userId) {
         console.error('Error al modificar usuario:', err);
         alert('Error de red al intentar modificar el usuario.');
     });
+});
 }
 
 function borrarUsuario(userId) {
@@ -300,20 +331,4 @@ function dashboards() {
     });
   });
 }
-/*-----------------------------------------------------------------------------------------*/
-
-document.getElementById("empleados").addEventListener("click", function () {
-    document.getElementById("crearUsuario").style.display = "block";
-});
-
-document.getElementById("dashboard").addEventListener("click", function () {
-    document.getElementById("crearUsuario").style.display = "none";
-});
-document.getElementById("proyectos").addEventListener("click", function () {
-    document.getElementById("crearUsuario").style.display = "none";
-});
-document.getElementById("estadisticas").addEventListener("click", function () {
-    document.getElementById("crearUsuario").style.display = "none";
-});
-
 /*-----------------------------------------------------------------------------------------*/

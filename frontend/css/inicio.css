@@ -57,7 +57,17 @@
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.4);
 }
-
+.modalmod {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
 .modal-contenido {
     background-color: #fff;
     margin: 10% auto;
@@ -66,7 +76,14 @@
     border-radius: 8px;
     position: relative;
 }
-
+.modalmod-contenido {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    position: relative;
+}
 .cerrar {
     position: absolute;
     top: 10px;
