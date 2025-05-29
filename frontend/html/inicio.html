@@ -38,7 +38,31 @@
         <div id="container">
         </div>
 
+        <div id="modalmod" class="modalmod">
+            <div class="modalmod-contenido">
+                <span class="cerrar" id="cerrarModal">&times;</span>
+                <h2>Modificar Usuario</h2>
+                <form id="formularioUsuarioModificar">
+    <label for="nombremodificar">Nombre:</label>
+    <input type="text" id="nombremodificar" name="nombre">
+    <br><br>
+    <label for="apellidomodificar">Apellido:</label>
+    <input type="text" id="apellidomodificar" name="apellido">
+    <br><br>
+    <label for="emailmodificar">Correo:</label>
+    <input type="email" id="emailmodificar" name="email">
+    <br><br>
+    <label for="loginmodificar">Login:</label>
+    <input type="text" id="loginmodificar" name="login">
+    <br><br>
+    <label for="passwordmodificar">Contraseña:</label>
+    <input type="password" id="passwordmodificar" name="password" minlength="10">
+    <br><br>
+    <button type="submit">Guardar</button>
+</form>
 
+            </div>
+        </div>
 
         <div id="modal" class="modal">
             <div class="modal-contenido">
@@ -71,6 +95,7 @@
             empleados();
             cerrarSesion();
             crearUsuario();
+            modificarUsuario();
             dashboards();
         </script>
         <script>
@@ -87,7 +112,6 @@
                 document.getElementById("crearUsuario").style.display = "none";
             });
         </script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js">
         </script>
     </main>
 </body>
