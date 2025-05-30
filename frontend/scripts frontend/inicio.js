@@ -1,21 +1,14 @@
 function modificarUsuario(userId) {
     const formulario = document.getElementById("formularioUsuarioModificar");
-
-    let afegiteventlist = false;
     if (formulario.dataset.listenerAdded === "true") return;
     formulario.dataset.listenerAdded = "true";
         
-    if (document.getElementById("modify-user-btn")) {
-        document.getElementById("modify-user-btn").addEventListener("click", function () {
-            document.getElementById("modalmod").style.display = "block";
-            
-        });
-    }
+ 
 
     document.getElementById("cerrarModal").addEventListener("click", function () {
         document.getElementById("modalmod").style.display = "none";
     });
-
+   
     window.addEventListener("click", function (e) {
         const modal = document.getElementById("modalmod");
         if (e.target === modal) {
@@ -26,12 +19,12 @@ function modificarUsuario(userId) {
     formulario.addEventListener("submit", function (e) {
         e.preventDefault();
     const apikey = localStorage.getItem("apikey");
-
-    const nombre = document.getElementById("nombre").value.trim();
-    const apellido = document.getElementById("apellido").value.trim();
-    const login = document.getElementById("login").value.trim();
-    const password = document.getElementById("passwordmod").value.trim();
-    const email = document.getElementById("email").value.trim();
+        
+    const nombre = document.getElementById("nombremodificar").value;
+    const apellido = document.getElementById("apellidomodificar").value;
+    const login = document.getElementById("loginmodificar").value;
+    const password = document.getElementById("passwordmodificar").value;
+    const email = document.getElementById("emailmodificar").value;
 
     const usuarioModificado = {};
     if (nombre !== "") usuarioModificado.firstName = nombre;
@@ -44,6 +37,7 @@ function modificarUsuario(userId) {
         alert("No hay campos para modificar.");
         return;
     }
+   
     fetch(`http://localhost:8080/api/v3/users/${userId}`, {
         method: 'PATCH',
         headers: {
@@ -82,7 +76,6 @@ function borrarUsuario(userId) {
     })
     .then(res => {
         if (res.ok) {
-            alert('Usuario eliminado correctamente.');
             const empleadosButton = document.getElementById('empleados');
             empleadosButton.click();
         } else {
@@ -148,7 +141,6 @@ function crearUsuario() {
         .then(response => response.json())
         .then(data => {
             console.log("Usuario creado:", data);
-            alert("Usuario creado correctamente.");
             const empleadosButton = document.getElementById('empleados');
             empleadosButton.click();
         })
@@ -207,35 +199,39 @@ function proyectos() {
     });
 }
 function estadisticas() {
+    const Chart = window.Chart; 
     const estadisticasButton = document.getElementById('estadisticas');
     estadisticasButton.addEventListener('click', () => {
-        const apikey = localStorage.getItem("apikey");
-        fetch('http://localhost:3000/api/statistics', {
-            headers: {
-                'x-api-key': apikey
+        const container = document.querySelector('#container');
+        container.innerHTML = "<canvas id='statsChart'></canvas>";
+        
+        // Generate random data
+        const labels = ['Projects', 'Tasks', 'Users', 'Completed', 'In Progress'];
+        const values = labels.map(() => Math.floor(Math.random() * 100));
+        
+        // Create chart
+        const ctx = document.getElementById('statsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: labels,
+            datasets: [{
+                label: 'Statistics',
+                data: values,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+            },
+            options: {
+            responsive: true,
+            scales: {
+                y: {
+                beginAtZero: true
+                }
             }
-        })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.querySelector('#container');
-                container.innerHTML = "";
-                const sortedStats = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedStats.forEach(stat => {
-                    const webDiv = document.createElement('div');
-                    webDiv.classList.add('webDiv');
-                    webDiv.innerHTML = `
-            <h2>${stat.name}</h2>
-            <p><strong>ID:</strong> ${stat.id}</p>
-            <p><strong>Valor:</strong> ${stat.value}</p>
-            <p><strong>Descripción:</strong> ${stat.description}</p>
-            <p><strong>Creado:</strong> ${new Date(stat.createdAt).toLocaleDateString()}</p>
-            <p><strong>Actualizado:</strong> ${new Date(stat.updatedAt).toLocaleDateString()}</p>
-            <p><strong>Tipo:</strong> ${stat.type}</p>
-            <p><strong>Unidad:</strong> ${stat.unit}</p>
-        `;
-                    container.appendChild(webDiv);
-                });
-            })
+            }
+        });
         })
     };
 function empleados() {
@@ -267,12 +263,18 @@ function empleados() {
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
             <p><strong>Email:</strong> ${user.email}</p>
-            <button class="modify-user-btn" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
+            <button class="modify-user-btn" id="modify-user-btn-${user.id}" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             
         `;
                     container.appendChild(webDiv);
                 });
+        document.querySelectorAll("[id^='modify-user-btn-']").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.getElementById("modalmod").style.display = "block";
+
+            });
+        });
             })
     });
 }
