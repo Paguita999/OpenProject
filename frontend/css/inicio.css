@@ -380,3 +380,34 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
+
+/* --------------- MÓVIL/TABLET --------------- */
+
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+    }
+
+    .webDiv {
+        max-width: 90%;
+        margin-left: 5%;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    nav .button {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav .right {
+        margin-top: 10px;
+    }
+
+    #encabezado h1 {
+        font-size: 24px;
+    }
+}

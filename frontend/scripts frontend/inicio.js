@@ -1,7 +1,6 @@
 function modificarUsuario(userId) {
     const formulario = document.getElementById("formularioUsuarioModificar");
 
-    let afegiteventlist = false;
     if (formulario.dataset.listenerAdded === "true") return;
     formulario.dataset.listenerAdded = "true";
         
