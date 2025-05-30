@@ -4,7 +4,7 @@ body{
     align-items: center;
     height: 50vh;
     text-align: center;
-    background-image: url(../img/249.jpg);
+    background-image: url(../img/montaña.png);
     font-weight: bold;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     background-size: cover;
@@ -14,22 +14,18 @@ table{
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin: 70px;
     border: 1px solid #000;
     border-collapse: collapse;
     margin-top: 30px;
-    margin-bottom: 50px;
-}
-
-.container {
-  text-align: center;
+    margin-bottom: -250px;
+    margin-right: 50px;
 }
 
 td, th{
-    padding: 10px;
+    padding: 25px;
     border: 1px solid #000;
     width:400px;
-    height: 20px;
+    height: 50px;
 }
 
 .dia1{
@@ -66,23 +62,18 @@ button {
   font-size: 20px;
 }
 
-.footer{
-  padding: 20px;
-  text-align:justify;
-  background-color:white;
-  font-size: 16px;
+.piedepagina{
+  background-color: #f1f1f1;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 40px;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
 }
 
-.p{
-  color:black;
-}
-
-.footer a{
-  color:black;
-  text-decoration: none;
-  background-color: black;
-}
-
-.footer a:hover{
-  text-decoration: underline;
+.piedepagina p{
+  margin:0;
 }
