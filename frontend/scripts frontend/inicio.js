@@ -1,20 +1,14 @@
 function modificarUsuario(userId) {
     const formulario = document.getElementById("formularioUsuarioModificar");
-
     if (formulario.dataset.listenerAdded === "true") return;
     formulario.dataset.listenerAdded = "true";
         
-    if (document.getElementById("modify-user-btn")) {
-        document.getElementById("modify-user-btn").addEventListener("click", function () {
-            document.getElementById("modalmod").style.display = "block";
-            
-        });
-    }
+ 
 
     document.getElementById("cerrarModal").addEventListener("click", function () {
         document.getElementById("modalmod").style.display = "none";
     });
-
+   
     window.addEventListener("click", function (e) {
         const modal = document.getElementById("modalmod");
         if (e.target === modal) {
@@ -25,12 +19,12 @@ function modificarUsuario(userId) {
     formulario.addEventListener("submit", function (e) {
         e.preventDefault();
     const apikey = localStorage.getItem("apikey");
-
-    const nombre = document.getElementById("nombre").value.trim();
-    const apellido = document.getElementById("apellido").value.trim();
-    const login = document.getElementById("login").value.trim();
-    const password = document.getElementById("passwordmod").value.trim();
-    const email = document.getElementById("email").value.trim();
+        
+    const nombre = document.getElementById("nombremodificar").value;
+    const apellido = document.getElementById("apellidomodificar").value;
+    const login = document.getElementById("loginmodificar").value;
+    const password = document.getElementById("passwordmodificar").value;
+    const email = document.getElementById("emailmodificar").value;
 
     const usuarioModificado = {};
     if (nombre !== "") usuarioModificado.firstName = nombre;
@@ -43,6 +37,7 @@ function modificarUsuario(userId) {
         alert("No hay campos para modificar.");
         return;
     }
+   
     fetch(`http://localhost:8080/api/v3/users/${userId}`, {
         method: 'PATCH',
         headers: {
@@ -81,7 +76,6 @@ function borrarUsuario(userId) {
     })
     .then(res => {
         if (res.ok) {
-            alert('Usuario eliminado correctamente.');
             const empleadosButton = document.getElementById('empleados');
             empleadosButton.click();
         } else {
@@ -147,7 +141,6 @@ function crearUsuario() {
         .then(response => response.json())
         .then(data => {
             console.log("Usuario creado:", data);
-            alert("Usuario creado correctamente.");
             const empleadosButton = document.getElementById('empleados');
             empleadosButton.click();
         })
@@ -265,12 +258,18 @@ function empleados() {
             <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
             <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
             <p><strong>Email:</strong> ${user.email}</p>
-            <button class="modify-user-btn" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
+            <button class="modify-user-btn" id="modify-user-btn-${user.id}" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             
         `;
                     container.appendChild(webDiv);
                 });
+        document.querySelectorAll("[id^='modify-user-btn-']").forEach(btn => {
+            btn.addEventListener("click", function () {
+                document.getElementById("modalmod").style.display = "block";
+
+            });
+        });
             })
     });
 }
