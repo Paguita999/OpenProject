@@ -24,17 +24,44 @@
                 <button id="estadisticas" class="button">Estadísticas</button>
                 <button id="horario" class="button"
                     onclick="window.location.href='atencionalcliente.html'">Horario</button>
-                <div class="right">
+
+                <button id="abrirModal" class="button" onclick="crearUsuario()">Crear Usuario</button>
+
+                <div class="user-buttons">
                     <button class="cerrar-sesion" type="submit">Cerrar sesión</button>
                 </div>
             </nav>
         </header>
 
+
+
         <div id="container">
         </div>
 
-        <div id="crearUsuario">
-            <button id="abrirModal" onclick="crearUsuario()" style="display: none;">Crear Usuario</button>
+        <div id="modalmod" class="modalmod">
+            <div class="modalmod-contenido">
+                <span class="cerrar" id="cerrarModal">&times;</span>
+                <h2>Modificar Usuario</h2>
+                <form id="formularioUsuarioModificar">
+    <label for="nombremodificar">Nombre:</label>
+    <input type="text" id="nombremodificar" name="nombre">
+    <br><br>
+    <label for="apellidomodificar">Apellido:</label>
+    <input type="text" id="apellidomodificar" name="apellido">
+    <br><br>
+    <label for="emailmodificar">Correo:</label>
+    <input type="email" id="emailmodificar" name="email">
+    <br><br>
+    <label for="loginmodificar">Login:</label>
+    <input type="text" id="loginmodificar" name="login">
+    <br><br>
+    <label for="passwordmodificar">Contraseña:</label>
+    <input type="password" id="passwordmodificar" name="password" minlength="10">
+    <br><br>
+    <button type="submit">Guardar</button>
+</form>
+
+            </div>
         </div>
 
         <div id="modal" class="modal">
@@ -57,7 +84,7 @@
                     <label for="password">Contraseña:</label>
                     <input type="password" id="password" name="password" minlength="10" required>
                     <br><br>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" class="guardar">Guardar</button>
                 </form>
             </div>
         </div>
