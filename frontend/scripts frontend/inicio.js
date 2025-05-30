@@ -198,35 +198,39 @@ function proyectos() {
     });
 }
 function estadisticas() {
+    const Chart = window.Chart; 
     const estadisticasButton = document.getElementById('estadisticas');
     estadisticasButton.addEventListener('click', () => {
-        const apikey = localStorage.getItem("apikey");
-        fetch('http://localhost:3000/api/statistics', {
-            headers: {
-                'x-api-key': apikey
+        const container = document.querySelector('#container');
+        container.innerHTML = "<canvas id='statsChart'></canvas>";
+        
+        // Generate random data
+        const labels = ['Projects', 'Tasks', 'Users', 'Completed', 'In Progress'];
+        const values = labels.map(() => Math.floor(Math.random() * 100));
+        
+        // Create chart
+        const ctx = document.getElementById('statsChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: labels,
+            datasets: [{
+                label: 'Statistics',
+                data: values,
+                backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 1
+            }]
+            },
+            options: {
+            responsive: true,
+            scales: {
+                y: {
+                beginAtZero: true
+                }
             }
-        })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.querySelector('#container');
-                container.innerHTML = "";
-                const sortedStats = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedStats.forEach(stat => {
-                    const webDiv = document.createElement('div');
-                    webDiv.classList.add('webDiv');
-                    webDiv.innerHTML = `
-            <h2>${stat.name}</h2>
-            <p><strong>ID:</strong> ${stat.id}</p>
-            <p><strong>Valor:</strong> ${stat.value}</p>
-            <p><strong>Descripción:</strong> ${stat.description}</p>
-            <p><strong>Creado:</strong> ${new Date(stat.createdAt).toLocaleDateString()}</p>
-            <p><strong>Actualizado:</strong> ${new Date(stat.updatedAt).toLocaleDateString()}</p>
-            <p><strong>Tipo:</strong> ${stat.type}</p>
-            <p><strong>Unidad:</strong> ${stat.unit}</p>
-        `;
-                    container.appendChild(webDiv);
-                });
-            })
+            }
+        });
         })
     };
 function empleados() {
