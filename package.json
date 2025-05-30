@@ -13,6 +13,7 @@
   "dependencies": {
     "@canvasjs/charts": "^3.12.16",
     "body-parser": "2.2.0",
+    "chart.js": "^4.4.9",
     "cors": "^2.8.5",
     "express": "5.1.0",
     "node-fetch": "^3.3.2",
