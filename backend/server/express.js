@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
-import { url } from 'inspector';
 
 // Inicialització d'Express
 const app = express();
