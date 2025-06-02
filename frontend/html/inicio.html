@@ -105,8 +105,8 @@
                 document.getElementById('empleados').addEventListener('click', function() {
                     document.getElementById('abrirModal').style.display = 'block';
                 });
-
-                
+                const dashboard = document.getElementById('dashboard');
+                    dashboard.click();
                 ['dashboard', 'proyectos', 'estadisticas', 'horario'].forEach(function(buttonId) {
                     document.getElementById(buttonId).addEventListener('click', function() {
                         document.getElementById('abrirModal').style.display = 'none';
