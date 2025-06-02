@@ -183,8 +183,6 @@ function proyectos() {
                     webDiv.classList.add('webDiv');
                     webDiv.innerHTML = `
             <h2>${project.name}</h2>
-            
-            <p><strong>ID:</strong> ${project.id}</p>
             <p><strong>Identificador:</strong> ${project.identifier}</p>
             <p><strong>Descripción:</strong> ${project.description.raw}</p>
             <p><strong>Creado:</strong> ${new Date(project.createdAt).toLocaleDateString()}</p>
@@ -258,10 +256,7 @@ function empleados() {
                     webDiv.innerHTML = `
             <h2>${user.login}</h2>
             
-            <p><strong>ID:</strong> ${user.id}</p>
             <p><strong>Nombre:</strong> ${user.name}</p>
-            <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
-            <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
             <p><strong>Email:</strong> ${user.email}</p>
             <button class="modify-user-btn" id="modify-user-btn-${user.id}" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
@@ -312,10 +307,7 @@ function dashboards() {
 
           webDiv.innerHTML = `
             <h2>${task.subject}</h2>
-            <p><strong>ID:</strong> ${task.id}</p>
             <p><strong>Tipo:</strong> ${task._type}</p>
-            <p><strong>Creado:</strong> ${new Date(task.createdAt).toLocaleDateString()}</p>
-            <p><strong>Actualizado:</strong> ${new Date(task.updatedAt).toLocaleDateString()}</p>
             <p><strong>Autor:</strong> ${watchers}</p>
           `;
 
