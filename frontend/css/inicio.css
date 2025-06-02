@@ -159,7 +159,7 @@ h1 {
 .webDiv h2 {
     justify-content: left;
     font-size: 24px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: league spartan, sans-serif;
     color: #64605cdb;
     text-shadow: #000000 1px 1px 1px;
 
@@ -168,7 +168,7 @@ h1 {
 .webDiv p {
     justify-content: left;
     font-size: 16px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'poppins', sans-serif;
     color: #555;
 }
 
@@ -250,7 +250,7 @@ nav .button {
     padding: 10px 20px;
     background-color: white;
     color: rgb(0, 0, 0);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 10px;
@@ -287,7 +287,7 @@ nav .cerrar-sesion {
     padding: 10px 20px;
     margin-left: auto;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     border-radius: 10px;
     border: none;
     user-select: none;
@@ -315,7 +315,7 @@ nav .cerrar-sesion {
 
  .newUser p {
     font-size: 16px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'poppins', sans-serif;
     color: #555;
 }
 
