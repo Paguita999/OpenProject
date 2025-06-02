@@ -3,7 +3,6 @@ import fetch from 'node-fetch';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
-
 // Inicialització d'Express
 const app = express();
 const PORT = 3000;

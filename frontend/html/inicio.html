@@ -88,28 +88,16 @@
                 </form>
             </div>
         </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../scripts frontend/inicio.js"></script>
         <script>
             proyectos();
             empleados();
+            estadisticas();
             cerrarSesion();
             crearUsuario();
             dashboards();
         </script>
-        <script>
-            document.getElementById("empleados").addEventListener("click", function () {
-                document.getElementById("abrirModal").style.display = "block";
-            });
-            document.getElementById("dashboard").addEventListener("click", function () {
-                document.getElementById("crearUsuario").style.display = "none";
-            });
-            document.getElementById("proyectos").addEventListener("click", function () {
-                document.getElementById("crearUsuario").style.display = "none";
-            });
-            document.getElementById("estadisticas").addEventListener("click", function () {
-                document.getElementById("crearUsuario").style.display = "none";
-            });
-        </script>
+        
     </main>
 </body>
