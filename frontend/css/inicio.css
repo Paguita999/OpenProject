@@ -285,6 +285,7 @@ nav .cerrar-sesion {
     background-color: white;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
+    margin-left: auto;
     cursor: pointer;
     font-size: 14px;
     border-radius: 10px;
@@ -328,12 +329,13 @@ nav .cerrar-sesion {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#container #abrirModal {
+#abrirModal {
     background-color: #1a237e;
     color: white;
     padding: 10px 20px;
+    margin-left: 65%;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     border-radius: 5px;
     text-align: center;
     right: 0;
@@ -420,6 +422,21 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
+
+/* --------------- BOTONES USUARIOS --------------- */
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn-group h2,
+.btn-group p {
+  margin: 0;
+}
+
+
 /* --------------- MÓVIL/TABLET --------------- */
 
 @media (max-width: 768px) {
