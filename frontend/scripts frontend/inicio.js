@@ -258,8 +258,8 @@ function empleados() {
                             <h2 style="margin: 0;">${user.login}</h2>
                             <p style="margin: 0;"><strong>Nombre:</strong> ${user.name}</p>
                             <p style="margin: 0;"><strong>Email:</strong> ${user.email}</p>
-                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">Modify</button>
-                            <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">Delete</button>
+                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">Editar</button>
+                            <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar</button>
                         </div>
                         `;
                     container.appendChild(webDiv);
