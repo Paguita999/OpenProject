@@ -258,9 +258,9 @@ function empleados() {
                     webDiv.innerHTML = `
             <h2>${user.login}</h2>
             
-            <p><strong>ID:</strong> ${user.id}</p>
-            <p><i class="fas fa-user"></i>${user.name}</p>
-            <p><i class="fas fa-envelope"></i>${user.email}</p>
+            <p><strong>ID:</strong>${user.id}</p>
+            <p><strong>Nombre:</strong>${user.name}</p>
+            <p><strong>Email:</strong>${user.email}</p>
             <button class="modify-user-btn" id="modify-user-btn-${user.id}" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             
