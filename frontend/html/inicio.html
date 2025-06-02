@@ -98,6 +98,23 @@
             crearUsuario();
             dashboards();
         </script>
-        
+         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+               
+                document.getElementById('abrirModal').style.display = 'none';
+                
+               
+                document.getElementById('empleados').addEventListener('click', function() {
+                    document.getElementById('abrirModal').style.display = 'block';
+                });
+
+                
+                ['dashboard', 'proyectos', 'estadisticas', 'horario'].forEach(function(buttonId) {
+                    document.getElementById(buttonId).addEventListener('click', function() {
+                        document.getElementById('abrirModal').style.display = 'none';
+                    });
+                });
+            });
+        </script>
     </main>
 </body>
