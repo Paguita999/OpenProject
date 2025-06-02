@@ -259,10 +259,8 @@ function empleados() {
             <h2>${user.login}</h2>
             
             <p><strong>ID:</strong> ${user.id}</p>
-            <p><strong>Nombre:</strong> ${user.name}</p>
-            <p><strong>Creado:</strong> ${new Date(user.createdAt).toLocaleDateString()}</p>
-            <p><strong>Última Edición:</strong> ${new Date(user.updatedAt)}</p>
-            <p><strong>Email:</strong> ${user.email}</p>
+            <p><i class="fas fa-user"></i>${user.name}</p>
+            <p><i class="fas fa-envelope"></i>${user.email}</p>
             <button class="modify-user-btn" id="modify-user-btn-${user.id}" onclick="modificarUsuario(${user.id})">Modificar usuario</button>
             <button class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar usuario</button>
             
