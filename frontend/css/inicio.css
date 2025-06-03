@@ -422,6 +422,11 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
+#statsChart {
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 /* --------------- BOTONES USUARIOS --------------- */
 
