@@ -5,7 +5,7 @@ function modificarUsuario(userId) {
 
 
 
-    document.getElementById("cerrarModal").addEventListener("click", function () {
+    document.getElementById("cerrarModalmod").addEventListener("click", function () {
         document.getElementById("modalmod").style.display = "none";
     });
 
@@ -168,7 +168,7 @@ function proyectos() {
     proyectosButton.addEventListener('click', () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('http://localhost:3000/api/projects', {
+        fetch('/api/projects', {
             headers: {
                 'x-api-key': apikey
             }
@@ -203,11 +203,23 @@ function estadisticas() {
         const container = document.querySelector('#container');
         container.innerHTML = "<canvas id='statsChart'></canvas>";
 
-        // Generate random data
-        const labels = ['Projects', 'Tasks', 'Users', 'Completed', 'In Progress'];
-        const values = labels.map(() => Math.floor(Math.random() * 100));
+        
+        const apikey = localStorage.getItem("apikey");
+        Promise.all([
+            fetch('/api/projects', { headers: { 'x-api-key': apikey } }),
+            fetch('/api/tasks', { headers: { 'x-api-key': apikey } }),
+            fetch('/api/users', { headers: { 'x-api-key': apikey } })
+        ])
+        .then(responses => Promise.all(responses.map(r => r.json())))
+        .then(data => {
+            const labels = ['Projects', 'Tasks', 'Users'];
+            const values = [
+            data[0]._embedded.elements.length,
+            data[1]._embedded.elements.length,
+            data[2]._embedded.elements.length,
+            ];
 
-        // Create chart
+        
         const ctx = document.getElementById('statsChart').getContext('2d');
         new Chart(ctx, {
             type: 'bar',
@@ -217,7 +229,7 @@ function estadisticas() {
                     label: 'Statistics',
                     data: values,
                     backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderColor: 'rgb(67, 53, 218)',
                     borderWidth: 1
                 }]
             },
@@ -230,8 +242,10 @@ function estadisticas() {
                 }
             }
         });
-    })
-};
+    });
+});
+}
+
 function empleados() {
 
     const empleadosButton = document.getElementById('empleados');
