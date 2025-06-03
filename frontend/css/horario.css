@@ -26,31 +26,8 @@ td, th{
     border: 1px solid #000;
     width:400px;
     height: 50px;
-}
-
-.dia1{
-  background-color:grey;
-  color:white;
-}
-
-.dia2{
-  background-color:grey;
-  color:white;
-}
-
-.dia3{
-  background-color:grey;
-  color:white;
-}
-
-.dia4{
-  background-color:grey;
-  color: white;
-}
-
-.dia5{
-  background-color:grey;
-  color:white;
+    background-color: grey;
+    color: white;
 }
 
 button {
@@ -60,20 +37,23 @@ button {
   margin:10px;
   cursor: pointer;
   font-size: 20px;
+  border-radius: 5px;
+  box-shadow: #000 0px 1px 3px;
 }
 
-.piedepagina{
-  background-color: #f1f1f1;
-  padding: 10px 20px;
-  display: flex;
-  justify-content: flex-start;
-  gap: 40px;
-  position: fixed;
+.piedepagina {
+  display: flex; 
+  position: fixed ;
+  text-align: right;
   bottom: 0;
-  left: 0;
-  width: 100%;
+  right: 0;
+  background-color: transparent;
+  color: black;
+  padding: 10px;
+  font-size: 14px;
+}
+.piedepagina p {
+  margin: 5px;
+  padding: 0;
 }
 
-.piedepagina p{
-  margin:0;
-}
