@@ -25,15 +25,13 @@
                 <button id="estadisticas" class="button">Estadísticas</button>
                 <button id="horario" class="button" onclick="window.location.href='atencionalcliente.html'">Horario</button>
 
-                <button id="abrirModal" class="button" onclick="crearUsuario()">Crear Usuario</button>
-
                 <div class="user-buttons">
                     <button class="cerrar-sesion" type="submit">Cerrar sesión</button>
                 </div>
             </nav>
         </header>
 
-
+        <button id="abrirModal" class="button" onclick="crearUsuario()">Crear Usuario</button>
 
         <div id="container">
         </div>
@@ -58,7 +56,7 @@
                     <label for="passwordmodificar">Contraseña:</label>
                     <input type="password" id="passwordmodificar" name="password" minlength="10">
                     <br><br>
-                    <button type="submit">Guardar</button>
+                    <button type="submit" class="guardar">Guardar</button>
                 </form>
 
             </div>
@@ -88,7 +86,7 @@
                 </form>
             </div>
         </div>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
         <script src="../scripts frontend/inicio.js"></script>
         <script>
             proyectos();
@@ -98,6 +96,23 @@
             crearUsuario();
             dashboards();
         </script>
-        
+         <script>
+            document.addEventListener('DOMContentLoaded', function() {
+               
+                document.getElementById('abrirModal').style.display = 'none';
+                
+               
+                document.getElementById('empleados').addEventListener('click', function() {
+                    document.getElementById('abrirModal').style.display = 'block';
+                });
+                const dashboard = document.getElementById('dashboard');
+                    dashboard.click();
+                ['dashboard', 'proyectos', 'estadisticas', 'horario'].forEach(function(buttonId) {
+                    document.getElementById(buttonId).addEventListener('click', function() {
+                        document.getElementById('abrirModal').style.display = 'none';
+                    });
+                });
+            });
+        </script>
     </main>
 </body>

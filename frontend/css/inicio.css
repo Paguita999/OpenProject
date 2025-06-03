@@ -159,7 +159,7 @@ h1 {
 .webDiv h2 {
     justify-content: left;
     font-size: 24px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: league spartan, sans-serif;
     color: #64605cdb;
     text-shadow: #000000 1px 1px 1px;
 
@@ -168,7 +168,7 @@ h1 {
 .webDiv p {
     justify-content: left;
     font-size: 16px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'poppins', sans-serif;
     color: #555;
 }
 
@@ -250,7 +250,7 @@ nav .button {
     padding: 10px 20px;
     background-color: white;
     color: rgb(0, 0, 0);
-    font-size: 12px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
     border-radius: 10px;
@@ -285,8 +285,9 @@ nav .cerrar-sesion {
     background-color: white;
     color: rgb(0, 0, 0);
     padding: 10px 20px;
+    margin-left: auto;
     cursor: pointer;
-    font-size: 14px;
+    font-size: 16px;
     border-radius: 10px;
     border: none;
     user-select: none;
@@ -314,7 +315,7 @@ nav .cerrar-sesion {
 
  .newUser p {
     font-size: 16px;
-    font-family: 'Times New Roman', Times, serif;
+    font-family: 'poppins', sans-serif;
     color: #555;
 }
 
@@ -328,12 +329,13 @@ nav .cerrar-sesion {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#container #abrirModal {
+#abrirModal {
     background-color: #1a237e;
     color: white;
     padding: 10px 20px;
+    margin-left: 65%;
     cursor: pointer;
-    font-size: 10px;
+    font-size: 12px;
     border-radius: 5px;
     text-align: center;
     right: 0;
@@ -380,6 +382,60 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
+
+.modalmod {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modalmod-contenido {
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    width: 300px;
+    border-radius: 8px;
+    position: relative;
+}
+
+.cerrarmod {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 22px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.modalmod .modalmod-contenido #formularioUsuarioModificar .guardar {
+    background-color: #1a237e;
+    color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 12px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+}
+
+/* --------------- BOTONES USUARIOS --------------- */
+
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.btn-group h2,
+.btn-group p {
+  margin: 0;
+}
+
 
 /* --------------- MÓVIL/TABLET --------------- */
 
