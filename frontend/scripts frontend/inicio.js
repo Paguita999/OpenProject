@@ -48,9 +48,10 @@ function modificarUsuario(userId) {
         })
             .then(res => {
                 if (res.ok) {
-                    alert('Usuario modificado correctamente.');
                     const empleadosButton = document.getElementById('empleados');
                     empleadosButton.click();
+                    const modal = document.getElementById("modalmod");
+                    modal.style.display = "none";
                 } else {
                     alert('Error al modificar el usuario.');
                 }
@@ -143,6 +144,9 @@ function crearUsuario() {
                 console.log("Usuario creado:", data);
                 const empleadosButton = document.getElementById('empleados');
                 empleadosButton.click();
+                const modal = document.getElementById("modal");
+                modal.style.display = "none";
+
             })
             .catch(error => {
                 console.error("Error al crear usuario:", error);
@@ -185,9 +189,7 @@ function proyectos() {
             <h2>${project.name}</h2>
             <p><strong>Identificador:</strong> ${project.identifier}</p>
             <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Creado:</strong> ${new Date(project.createdAt).toLocaleDateString()}</p>
             <p><strong>Estado:</strong> ${project._links.status.title}</p>
-            <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
            
         `;
                     container.appendChild(webDiv);
