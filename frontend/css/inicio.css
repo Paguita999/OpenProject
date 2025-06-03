@@ -186,6 +186,8 @@ h1 {
     /* Rojo */
     color: white;
     padding: 10px 20px;
+    height: 50px;
+    width: 100px;
     cursor: pointer;
     font-size: 12px;
     border-radius: 5px;
@@ -200,6 +202,8 @@ h1 {
 .webDiv .modify-user-btn {
     background-color: #eea743;
     color: white;
+    height: 50px;
+    width: 100px;
     padding: 10px 20px;
     cursor: pointer;
     font-size: 12px;

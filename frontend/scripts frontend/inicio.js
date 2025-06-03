@@ -275,9 +275,9 @@ function empleados() {
                             <p style="margin: 0;"><strong>Nombre:</strong> ${user.name}</p>
                             <p style="margin: 0;"><strong>Email:</strong> ${user.email}</p>
                             <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">
-                            <img src="../img/modificarusuario.png" alt="Editar"/></button>
+                            <img src="../img/modificarusuario.png" alt="Editar"/ style="width:50%; height:100%;"></button>
                             <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">
-                            <img src="../img/borrarusuario.png" alt="Eliminar"/></button>
+                            <img src="../img/borrarusuario.png" alt="Eliminar"/ style="width:50%; height:100%;"></button>
                         </div>
                         `;
                     container.appendChild(webDiv);
