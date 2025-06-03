@@ -5,7 +5,7 @@ function modificarUsuario(userId) {
 
 
 
-    document.getElementById("cerrarModal").addEventListener("click", function () {
+    document.getElementById("cerrarModalmod").addEventListener("click", function () {
         document.getElementById("modalmod").style.display = "none";
     });
 
