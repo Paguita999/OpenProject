@@ -201,7 +201,7 @@ function estadisticas() {
     const estadisticasButton = document.getElementById('estadisticas');
     estadisticasButton.addEventListener('click', () => {
         const container = document.querySelector('#container');
-        container.innerHTML = "<canvas id='statsChart'></canvas>";
+        container.innerHTML = "<canvas id='statsChart' class='stats'></canvas>";
 
         
         const apikey = localStorage.getItem("apikey");
