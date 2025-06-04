@@ -48,8 +48,7 @@ function modificarUsuario(userId) {
         })
             .then(res => {
                 if (res.ok) {
-                    const empleadosButton = document.getElementById('empleados');
-                    empleadosButton.click();
+                    empleados();
                     const modal = document.getElementById("modalmod");
                     modal.style.display = "none";
                 } else {
@@ -77,8 +76,7 @@ function borrarUsuario(userId) {
     })
         .then(res => {
             if (res.ok) {
-                const empleadosButton = document.getElementById('empleados');
-                empleadosButton.click();
+                empleados(); 
             } else {
                 alert('Error al eliminar el usuario.');
             }
