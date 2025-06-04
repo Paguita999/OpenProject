@@ -182,9 +182,8 @@ h1 {
 }
 
 .webDiv .delete-user-btn {
-    background-color: #f44336;
+    background-color: transparent;
     /* Rojo */
-    color: white;
     padding: 10px 20px;
     height: 50px;
     width: 100px;
@@ -195,13 +194,12 @@ h1 {
 }
 
 .webDiv .delete-user-btn:hover {
-    background-color: #d32f2f;
+    background-color: #c18989;
     /* Rojo más oscuro */
 }
 
 .webDiv .modify-user-btn {
-    background-color: #eea743;
-    color: white;
+    background-color: transparent;
     height: 50px;
     width: 100px;
     padding: 10px 20px;
@@ -212,7 +210,7 @@ h1 {
 }
 
 .webDiv .modify-user-btn:hover {
-    background-color: #c49b32;
+    background-color: #d4c08d;
 }
 
 /* --------------- BOTONERA --------------- */
