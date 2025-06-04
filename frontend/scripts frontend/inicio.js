@@ -48,8 +48,7 @@ function modificarUsuario(userId) {
         })
             .then(res => {
                 if (res.ok) {
-                    const empleadosButton = document.getElementById('empleados');
-                    empleadosButton.click();
+                    empleados();
                     const modal = document.getElementById("modalmod");
                     modal.style.display = "none";
                 } else {
@@ -77,8 +76,7 @@ function borrarUsuario(userId) {
     })
         .then(res => {
             if (res.ok) {
-                const empleadosButton = document.getElementById('empleados');
-                empleadosButton.click();
+                empleados(); 
             } else {
                 alert('Error al eliminar el usuario.');
             }
@@ -203,9 +201,12 @@ function estadisticas() {
     const estadisticasButton = document.getElementById('estadisticas');
     estadisticasButton.addEventListener('click', () => {
         const container = document.querySelector('#container');
-        container.innerHTML = "<canvas id='statsChart' class='stats'></canvas>";
+        container.innerHTML = `
+            <div style="display: flex; justify-content: space-around;">
+                <canvas id='barChart' class='stats' style="width: 45%;"></canvas>
+                <canvas id='pieChart' class='stats' style="width: 45%;"></canvas>
+            </div>`;
 
-        
         const apikey = localStorage.getItem("apikey");
         Promise.all([
             fetch('/api/projects', { headers: { 'x-api-key': apikey } }),
@@ -214,38 +215,64 @@ function estadisticas() {
         ])
         .then(responses => Promise.all(responses.map(r => r.json())))
         .then(data => {
-            const labels = ['Projects', 'Tasks', 'Users'];
+            const labels = ['Proyectos', 'Tareas', 'Usuarios'];
             const values = [
-            data[0]._embedded.elements.length,
-            data[1]._embedded.elements.length,
-            data[2]._embedded.elements.length,
+                data[0]._embedded.elements.length,
+                data[1]._embedded.elements.length,
+                data[2]._embedded.elements.length,
             ];
 
-        
-        const ctx = document.getElementById('statsChart').getContext('2d');
-        new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Statistics',
-                    data: values,
-                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                    borderColor: 'rgb(67, 53, 218)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                responsive: true,
-                scales: {
-                    y: {
-                        beginAtZero: true
+            
+            const ctxBar = document.getElementById('barChart').getContext('2d');
+            new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Numero de elementos',
+                        data: values,
+                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                        borderColor: 'rgb(67, 53, 218)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
+            });
+
+            
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            new Chart(ctxPie, {
+                type: 'pie',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: values,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.5)',
+                            'rgba(54, 162, 235, 0.5)',
+                            'rgba(255, 206, 86, 0.5)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                }
+            });
         });
     });
-});
 }
 
 function empleados() {
