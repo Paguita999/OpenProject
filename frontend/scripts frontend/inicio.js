@@ -48,9 +48,10 @@ function modificarUsuario(userId) {
         })
             .then(res => {
                 if (res.ok) {
-                    alert('Usuario modificado correctamente.');
                     const empleadosButton = document.getElementById('empleados');
                     empleadosButton.click();
+                    const modal = document.getElementById("modalmod");
+                    modal.style.display = "none";
                 } else {
                     alert('Error al modificar el usuario.');
                 }
@@ -143,6 +144,9 @@ function crearUsuario() {
                 console.log("Usuario creado:", data);
                 const empleadosButton = document.getElementById('empleados');
                 empleadosButton.click();
+                const modal = document.getElementById("modal");
+                modal.style.display = "none";
+
             })
             .catch(error => {
                 console.error("Error al crear usuario:", error);
@@ -185,9 +189,7 @@ function proyectos() {
             <h2>${project.name}</h2>
             <p><strong>Identificador:</strong> ${project.identifier}</p>
             <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Creado:</strong> ${new Date(project.createdAt).toLocaleDateString()}</p>
             <p><strong>Estado:</strong> ${project._links.status.title}</p>
-            <p><strong>Explicación:</strong> ${project.statusExplanation.raw}</p>
            
         `;
                     container.appendChild(webDiv);
@@ -272,8 +274,10 @@ function empleados() {
                             <h2 style="margin: 0;">${user.login}</h2>
                             <p style="margin: 0;"><strong>Nombre:</strong> ${user.name}</p>
                             <p style="margin: 0;"><strong>Email:</strong> ${user.email}</p>
-                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">Editar</button>
-                            <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">Eliminar</button>
+                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">
+                            <img src="../img/modificarusuario.png" alt="Editar"/ style="width:50%; height:100%;"></button>
+                            <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">
+                            <img src="../img/borrarusuario.png" alt="Eliminar"/ style="width:50%; height:100%;"></button>
                         </div>
                         `;
                     container.appendChild(webDiv);
