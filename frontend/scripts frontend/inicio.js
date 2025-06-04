@@ -270,14 +270,16 @@ function empleados() {
                     webDiv.classList.add('webDiv');
                     webDiv.setAttribute('data-id', user.id);
                     webDiv.innerHTML = `
-                        <div class="card-content" style="display: flex; align-items: center; gap: 20px;">
+                        <div class="card-content" align-items: center; gap: 20px;">
                             <h2 style="margin: 0;">${user.login}</h2>
                             <p style="margin: 0;"><strong>Nombre:</strong> ${user.name}</p>
                             <p style="margin: 0;"><strong>Email:</strong> ${user.email}</p>
+                            <div class="users-btn">
                             <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">
                             <img src="../img/modificarusuario.png" alt="Editar"/ style="width:50%; height:100%;"></button>
                             <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">
                             <img src="../img/borrarusuario.png" alt="Eliminar"/ style="width:50%; height:100%;"></button>
+                            </div>
                         </div>
                         `;
                     container.appendChild(webDiv);
