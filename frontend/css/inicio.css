@@ -1,38 +1,5 @@
 /* --------------- MODAL --------------- */
 
-.newUser {
-    display: flex;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    max-width: 50%;
-    border-radius: 15px;
-    border: none;
-    cursor: pointer;
-}
-
-.newUser h2 {
-    font-size: 24px;
-    font-family: league spartan, sans-serif;
-    color: #64605cdb;
-    text-shadow: #000000 1px 1px 1px;
-}
-
- .newUser p {
-    font-size: 16px;
-    font-family: league spartan, sans-serif;
-    color: #555;
-}
-
-.newUser input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
 
 #container #abrirModal {
     background-color: #1a237e;
@@ -422,16 +389,29 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
-#statsChart {
-    margin: 100px auto;
+#barChart {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    margin: 60px auto;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    margin-left: 80px;
-    position: relative;
-    top: 60px;
+    background-color: white;
+    padding: 20px;
 }
 
+#pieChart {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    margin: 60px auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+}
 /* --------------- BOTONES USUARIOS --------------- */
 
 .btn-group {
