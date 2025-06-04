@@ -1,49 +1,16 @@
 /* --------------- MODAL --------------- */
-
-.newUser {
+#abrirModal {
     display: flex;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    padding: 10px;
-    max-width: 50%;
-    border-radius: 15px;
-    border: none;
-    cursor: pointer;
-}
-
-.newUser h2 {
-    font-size: 24px;
-    font-family: league spartan, sans-serif;
-    color: #64605cdb;
-    text-shadow: #000000 1px 1px 1px;
-}
-
- .newUser p {
-    font-size: 16px;
-    font-family: league spartan, sans-serif;
-    color: #555;
-}
-
-.newUser input {
-    width: 100%;
-    padding: 10px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 15px;
-    border: none;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-#container #abrirModal {
-    background-color: #1a237e;
-    color: white;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 10px;
-    border-radius: 5px;
+    border-radius: 15px;
     text-align: center;
     right: 0;
     width: 10%;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+}
+#abrirModal:hover {
+    background-color: #80ff6d;
 }
 
 .modal {
@@ -85,7 +52,7 @@
     position: relative;
 }
 
-.button {
+.button-user {
     position: relative;
     display: flex;
     text-align: center;
@@ -97,6 +64,7 @@
     overflow: hidden;
     user-select: none;
 }
+
 .cerrar {
     position: absolute;
     top: 10px;
@@ -207,8 +175,7 @@ h1 {
 }
 
 .webDiv .delete-user-btn:hover {
-    background-color: #c18989;
-    /* Rojo más oscuro */
+    background-color: #ff5e5e;
 }
 
 .webDiv .modify-user-btn {
@@ -223,7 +190,7 @@ h1 {
 }
 
 .webDiv .modify-user-btn:hover {
-    background-color: #d4c08d;
+    background-color: #ff9b43;
 }
 
 /* --------------- BOTONERA --------------- */
