@@ -1,6 +1,9 @@
 /* --------------- MODAL --------------- */
-#abrirModal {
-    display: flex;
+
+
+#container #abrirModal {
+    background-color: #1a237e;
+    color: white;
     padding: 10px 20px;
     cursor: pointer;
     border-radius: 15px;
@@ -412,17 +415,29 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
-
-#statsChart {
-    margin: 100px auto;
+#barChart {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    margin: 60px auto;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 10px;
-    margin-left: 80px;
-    position: relative;
-    top: 60px;
+    background-color: white;
+    padding: 20px;
 }
 
+#pieChart {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    margin: 60px auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+}
 /* --------------- BOTONES USUARIOS --------------- */
 
 .btn-group {
