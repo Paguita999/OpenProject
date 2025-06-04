@@ -84,6 +84,19 @@
     border-radius: 8px;
     position: relative;
 }
+
+.button {
+    position: relative;
+    display: flex;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: transparent;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    overflow: hidden;
+    user-select: none;
+}
 .cerrar {
     position: absolute;
     top: 10px;
