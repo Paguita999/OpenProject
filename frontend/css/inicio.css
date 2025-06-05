@@ -127,6 +127,19 @@ h1 {
     padding: 10px;
 }
 
+#container canvas {
+    width: 100%;
+    height: auto;
+    max-width: 400px;
+    max-height: 300px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    margin: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
 .webDiv {
     border: none;
     border-radius: 15px;
@@ -466,7 +479,7 @@ canvas .stats {
 
 /* --------------- MÓVIL/TABLET --------------- */
 
-@media (max-width: 768px) {
+@media (max-width: 721px) {
     .container {
         max-width: 90%;
     }

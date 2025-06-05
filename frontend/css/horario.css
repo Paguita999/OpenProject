@@ -57,9 +57,17 @@ button {
   padding: 10px;
   font-size: 14px;
 }
+.piedepagina #autis {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  margin-right: 475px;
+}
 .piedepagina p {
-  margin: 5px;
-  padding: 0;
+  margin: 2px;
+  padding: 0px;
 }
 .piedepagina img{
   width: 30px;
@@ -68,4 +76,3 @@ button {
   margin-right: 5px;
   background-color: transparent;
 }
-

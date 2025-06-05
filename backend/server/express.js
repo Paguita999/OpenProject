@@ -3,6 +3,8 @@ import fetch from 'node-fetch';
 import path from 'path';
 import bodyParser from 'body-parser';
 import { fileURLToPath } from 'url';
+import { ConectionBBDD } from './BaseDatos.js';
+
 // Inicialització d'Express
 const app = express();
 const PORT = 3000;
@@ -143,6 +145,18 @@ app.get('/api/tasks', async (req, res) => {
         res.json(data);
     } catch (error) {
         console.error('Error fetching from OpenProject:', error);
+        res.status(500).json({ error: 'Server error' });
+    }
+});
+app.post ('/api/time_entries', async (req, res) => {
+    try {
+        const body= req.body;
+        const BBDD = new ConectionBBDD();
+        const data = await BBDD.getTimeEntriesPorUsuario(body.id);
+        res.json( data );
+
+    } catch (error) {
+        console.error('Error fetching time entries:', error);
         res.status(500).json({ error: 'Server error' });
     }
 });
