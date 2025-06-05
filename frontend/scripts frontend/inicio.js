@@ -354,30 +354,32 @@ function dashboards() {
                 <h3>Time Entries:</h3>
             `;
 
-            const timeList = document.createElement('ul');
+            const timeList = document.createElement('table');
+            timeList.classList.add('time_entries'); 
+            timeList.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Proyecto</th>
+                        <th>Tarea</th>
+                        <th>Horas</th>
+                        <th>Fecha</th>
+                        <th>Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            `;
+            const tbody = timeList.querySelector('tbody');
             data_time.forEach(entry => {
-                const timeItem = document.createElement('li');
+                const timeItem = document.createElement('tr');
                 timeItem.innerHTML = `
-                     <table>
-                        <thead>
-                            <tr>Proyecto</tr>
-                            <tr>Tarea</tr>
-                            <tr>Horas</tr>
-                            <tr>Fecha</tr>
-                            <tr>Estado</tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                            <td>${entry.proyecto || 'N/A'}</td>
-                            <td>${entry.tarea || 'N/A'}</td>
-                            <td>${entry.horas || 0} h</td>
-                            <td>${new Date(entry.fecha).toLocaleDateString()}</td>
-                            <td>${entry.estado ? 'Activo' : 'Inactivo'}</td>
-                           </tr> 
-                        </tbody>
-                     </table>
+                    <td>${entry.proyecto || 'N/A'}</td>
+                    <td>${entry.tarea || 'N/A'}</td>
+                    <td>${entry.horas || 0} h</td>
+                    <td>${new Date(entry.fecha).toLocaleDateString()}</td>
+                    <td>${entry.estado ? 'Activo' : 'Inactivo'}</td>
                 `;
-                timeList.appendChild(timeItem);
+                tbody.appendChild(timeItem);
             });
 
             userDiv.appendChild(timeList);
