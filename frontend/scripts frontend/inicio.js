@@ -351,8 +351,6 @@ function dashboards() {
             userDiv.classList.add('webDiv');
             userDiv.innerHTML = `
                 <h2>${user.name}</h2>
-                <p><strong>Login:</strong> ${user.login}</p>
-                <p><strong>Email:</strong> ${user.email}</p>
                 <h3>Time Entries:</h3>
             `;
 
@@ -360,11 +358,11 @@ function dashboards() {
             data_time.forEach(entry => {
                 const timeItem = document.createElement('li');
                 timeItem.innerHTML = `
-                    Proyecto: ${entry.proyecto} | 
-                    Tarea: ${entry.tarea} | 
-                    Horas: ${entry.horas || 0} | 
-                    Fecha: ${new Date(entry.fecha).toLocaleDateString()} | 
-                    Estado: ${entry.estado ? 'Activo' : 'Inactivo'}
+                     ${entry.proyecto} | 
+                     ${entry.tarea} | 
+                     ${entry.horas || 0} h | 
+                     ${new Date(entry.fecha).toLocaleDateString()} | 
+                     ${entry.estado ? 'Activo' : 'Inactivo'}
                 `;
                 timeList.appendChild(timeItem);
             });
