@@ -152,6 +152,14 @@ h1 {
     padding: 10px;
     margin: 1%;
 }
+.webDiv h3 {
+    font-size: 16px;
+    font-family: league spartan, sans-serif;
+    color: #f6a605;
+    font-weight: bold;
+    margin: 0;
+    padding: 10px;
+}
 .webDiv .users-btn {
     display: flex;
     background-color: transparent;
