@@ -351,7 +351,6 @@ function dashboards() {
             userDiv.classList.add('webDiv');
             userDiv.innerHTML = `
                 <h2>${user.name}</h2>
-                <h3>Time Entries:</h3>
             `;
 
             const timeList = document.createElement('table');

@@ -152,13 +152,31 @@ h1 {
     padding: 10px;
     margin: 1%;
 }
-.webDiv h3 {
-    font-size: 16px;
+
+.webDiv .time_entries {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: 15px;
+    margin: 10px 0;
+}
+.webDiv .time_entries thead {
+    background-color: #f38925;
+    color: #000000;
     font-family: league spartan, sans-serif;
-    color: #f6a605;
-    font-weight: bold;
-    margin: 0;
+    font-size: 16px;
+    text-align: center;
+}
+.webDiv .time_entries th,
+.webDiv .time_entries td {
     padding: 10px;
+    border: #000000 1px solid;
+    color: #000000;
+    font-family: league spartan, sans-serif;
+    font-size: 14px;
+    text-align: center;
+    margin: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
 }
 .webDiv .users-btn {
     display: flex;
