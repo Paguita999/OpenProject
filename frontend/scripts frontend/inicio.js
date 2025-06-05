@@ -282,7 +282,7 @@ function empleados() {
     empleadosButton.addEventListener('click', () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('http://localhost:3000/api/users', {
+        fetch('/api/users', {
             headers: {
                 'x-api-key': apikey
             }
@@ -323,53 +323,56 @@ function empleados() {
 function dashboards() {
     const dashboardButton = document.getElementById('dashboard');
 
-    dashboardButton.addEventListener('click', () => {
+    dashboardButton.addEventListener('click', async () => {
         const apikey = localStorage.getItem("apikey");
-
-        fetch('/api/tasks', {
+        const res = await fetch ('/api/users', {
             headers: {
                 'x-api-key': apikey
             }
-        })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.querySelector('#container');
-                container.innerHTML = "";
-
-                const sortedTasks = data._embedded.elements.sort((a, b) => a.id - b.id);
-
-                sortedTasks.forEach(task => {
-                    const webDiv = document.createElement('div');
-                    webDiv.classList.add('webDiv');
-                    fetch(`http://localhost:8080/api/v3/work_packages/${task.id}/watchers`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': 'Basic ' + btoa(`apikey:${apikey}`)
-                        }
-                    })
-                        .then(res => res.json())
-                        .then(watcherData => {
-                            const watchers = watcherData._embedded?.elements?.map(w => w.name).join(', ') || 'Ninguno';
-
-                            webDiv.innerHTML = `
-            <h2>${task.subject}</h2>
-            <p><strong>Tipo:</strong> ${task._type}</p>
-            <p><strong>Autor:</strong> ${watchers}</p>
-          `;
-
-                            container.appendChild(webDiv);
-                        })
-                        .catch(err => {
-                            console.error(`Error al obtener watchers para la tarea ${task.id}`, err);
-                            webDiv.innerHTML = `
-            <h2>${task.subject}</h2>
-            <p><strong>ID:</strong> ${task.id}</p>
-            <p><strong>Error al cargar watchers</strong></p>
-          `;
-                            container.appendChild(webDiv);
-                        });
-                });
+        });
+        const data= await res.json();
+        
+        const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
+        for (const user of sortedUsers) {
+            const time = await fetch('/api/time_entries',{
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: user.id })
             });
+            const data_time= await time.json();
+            const container = document.querySelector('#container');
+            if (user === sortedUsers[0]) {
+                container.innerHTML = '';
+            }
+
+            const userDiv = document.createElement('div');
+            userDiv.classList.add('webDiv');
+            userDiv.innerHTML = `
+                <h2>${user.name}</h2>
+                <p><strong>Login:</strong> ${user.login}</p>
+                <p><strong>Email:</strong> ${user.email}</p>
+                <h3>Time Entries:</h3>
+            `;
+
+            const timeList = document.createElement('ul');
+            data_time.forEach(entry => {
+                const timeItem = document.createElement('li');
+                timeItem.innerHTML = `
+                    Proyecto: ${entry.proyecto} | 
+                    Tarea: ${entry.tarea} | 
+                    Horas: ${entry.horas || 0} | 
+                    Fecha: ${new Date(entry.fecha).toLocaleDateString()} | 
+                    Estado: ${entry.estado ? 'Activo' : 'Inactivo'}
+                `;
+                timeList.appendChild(timeItem);
+            });
+
+            userDiv.appendChild(timeList);
+            container.appendChild(userDiv);
+        }
     });
+
 }
 /*-----------------------------------------------------------------------------------------*/
