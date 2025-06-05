@@ -358,11 +358,24 @@ function dashboards() {
             data_time.forEach(entry => {
                 const timeItem = document.createElement('li');
                 timeItem.innerHTML = `
-                     ${entry.proyecto} | 
-                     ${entry.tarea} | 
-                     ${entry.horas || 0} h | 
-                     ${new Date(entry.fecha).toLocaleDateString()} | 
-                     ${entry.estado ? 'Activo' : 'Inactivo'}
+                     <table>
+                        <thead>
+                            <tr>Proyecto</tr>
+                            <tr>Tarea</tr>
+                            <tr>Horas</tr>
+                            <tr>Fecha</tr>
+                            <tr>Estado</tr>
+                        </thead>
+                        <tbody>
+                           <tr>
+                            <td>${entry.proyecto || 'N/A'}</td>
+                            <td>${entry.tarea || 'N/A'}</td>
+                            <td>${entry.horas || 0} h</td>
+                            <td>${new Date(entry.fecha).toLocaleDateString()}</td>
+                            <td>${entry.estado ? 'Activo' : 'Inactivo'}</td>
+                           </tr> 
+                        </tbody>
+                     </table>
                 `;
                 timeList.appendChild(timeItem);
             });
