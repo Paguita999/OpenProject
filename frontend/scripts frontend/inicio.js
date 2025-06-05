@@ -199,38 +199,67 @@ function proyectos() {
 function estadisticas() {
     const Chart = window.Chart;
     const estadisticasButton = document.getElementById('estadisticas');
-    estadisticasButton.addEventListener('click', () => {
+    estadisticasButton.addEventListener('click', async () => {
         const container = document.querySelector('#container');
         container.innerHTML = `
             <div style="display: flex; justify-content: space-around;">
                 <canvas id='barChart' class='stats' style="width: 45%;"></canvas>
                 <canvas id='pieChart' class='stats' style="width: 45%;"></canvas>
+                <canvas id='lineChart' class='stats' style="width: 45%"></canvas>
             </div>`;
 
         const apikey = localStorage.getItem("apikey");
+
         Promise.all([
             fetch('/api/projects', { headers: { 'x-api-key': apikey } }),
             fetch('/api/tasks', { headers: { 'x-api-key': apikey } }),
             fetch('/api/users', { headers: { 'x-api-key': apikey } })
         ])
         .then(responses => Promise.all(responses.map(r => r.json())))
-        .then(data => {
-            const labels = ['Proyectos', 'Tareas', 'Usuarios'];
-            const values = [
-                data[0]._embedded.elements.length,
-                data[1]._embedded.elements.length,
-                data[2]._embedded.elements.length,
-            ];
-
+        .then(async (data) => {
+            const [projects, tasks, userData] = data;
+            const users = userData._embedded.elements;
             
+            const userHours = [];
+            const userNames = [];
+            const timeEntriesByDay = {};
+
+            for (const user of users) {
+                const timeRes = await fetch('/api/time_entries', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: user.id })
+                });
+                const timeData = await timeRes.json();
+                
+                const totalHours = timeData.reduce((sum, entry) => sum + (entry.horas || 0), 0);
+                userHours.push(totalHours);
+                userNames.push(user.name);
+
+                // Organize entries by day
+                timeData.forEach(entry => {
+                    const date = new Date(entry.fecha);
+                    const dayKey = date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                    if (!timeEntriesByDay[dayKey]) {
+                        timeEntriesByDay[dayKey] = {
+                            projects: new Set(),
+                            tasks: new Set()
+                        };
+                    }
+                    if (entry.proyecto) timeEntriesByDay[dayKey].projects.add(entry.proyecto);
+                    if (entry.tarea) timeEntriesByDay[dayKey].tasks.add(entry.tarea);
+                });
+            }
+
+            // Bar chart for user hours
             const ctxBar = document.getElementById('barChart').getContext('2d');
             new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: labels,
+                    labels: userNames,
                     datasets: [{
-                        label: 'Numero de elementos',
-                        data: values,
+                        label: 'Horas por Usuario',
+                        data: userHours,
                         backgroundColor: 'rgba(54, 162, 235, 0.5)',
                         borderColor: 'rgb(67, 53, 218)',
                         borderWidth: 1
@@ -238,22 +267,22 @@ function estadisticas() {
                 },
                 options: {
                     responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
-                        }
-                    }
+                    scales: { y: { beginAtZero: true } }
                 }
             });
 
-            
+            // Pie chart for elements count
             const ctxPie = document.getElementById('pieChart').getContext('2d');
             new Chart(ctxPie, {
                 type: 'pie',
                 data: {
-                    labels: labels,
+                    labels: ['Proyectos', 'Tareas', 'Usuarios'],
                     datasets: [{
-                        data: values,
+                        data: [
+                            projects._embedded.elements.length,
+                            tasks._embedded.elements.length,
+                            users.length
+                        ],
                         backgroundColor: [
                             'rgba(255, 99, 132, 0.5)',
                             'rgba(54, 162, 235, 0.5)',
@@ -269,6 +298,71 @@ function estadisticas() {
                 },
                 options: {
                     responsive: true,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Número de elementos'
+                        }
+                    }
+                }
+            });
+
+            // Line chart with daily data
+            const days = Object.keys(timeEntriesByDay).sort((a, b) => new Date(a) - new Date(b));
+            const projectCounts = days.map(day => timeEntriesByDay[day].projects.size);
+            const taskCounts = days.map(day => timeEntriesByDay[day].tasks.size);
+
+            const ctxLine = document.getElementById('lineChart').getContext('2d');
+            // Calculate total hours per day
+            const dailyHours = {};
+            for (const user of users) {
+                const timeData = await fetch('/api/time_entries', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ id: user.id })
+                }).then(r => r.json());
+
+                timeData.forEach(entry => {
+                    const dayKey = new Date(entry.fecha).toISOString().split('T')[0];
+                    dailyHours[dayKey] = (dailyHours[dayKey] || 0) + (entry.horas || 0);
+                });
+            }
+
+            const sortedDays = Object.keys(dailyHours).sort();
+            const hoursData = sortedDays.map(day => dailyHours[day]);
+
+            new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: sortedDays.map(day => {
+                        const date = new Date(day);
+                        return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    }),
+                    datasets: [{
+                        label: 'Horas Totales por Día',
+                        data: hoursData,
+                        borderColor: 'rgb(75, 192, 192)',
+                        tension: 0.1,
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Horas'
+                            }
+                        }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Horas Trabajadas por Día'
+                        }
+                    }
                 }
             });
         });
