@@ -155,29 +155,38 @@ h1 {
 
 .webDiv .time_entries {
     width: 100%;
-    border-collapse: collapse;
-    border-radius: 15px;
+    padding: 0;
     margin: 10px 0;
+    border-radius: 12px;
+    background: #f8fafc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
-.webDiv .time_entries thead {
-    background-color: #ffbf00;
-    color: #000000;
-    font-family: league spartan, sans-serif;
-    font-size: 16px;
-    text-align: center;
+
+.webDiv .time_entries ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
 }
-.webDiv .time_entries th,
-.webDiv .time_entries td {
-    padding: 10px;
-    border: #000000 1px solid;
-    color: #000000;
-    font-family: league spartan, sans-serif;
-    font-size: 14px;
-    text-align: center;
-    margin: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
+
+.webDiv .time_entries ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'League Spartan', sans-serif;
+    color: #555;
+    font-size: 15px;
 }
+.webDiv .time_entries ul li:last-child {
+    border-bottom: none;
+}
+
+.webDiv .time_entries ul li:hover {
+    background: #e3f2fd;
+}
+
+
 .webDiv .users-btn {
     display: flex;
     background-color: transparent;
