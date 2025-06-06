@@ -224,9 +224,9 @@ function estadisticas() {
         const container = document.querySelector('#container');
         container.innerHTML = `
             <div style="display: flex; justify-content: space-around;">
-                <canvas id='barChart' class='stats' style="width: 45%;"></canvas>
-                <canvas id='pieChart' class='stats' style="width: 45%;"></canvas>
-                <canvas id='lineChart' class='stats' style="width: 45%"></canvas>
+                <canvas id='barChart' class='stats' height="500"></canvas>
+                <canvas id='pieChart' class='stats' height="500"></canvas>
+                <canvas id='lineChart' class='stats' height="500"></canvas>
             </div>`;
 
         const apikey = localStorage.getItem("apikey");
@@ -257,10 +257,9 @@ function estadisticas() {
                     userHours.push(totalHours);
                     userNames.push(user.name);
 
-                    // Organize entries by day
                     timeData.forEach(entry => {
                         const date = new Date(entry.fecha);
-                        const dayKey = date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                        const dayKey = date.toISOString().split('T')[0]; 
                         if (!timeEntriesByDay[dayKey]) {
                             timeEntriesByDay[dayKey] = {
                                 projects: new Set(),
@@ -272,7 +271,6 @@ function estadisticas() {
                     });
                 }
 
-                // Bar chart for user hours
                 const ctxBar = document.getElementById('barChart').getContext('2d');
                 new Chart(ctxBar, {
                     type: 'bar',
@@ -292,7 +290,6 @@ function estadisticas() {
                     }
                 });
 
-                // Pie chart for elements count
                 const ctxPie = document.getElementById('pieChart').getContext('2d');
                 new Chart(ctxPie, {
                     type: 'pie',
@@ -328,13 +325,12 @@ function estadisticas() {
                     }
                 });
 
-                // Line chart with daily data
                 const days = Object.keys(timeEntriesByDay).sort((a, b) => new Date(a) - new Date(b));
                 const projectCounts = days.map(day => timeEntriesByDay[day].projects.size);
                 const taskCounts = days.map(day => timeEntriesByDay[day].tasks.size);
 
                 const ctxLine = document.getElementById('lineChart').getContext('2d');
-                // Calculate total hours per day
+                
                 const dailyHours = {};
                 for (const user of users) {
                     const timeData = await fetch('/api/time_entries', {

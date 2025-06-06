@@ -178,10 +178,6 @@ h1 {
     color: #555;
     font-size: 15px;
 }
-.webDiv .time_entries ul li:last-child {
-    border-bottom: none;
-}
-
 .webDiv .time_entries ul li:hover {
     background: #e3f2fd;
 }
@@ -220,11 +216,10 @@ h1 {
     align-items: center;
     margin-top: 10px;
     margin-left: auto;
-    background-color: orange;
 }
 
 .webDiv .delete-user-btn {
-    background-color: red;
+    background-color: transparent;
     padding: 10px 20px;
     height: 50px;
     width: 100px;
@@ -239,7 +234,7 @@ h1 {
 }
 
 .webDiv .modify-user-btn {
-    background-color: orange;
+    background-color: transparent;
     height: 50px;
     width: 100px;
     padding: 10px 20px;
@@ -459,29 +454,8 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
-#barChart {
-    width: 50%;
-    max-width: 600px;
-    height: auto;
-    max-height: 400px;
-    margin: 60px auto;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    padding: 20px;
-}
-
-#pieChart {
-    width: 50%;
-    max-width: 600px;
-    height: auto;
-    max-height: 400px;
-    margin: 60px auto;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background-color: white;
-    padding: 20px;
-}
+#barChart,
+#pieChart,
 #lineChart {
     width: 50%;
     max-width: 600px;
@@ -493,6 +467,8 @@ nav .cerrar-sesion {
     background-color: white;
     padding: 20px;
 }
+
+
 
 /* --------------- BOTONES USUARIOS --------------- */
 
