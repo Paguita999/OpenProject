@@ -76,7 +76,7 @@ function borrarUsuario(userId) {
     })
         .then(res => {
             if (res.ok) {
-                empleados(); 
+                empleados();
             } else {
                 alert('Error al eliminar el usuario.');
             }
@@ -167,111 +167,226 @@ function cerrarSesion() {
 function proyectos() {
     const proyectosButton = document.getElementById('proyectos');
 
-    proyectosButton.addEventListener('click', () => {
+    proyectosButton.addEventListener('click', async () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('/api/projects', {
-            headers: {
-                'x-api-key': apikey
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.querySelector('#container');
-                container.innerHTML = "";
-                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedProjects.forEach(project => {
-                    const webDiv = document.createElement('div');
-                    webDiv.classList.add('webDiv');
-                    webDiv.innerHTML = `
-            <h2>${project.name}</h2>
-            <p><strong>Identificador:</strong> ${project.identifier}</p>
-            <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Estado:</strong> ${project._links.status.title}</p>
-           
-        `;
-                    container.appendChild(webDiv);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+        try {
+            
+            const [projectsResponse, membershipsResponse] = await Promise.all([
+                fetch('/api/projects', {
+                    headers: {
+                        'x-api-key': apikey
+                    }
+                }),
+                fetch('http://localhost:8080/api/v3/memberships', {
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('apikey:' + apikey)
+                    }
+                })
+            ]);
+
+            const projectsData = await projectsResponse.json();
+            const membershipsData = await membershipsResponse.json();
+
+            
+            const userCountByProject = {};
+            membershipsData._embedded.elements.forEach(membership => {
+                const projectHref = membership._links.project.href;
+                const projectId = projectHref.split('/').pop();
+                userCountByProject[projectId] = (userCountByProject[projectId] || 0) + 1;
+            });
+
+            const container = document.querySelector('#container');
+            container.innerHTML = "";
+            
+            const sortedProjects = projectsData._embedded.elements.sort((a, b) => a.id - b.id);
+            sortedProjects.forEach(project => {
+                const webDiv = document.createElement('div');
+                webDiv.classList.add('webDiv');
+                webDiv.innerHTML = `
+                    <h2>${project.name}</h2>
+                    <p><strong>Identificador:</strong> ${project.identifier}</p>
+                    <p><strong>Descripción:</strong> ${project.description.raw}</p>
+                    <p><strong>Estado:</strong> ${project._links.status.title}</p>
+                    <div class="count"><p> <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;"> ${userCountByProject[project.id] || 0}</p> </div>
+                `;
+                container.appendChild(webDiv);
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     });
 }
 function estadisticas() {
     const Chart = window.Chart;
     const estadisticasButton = document.getElementById('estadisticas');
-    estadisticasButton.addEventListener('click', () => {
+    estadisticasButton.addEventListener('click', async () => {
         const container = document.querySelector('#container');
         container.innerHTML = `
             <div style="display: flex; justify-content: space-around;">
                 <canvas id='barChart' class='stats' style="width: 45%;"></canvas>
                 <canvas id='pieChart' class='stats' style="width: 45%;"></canvas>
+                <canvas id='lineChart' class='stats' style="width: 45%"></canvas>
             </div>`;
 
         const apikey = localStorage.getItem("apikey");
+
         Promise.all([
             fetch('/api/projects', { headers: { 'x-api-key': apikey } }),
             fetch('/api/tasks', { headers: { 'x-api-key': apikey } }),
             fetch('/api/users', { headers: { 'x-api-key': apikey } })
         ])
-        .then(responses => Promise.all(responses.map(r => r.json())))
-        .then(data => {
-            const labels = ['Proyectos', 'Tareas', 'Usuarios'];
-            const values = [
-                data[0]._embedded.elements.length,
-                data[1]._embedded.elements.length,
-                data[2]._embedded.elements.length,
-            ];
+            .then(responses => Promise.all(responses.map(r => r.json())))
+            .then(async (data) => {
+                const [projects, tasks, userData] = data;
+                const users = userData._embedded.elements;
 
-            
-            const ctxBar = document.getElementById('barChart').getContext('2d');
-            new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        label: 'Numero de elementos',
-                        data: values,
-                        backgroundColor: 'rgba(54, 162, 235, 0.5)',
-                        borderColor: 'rgb(67, 53, 218)',
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true
+                const userHours = [];
+                const userNames = [];
+                const timeEntriesByDay = {};
+
+                for (const user of users) {
+                    const timeRes = await fetch('/api/time_entries', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: user.id })
+                    });
+                    const timeData = await timeRes.json();
+
+                    const totalHours = timeData.reduce((sum, entry) => sum + (entry.horas || 0), 0);
+                    userHours.push(totalHours);
+                    userNames.push(user.name);
+
+                    // Organize entries by day
+                    timeData.forEach(entry => {
+                        const date = new Date(entry.fecha);
+                        const dayKey = date.toISOString().split('T')[0]; // Format: YYYY-MM-DD
+                        if (!timeEntriesByDay[dayKey]) {
+                            timeEntriesByDay[dayKey] = {
+                                projects: new Set(),
+                                tasks: new Set()
+                            };
+                        }
+                        if (entry.proyecto) timeEntriesByDay[dayKey].projects.add(entry.proyecto);
+                        if (entry.tarea) timeEntriesByDay[dayKey].tasks.add(entry.tarea);
+                    });
+                }
+
+                // Bar chart for user hours
+                const ctxBar = document.getElementById('barChart').getContext('2d');
+                new Chart(ctxBar, {
+                    type: 'bar',
+                    data: {
+                        labels: userNames,
+                        datasets: [{
+                            label: 'Horas por Usuario',
+                            data: userHours,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                            borderColor: 'rgb(67, 53, 218)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+
+                // Pie chart for elements count
+                const ctxPie = document.getElementById('pieChart').getContext('2d');
+                new Chart(ctxPie, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Proyectos', 'Tareas', 'Usuarios'],
+                        datasets: [{
+                            data: [
+                                projects._embedded.elements.length,
+                                tasks._embedded.elements.length,
+                                users.length
+                            ],
+                            backgroundColor: [
+                                'rgba(255, 99, 132, 0.5)',
+                                'rgba(54, 162, 235, 0.5)',
+                                'rgba(255, 206, 86, 0.5)'
+                            ],
+                            borderColor: [
+                                'rgba(255, 99, 132, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Número de elementos'
+                            }
                         }
                     }
-                }
-            });
+                });
 
-            
-            const ctxPie = document.getElementById('pieChart').getContext('2d');
-            new Chart(ctxPie, {
-                type: 'pie',
-                data: {
-                    labels: labels,
-                    datasets: [{
-                        data: values,
-                        backgroundColor: [
-                            'rgba(255, 99, 132, 0.5)',
-                            'rgba(54, 162, 235, 0.5)',
-                            'rgba(255, 206, 86, 0.5)'
-                        ],
-                        borderColor: [
-                            'rgba(255, 99, 132, 1)',
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 206, 86, 1)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
+                // Line chart with daily data
+                const days = Object.keys(timeEntriesByDay).sort((a, b) => new Date(a) - new Date(b));
+                const projectCounts = days.map(day => timeEntriesByDay[day].projects.size);
+                const taskCounts = days.map(day => timeEntriesByDay[day].tasks.size);
+
+                const ctxLine = document.getElementById('lineChart').getContext('2d');
+                // Calculate total hours per day
+                const dailyHours = {};
+                for (const user of users) {
+                    const timeData = await fetch('/api/time_entries', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: user.id })
+                    }).then(r => r.json());
+
+                    timeData.forEach(entry => {
+                        const dayKey = new Date(entry.fecha).toISOString().split('T')[0];
+                        dailyHours[dayKey] = (dailyHours[dayKey] || 0) + (entry.horas || 0);
+                    });
                 }
+
+                const sortedDays = Object.keys(dailyHours).sort();
+                const hoursData = sortedDays.map(day => dailyHours[day]);
+
+                new Chart(ctxLine, {
+                    type: 'line',
+                    data: {
+                        labels: sortedDays.map(day => {
+                            const date = new Date(day);
+                            return date.toLocaleDateString('es-ES', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                        }),
+                        datasets: [{
+                            label: 'Horas Totales por Día',
+                            data: hoursData,
+                            borderColor: 'rgb(75, 192, 192)',
+                            tension: 0.1,
+                            fill: false
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                title: {
+                                    display: true,
+                                    text: 'Horas'
+                                }
+                            }
+                        },
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: 'Horas Trabajadas por Día'
+                            }
+                        }
+                    }
+                });
             });
-        });
     });
 }
 
@@ -325,23 +440,23 @@ function dashboards() {
 
     dashboardButton.addEventListener('click', async () => {
         const apikey = localStorage.getItem("apikey");
-        const res = await fetch ('/api/users', {
+        const res = await fetch('/api/users', {
             headers: {
                 'x-api-key': apikey
             }
         });
-        const data= await res.json();
-        
+        const data = await res.json();
+
         const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
         for (const user of sortedUsers) {
-            const time = await fetch('/api/time_entries',{
+            const time = await fetch('/api/time_entries', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ id: user.id })
             });
-            const data_time= await time.json();
+            const data_time = await time.json();
             const container = document.querySelector('#container');
             if (user === sortedUsers[0]) {
                 container.innerHTML = '';
@@ -351,36 +466,58 @@ function dashboards() {
             userDiv.classList.add('webDiv');
             userDiv.innerHTML = `
                 <h2>${user.name}</h2>
-                <h3>Time Entries:</h3>
             `;
 
-            const timeList = document.createElement('table');
-            timeList.classList.add('time_entries'); 
-            timeList.innerHTML = `
-                <thead>
-                    <tr>
-                        <th>Proyecto</th>
-                        <th>Tarea</th>
-                        <th>Horas</th>
-                        <th>Fecha</th>
-                        <th>Estado</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            `;
-            const tbody = timeList.querySelector('tbody');
-            data_time.forEach(entry => {
-                const timeItem = document.createElement('tr');
-                timeItem.innerHTML = `
-                    <td>${entry.proyecto || 'N/A'}</td>
-                    <td>${entry.tarea || 'N/A'}</td>
-                    <td>${entry.horas || 0} h</td>
-                    <td>${new Date(entry.fecha).toLocaleDateString()}</td>
-                    <td>${entry.estado ? 'Activo' : 'Inactivo'}</td>
-                `;
-                tbody.appendChild(timeItem);
-            });
+            const timeList = document.createElement('ul');
+            timeList.classList.add('time_entries');
+            if (data_time.length === 0) {
+                const emptyItem = document.createElement('li');
+                emptyItem.style.listStyle = 'none';
+                emptyItem.classList.add('no-data');
+                emptyItem.innerHTML = 'Sin Datos';
+                timeList.appendChild(emptyItem);
+            } else {
+                // Títulos como primer elemento de la lista
+                const titles = [
+                    { label: 'Proyecto', key: 'proyecto' },
+                    { label: 'Tarea', key: 'tarea' },
+                    { label: 'Horas', key: 'horas' },
+                    { label: 'Fecha', key: 'fecha' },
+                    { label: 'Estado', key: 'estado' }
+                ];
+
+                // Para cada entrada, crea una sub-lista con los campos y sus valores
+                data_time.forEach(entry => {
+                    const entryList = document.createElement('ul');
+
+                    titles.forEach(field => {
+                        const item = document.createElement('li');
+
+                        let value = '';
+                        if (field.key === 'fecha') {
+                            value = entry.fecha ? new Date(entry.fecha).toLocaleDateString() : 'N/A';
+                        } else if (field.key === 'estado') {
+                            value = entry.estado !== undefined ? (entry.estado ? 'Activo' : 'Inactivo') : 'N/A';
+                        } else {
+                            value = entry[field.key] !== undefined && entry[field.key] !== null ? entry[field.key] : 'N/A';
+                            if (field.key === 'horas') value += ' h';
+                        }
+
+                        item.innerHTML = `
+                            <span style="display:inline-block; width:${field.width}; font-weight:bold;">${field.label}:</span>
+                            <span>${value}</span>
+                        `;
+                        entryList.appendChild(item);
+                    });
+
+                    // Separador visual entre entradas
+                    const separator = document.createElement('hr');
+                    separator.style.margin = '8px 0';
+
+                    timeList.appendChild(entryList);
+                    timeList.appendChild(separator);
+                });
+            }
 
             userDiv.appendChild(timeList);
             container.appendChild(userDiv);

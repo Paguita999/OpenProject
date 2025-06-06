@@ -152,14 +152,41 @@ h1 {
     padding: 10px;
     margin: 1%;
 }
-.webDiv h3 {
-    font-size: 16px;
-    font-family: league spartan, sans-serif;
-    color: #f6a605;
-    font-weight: bold;
-    margin: 0;
-    padding: 10px;
+
+.webDiv .time_entries {
+    width: 100%;
+    padding: 0;
+    margin: 10px 0;
+    border-radius: 12px;
+    background: #f8fafc;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
 }
+
+.webDiv .time_entries ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.webDiv .time_entries ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px;
+    border-bottom: 1px solid #e0e0e0;
+    font-family: 'League Spartan', sans-serif;
+    color: #555;
+    font-size: 15px;
+}
+.webDiv .time_entries ul li:last-child {
+    border-bottom: none;
+}
+
+.webDiv .time_entries ul li:hover {
+    background: #e3f2fd;
+}
+
+
 .webDiv .users-btn {
     display: flex;
     background-color: transparent;
@@ -455,6 +482,18 @@ nav .cerrar-sesion {
     background-color: white;
     padding: 20px;
 }
+#lineChart {
+    width: 50%;
+    max-width: 600px;
+    height: auto;
+    max-height: 400px;
+    margin: 60px auto;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    padding: 20px;
+}
+
 /* --------------- BOTONES USUARIOS --------------- */
 
 .btn-group {
