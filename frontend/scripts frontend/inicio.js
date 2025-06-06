@@ -167,33 +167,54 @@ function cerrarSesion() {
 function proyectos() {
     const proyectosButton = document.getElementById('proyectos');
 
-    proyectosButton.addEventListener('click', () => {
+    proyectosButton.addEventListener('click', async () => {
         const apikey = localStorage.getItem("apikey");
 
-        fetch('/api/projects', {
-            headers: {
-                'x-api-key': apikey
-            }
-        })
-            .then(response => response.json())
-            .then(data => {
-                const container = document.querySelector('#container');
-                container.innerHTML = "";
-                const sortedProjects = data._embedded.elements.sort((a, b) => a.id - b.id);
-                sortedProjects.forEach(project => {
-                    const webDiv = document.createElement('div');
-                    webDiv.classList.add('webDiv');
-                    webDiv.innerHTML = `
-            <h2>${project.name}</h2>
-            <p><strong>Identificador:</strong> ${project.identifier}</p>
-            <p><strong>Descripción:</strong> ${project.description.raw}</p>
-            <p><strong>Estado:</strong> ${project._links.status.title}</p>
-           
-        `;
-                    container.appendChild(webDiv);
-                });
-            })
-            .catch(error => console.error('Error:', error));
+        try {
+            
+            const [projectsResponse, membershipsResponse] = await Promise.all([
+                fetch('/api/projects', {
+                    headers: {
+                        'x-api-key': apikey
+                    }
+                }),
+                fetch('http://localhost:8080/api/v3/memberships', {
+                    headers: {
+                        'Authorization': 'Basic ' + btoa('apikey:' + apikey)
+                    }
+                })
+            ]);
+
+            const projectsData = await projectsResponse.json();
+            const membershipsData = await membershipsResponse.json();
+
+            
+            const userCountByProject = {};
+            membershipsData._embedded.elements.forEach(membership => {
+                const projectHref = membership._links.project.href;
+                const projectId = projectHref.split('/').pop();
+                userCountByProject[projectId] = (userCountByProject[projectId] || 0) + 1;
+            });
+
+            const container = document.querySelector('#container');
+            container.innerHTML = "";
+            
+            const sortedProjects = projectsData._embedded.elements.sort((a, b) => a.id - b.id);
+            sortedProjects.forEach(project => {
+                const webDiv = document.createElement('div');
+                webDiv.classList.add('webDiv');
+                webDiv.innerHTML = `
+                    <h2>${project.name}</h2>
+                    <p><strong>Identificador:</strong> ${project.identifier}</p>
+                    <p><strong>Descripción:</strong> ${project.description.raw}</p>
+                    <p><strong>Estado:</strong> ${project._links.status.title}</p>
+                    <div class="count"><p> <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;"> ${userCountByProject[project.id] || 0}</p> </div>
+                `;
+                container.appendChild(webDiv);
+            });
+        } catch (error) {
+            console.error('Error:', error);
+        }
     });
 }
 function estadisticas() {
