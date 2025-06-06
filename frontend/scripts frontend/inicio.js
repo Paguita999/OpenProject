@@ -223,10 +223,10 @@ function estadisticas() {
     estadisticasButton.addEventListener('click', async () => {
         const container = document.querySelector('#container');
         container.innerHTML = `
-            <div>
-                <canvas id='barChart' class='stats'></canvas>
-                <canvas id='pieChart' class='stats'></canvas>
-                <canvas id='lineChart' class='stats'></canvas>
+            <div style="display: flex; justify-content: space-around;">
+                <canvas id='barChart' class='stats' height="500"></canvas>
+                <canvas id='pieChart' class='stats' height="500"></canvas>
+                <canvas id='lineChart' class='stats' height="500"></canvas>
             </div>`;
 
         const apikey = localStorage.getItem("apikey");
