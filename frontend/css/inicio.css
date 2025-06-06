@@ -178,10 +178,6 @@ h1 {
     color: #555;
     font-size: 15px;
 }
-.webDiv .time_entries ul li:last-child {
-    border-bottom: none;
-}
-
 .webDiv .time_entries ul li:hover {
     background: #e3f2fd;
 }
