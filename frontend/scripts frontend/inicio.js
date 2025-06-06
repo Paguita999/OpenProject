@@ -417,10 +417,12 @@ function empleados() {
                             <p style="margin: 0; margin-top: 10px;"><strong>Nombre:</strong> ${user.name}</p>
                             <p style="margin: 0; margin-top: 10px;"><strong>Email:</strong> ${user.email}</p>
                             <div class="users-btn">
-                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" class="modify-user-btn" onclick="modificarUsuario(${user.id})">
-                                <img src="../img/modificarusuario.png" alt="Editar" style="width:50%; height:100%;"></button>
-                            <button id="delete-user-btn" style="margin: 1px;" class="delete-user-btn" onclick="borrarUsuario(${user.id})">
-                            <img src="../img/borrarusuario.png" alt="Eliminar"/ style="width:50%; height:100%;"></button>
+                            <button id="modify-user-btn-${user.id}" style="margin: 1px; margin-left: auto;" display: flex; align-items: center"; class="modify-user-btn" onclick="modificarUsuario(${user.id})">
+                                <img src="../img/modificarusuario.png" alt="Editar" style="width:50%; height:100%;">
+                                <span style="margin-left: 8px;">Editar</button>
+                            <button id="delete-user-btn" style="margin: 1px; display: flex; align-items: center"; class="delete-user-btn" onclick="borrarUsuario(${user.id})">
+                                <img src="../img/borrarusuario.png" alt="Eliminar"/ style="width:70%; height:90%;">
+                                <span style="margin-left: 8px;">Borrar</button>
                             </div>
                         </div>
                         `;
