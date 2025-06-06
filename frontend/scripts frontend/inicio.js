@@ -224,9 +224,9 @@ function estadisticas() {
         const container = document.querySelector('#container');
         container.innerHTML = `
             <div style="display: flex; justify-content: space-around;">
-                <canvas id='barChart' class='stats' style="width: 45%;"></canvas>
-                <canvas id='pieChart' class='stats' style="width: 45%;"></canvas>
-                <canvas id='lineChart' class='stats' style="width: 45%"></canvas>
+                <canvas id='barChart' class='stats' height="500"></canvas>
+                <canvas id='pieChart' class='stats' height="500"></canvas>
+                <canvas id='lineChart' class='stats' height="500"></canvas>
             </div>`;
 
         const apikey = localStorage.getItem("apikey");
