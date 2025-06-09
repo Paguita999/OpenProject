@@ -171,7 +171,6 @@ function proyectos() {
         const apikey = localStorage.getItem("apikey");
 
         try {
-            
             const [projectsResponse, membershipsResponse] = await Promise.all([
                 fetch('/api/projects', {
                     headers: {
@@ -189,11 +188,14 @@ function proyectos() {
             const membershipsData = await membershipsResponse.json();
 
             
-            const userCountByProject = {};
+            const membershipsByProject = {};
             membershipsData._embedded.elements.forEach(membership => {
                 const projectHref = membership._links.project.href;
                 const projectId = projectHref.split('/').pop();
-                userCountByProject[projectId] = (userCountByProject[projectId] || 0) + 1;
+                if (!membershipsByProject[projectId]) {
+                    membershipsByProject[projectId] = [];
+                }
+                membershipsByProject[projectId].push(membership);
             });
 
             const container = document.querySelector('#container');
@@ -208,8 +210,41 @@ function proyectos() {
                     <p><strong>Identificador:</strong> ${project.identifier}</p>
                     <p><strong>Descripción:</strong> ${project.description.raw}</p>
                     <p><strong>Estado:</strong> ${project._links.status.title}</p>
-                    <div class="count"><p> <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;"> ${userCountByProject[project.id] || 0}</p> </div>
+                    <button class="user-count-btn">
+                        <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;">
+                        ${membershipsByProject[project.id]?.length || 0}
+                    </button>
+                    <div class="users-list" style="display: none;"></div>
                 `;
+
+                const userCountBtn = webDiv.querySelector('.user-count-btn');
+                const usersList = webDiv.querySelector('.users-list');
+
+                userCountBtn.addEventListener('click', async () => {
+                    if (usersList.style.display === 'none') {
+                        const projectMembers = membershipsByProject[project.id] || [];
+                        const membersList = await Promise.all(projectMembers.map(async (membership) => {
+                            try {
+                                const userId = membership._links.principal.href.split('/').pop();
+                                const userResponse = await fetch(`http://localhost:8080/api/v3/users/${userId}`, {
+                                    headers: {
+                                        'Authorization': 'Basic ' + btoa('apikey:' + apikey)
+                                    }
+                                });
+                                const userData = await userResponse.json();
+                                return `<li>${userData.name || userData.login}</li>`;
+                            } catch (error) {
+                                return '<li>Error al cargar usuario</li>';
+                            }
+                        }));
+                        
+                        usersList.innerHTML = `<ul>${membersList.join('')}</ul>`;
+                        usersList.style.display = 'block';
+                    } else {
+                        usersList.style.display = 'none';
+                    }
+                });
+
                 container.appendChild(webDiv);
             });
         } catch (error) {
@@ -325,12 +360,13 @@ function estadisticas() {
                     }
                 });
 
+            
                 const days = Object.keys(timeEntriesByDay).sort((a, b) => new Date(a) - new Date(b));
                 const projectCounts = days.map(day => timeEntriesByDay[day].projects.size);
                 const taskCounts = days.map(day => timeEntriesByDay[day].tasks.size);
 
                 const ctxLine = document.getElementById('lineChart').getContext('2d');
-                
+            
                 const dailyHours = {};
                 for (const user of users) {
                     const timeData = await fetch('/api/time_entries', {
@@ -445,6 +481,9 @@ function dashboards() {
         });
         const data = await res.json();
 
+        const container = document.querySelector('#container');
+        container.innerHTML = '';
+
         const sortedUsers = data._embedded.elements.sort((a, b) => a.id - b.id);
         for (const user of sortedUsers) {
             const time = await fetch('/api/time_entries', {
@@ -455,10 +494,9 @@ function dashboards() {
                 body: JSON.stringify({ id: user.id })
             });
             const data_time = await time.json();
-            const container = document.querySelector('#container');
-            if (user === sortedUsers[0]) {
-                container.innerHTML = '';
-            }
+            
+            
+            if (data_time.length === 0) continue;
 
             const userDiv = document.createElement('div');
             userDiv.classList.add('webDiv');
@@ -468,59 +506,48 @@ function dashboards() {
 
             const timeList = document.createElement('ul');
             timeList.classList.add('time_entries');
-            if (data_time.length === 0) {
-                const emptyItem = document.createElement('li');
-                emptyItem.style.listStyle = 'none';
-                emptyItem.classList.add('no-data');
-                emptyItem.innerHTML = 'Sin Datos';
-                timeList.appendChild(emptyItem);
-            } else {
-                // Títulos como primer elemento de la lista
-                const titles = [
-                    { label: 'Proyecto', key: 'proyecto' },
-                    { label: 'Tarea', key: 'tarea' },
-                    { label: 'Horas', key: 'horas' },
-                    { label: 'Fecha', key: 'fecha' },
-                    { label: 'Estado', key: 'estado' }
-                ];
+            
+            const titles = [
+                { label: 'Proyecto', key: 'proyecto' },
+                { label: 'Tarea', key: 'tarea' },
+                { label: 'Horas', key: 'horas' },
+                { label: 'Fecha', key: 'fecha' },
+                { label: 'Estado', key: 'estado' }
+            ];
 
-                // Para cada entrada, crea una sub-lista con los campos y sus valores
-                data_time.forEach(entry => {
-                    const entryList = document.createElement('ul');
+            data_time.forEach(entry => {
+                const entryList = document.createElement('ul');
 
-                    titles.forEach(field => {
-                        const item = document.createElement('li');
+                titles.forEach(field => {
+                    const item = document.createElement('li');
 
-                        let value = '';
-                        if (field.key === 'fecha') {
-                            value = entry.fecha ? new Date(entry.fecha).toLocaleDateString() : 'N/A';
-                        } else if (field.key === 'estado') {
-                            value = entry.estado !== undefined ? (entry.estado ? 'Activo' : 'Inactivo') : 'N/A';
-                        } else {
-                            value = entry[field.key] !== undefined && entry[field.key] !== null ? entry[field.key] : 'N/A';
-                            if (field.key === 'horas') value += ' h';
-                        }
+                    let value = '';
+                    if (field.key === 'fecha') {
+                        value = entry.fecha ? new Date(entry.fecha).toLocaleDateString() : 'N/A';
+                    } else if (field.key === 'estado') {
+                        value = entry.estado !== undefined ? (entry.estado ? 'Activo' : 'Inactivo') : 'N/A';
+                    } else {
+                        value = entry[field.key] !== undefined && entry[field.key] !== null ? entry[field.key] : 'N/A';
+                        if (field.key === 'horas') value += ' h';
+                    }
 
-                        item.innerHTML = `
-                            <span style="display:inline-block; width:${field.width}; font-weight:bold;">${field.label}:</span>
-                            <span>${value}</span>
-                        `;
-                        entryList.appendChild(item);
-                    });
-
-                    // Separador visual entre entradas
-                    const separator = document.createElement('hr');
-                    separator.style.margin = '8px 0';
-
-                    timeList.appendChild(entryList);
-                    timeList.appendChild(separator);
+                    item.innerHTML = `
+                        <span style="display:inline-block; width:${field.width}; font-weight:bold;">${field.label}:</span>
+                        <span>${value}</span>
+                    `;
+                    entryList.appendChild(item);
                 });
-            }
+
+                const separator = document.createElement('hr');
+                separator.style.margin = '8px 0';
+
+                timeList.appendChild(entryList);
+                timeList.appendChild(separator);
+            });
 
             userDiv.appendChild(timeList);
             container.appendChild(userDiv);
         }
     });
-
 }
 /*-----------------------------------------------------------------------------------------*/
