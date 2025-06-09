@@ -60,11 +60,10 @@
 }
 
 .button-user {
-    position: relative;
     display: flex;
     text-align: center;
     padding: 10px 20px;
-    background-color: transparent;
+    background-color: green;
     cursor: pointer;
     border-radius: 10px;
     border: none;
