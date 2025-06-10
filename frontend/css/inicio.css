@@ -61,6 +61,18 @@
 }
 
 /* --------------- PÁGINA --------------- */
+#cabecera {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0390f4;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    margin: auto;
+}
+
 #encabezado {
     display: flex;
     justify-content: center;
@@ -82,7 +94,7 @@ body {
 
 h1 {
     margin: 1%;
-    color: #514d49;
+    color: #ffffff;
     text-align: center;
     font-family: league spartan, sans-serif;
     font-size: 200%;
@@ -288,21 +300,22 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    padding: 10px;
-    margin: 1%;
-    margin-left: 24%;
-    border-radius: 20px;
-    border: none;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 50%;
+    height: 25px;
+    width: 100%;
+    margin: 2%;
+    margin-left: 24%;
 }
 
 nav .button {
     position: relative;
     display: inline-block;
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px 25px;
     background-color: white;
     color: rgb(0, 0, 0);
     font-size: 16px;
@@ -437,30 +450,84 @@ canvas .stats {
 
 /* --------------- MÓVIL/TABLET --------------- */
 @media (max-width: 721px) {
-    .container {
-        max-width: 90%;
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    #cabecera,
+    nav {
+        max-width: 98%;
+        margin: 2% auto;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    #container {
+        width: 98%;
+        grid-template-columns: 1fr;
+        padding: 5px;
     }
 
     .webDiv {
-        max-width: 90%;
-        margin-left: 5%;
+        max-width: 98%;
+        margin: 2% auto;
+        padding: 8px;
     }
 
     nav {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        height: auto;
+        margin-left: 0;
     }
 
-    nav .button {
+    nav .button,
+    nav .cerrar-sesion {
         width: 100%;
-        text-align: center;
+        margin: 5px 0;
+        font-size: 15px;
+        padding: 10px 0;
     }
 
     nav .right {
         margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
     }
 
-    #encabezado h1 {
-        font-size: 24px;
+    #encabezado h1,
+    h1 {
+        font-size: 20px;
+        padding: 0 5px;
+    }
+
+    .button-user,
+    .webDiv .delete-user-btn,
+    .webDiv .modify-user-btn,
+    .webDiv .user-count-btn {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+        padding: 10px 0;
+    }
+
+    .modal-contenido,
+    .modalmod-contenido {
+        width: 95%;
+        margin: 30% auto;
+        padding: 10px;
+    }
+
+    #barChart,
+    #pieChart,
+    #lineChart {
+        width: 98%;
+        max-width: 80%;
+        padding: 10px;
+        margin: 20px auto;
     }
 }
