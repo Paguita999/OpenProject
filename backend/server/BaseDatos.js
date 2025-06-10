@@ -7,13 +7,13 @@ export class ConectionBBDD{
         
 
         this.client = new Client({
-            host: 'localhost', // o el nom del servei docker, ex: 'db'
+            host: 'localhost', 
             port: 5555,
-            user: 'postgres', // usuari per defecte OpenProject
-            password: 'postgres', // contrasenya per defecte OpenProject
-            database: 'openproject' // nom de la base de dades
+            user: 'postgres', 
+            password: 'postgres',
+            database: 'openproject' 
         });
-        // Tu código adicional aquí
+       
     }
 
     async getTimeEntriesPorDia(fecha,id) {
