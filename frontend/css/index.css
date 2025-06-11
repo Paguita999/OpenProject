@@ -75,49 +75,55 @@ span {
     font-weight: bold;
 }
 
-/*--------------- MEDIA QUERIES ---------------*/
-@media (max-width: 768px) {
-    #index {
-        margin: 5%;
-        background-size: cover;
-        background-position: center;
-    }
-    #titulo h1 {
-        font-size: 150%;
-        padding: 10px 0;
-    }
-    #apiform {
-        flex-direction: column;
-        max-width: 100%;
-        padding: 10px;
-        box-shadow: none;
-    }
-    #labelform {
-        margin-bottom: 5px;
-        margin-right: 0;
-        padding: 8px;
-        font-size: 1em;
-    }
-    #apiform input,
-    #apiform input[type="text"] {
-        margin-bottom: 10px;
-        width: 80%;
-        font-size: 1em;
-        padding: 8px;
-    }
-    .submit {
-        width: 100%;
-        text-align: center;
-        margin-left: 0;
-        font-size: 1em;
-        padding: 10px 0;
-    }
-    .logo {
-        width: 40px;
-        height: 40px;
-    }
-    span {
-        font-size: 1em;
-        margin-right: 5px;
-    }
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    padding: 10px;
+    margin: 1%;
+    margin-left: 24%;
+    border-radius: 20px;
+    border: none;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    position:fixed;
+    top:0px;
+    right:20px;
+    z-index:999;
+}
+
+nav .button {
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding: 10px 20px;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 10px;
+    border: none;
+    overflow: hidden;
+    user-select: none;
+}
+
+nav .button::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 5px;
+    height: 2px;
+    width: 0;
+    background-color: #000;
+    transition: width 0.3s ease;
+}
+
+nav .button:hover::after {
+    width: 100%;
+}
+
+nav .right {
+    margin-left: auto;
+    display: flex;
 }
