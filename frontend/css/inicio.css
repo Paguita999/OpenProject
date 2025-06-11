@@ -1,34 +1,5 @@
 /* --------------- MODAL --------------- */
-
-
-#container #abrirModal {
-    background-color: #1a237e;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 15px;
-    text-align: center;
-    right: 0;
-    width: 10%;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-#abrirModal:hover {
-    background-color: #80ff6d;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
+.modal,
 .modalmod {
     display: none;
     position: fixed;
@@ -41,15 +12,7 @@
     background-color: rgba(0, 0, 0, 0.4);
 }
 
-.modal-contenido {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    width: 300px;
-    border-radius: 8px;
-    position: relative;
-}
-
+.modal-contenido,
 .modalmod-contenido {
     background-color: #fff;
     margin: 10% auto;
@@ -59,20 +22,8 @@
     position: relative;
 }
 
-.button-user {
-    position: relative;
-    display: flex;
-    text-align: center;
-    padding: 10px 20px;
-    background-color: transparent;
-    cursor: pointer;
-    border-radius: 10px;
-    border: none;
-    overflow: hidden;
-    user-select: none;
-}
-
-.cerrar {
+.cerrar,
+.cerrarmod {
     position: absolute;
     top: 10px;
     right: 15px;
@@ -81,7 +32,46 @@
     cursor: pointer;
 }
 
+.button-user {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: transparent;
+    height: 50px;
+    width: 100%;
+    max-width: 120px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid #0000ff;
+    color: #0000ff;
+    margin-left: 80%;
+    gap: 10px;
+}
+
+.button-user:hover {
+    background-color: #80b3ff;
+    color: #fff;
+}
+
+.button-user img {
+    width: 30px;
+    height: 30px;
+}
+
 /* --------------- PÁGINA --------------- */
+#cabecera {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0390f4;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 50%;
+    margin: auto;
+}
 
 #encabezado {
     display: flex;
@@ -104,7 +94,7 @@ body {
 
 h1 {
     margin: 1%;
-    color: #514d49;
+    color: #ffffff;
     text-align: center;
     font-family: league spartan, sans-serif;
     font-size: 200%;
@@ -151,6 +141,7 @@ h1 {
     max-width: 100%;
     padding: 10px;
     margin: 1%;
+    
 }
 
 .webDiv .time_entries {
@@ -159,7 +150,9 @@ h1 {
     margin: 10px 0;
     border-radius: 12px;
     background: #f8fafc;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+    overflow: scroll;
+    max-height: 400px;
 }
 
 .webDiv .time_entries ul {
@@ -178,10 +171,10 @@ h1 {
     color: #555;
     font-size: 15px;
 }
+
 .webDiv .time_entries ul li:hover {
     background: #e3f2fd;
 }
-
 
 .webDiv .users-btn {
     display: flex;
@@ -215,41 +208,80 @@ h1 {
     justify-content: center;
     align-items: center;
     margin-top: 10px;
-    margin-left: auto;
+    margin: 2px;
+    font-family: league spartan, sans-serif;
 }
 
 .webDiv .delete-user-btn {
-    background-color: red;
+    background-color: transparent;
     padding: 10px 20px;
     height: 50px;
     width: 100px;
     cursor: pointer;
-    font-size: 12px;
-    border-radius: 5px;
-    border: none;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid #ff5e5e;
+    color: #ff5e5e;
 }
 
 .webDiv .delete-user-btn:hover {
-    background-color: #ff5e5e;
+    background-color: #ff9191;
+    color: #fff;
 }
 
 .webDiv .modify-user-btn {
-    background-color: orange;
+    background-color: transparent;
     height: 50px;
     width: 100px;
     padding: 10px 20px;
     cursor: pointer;
-    font-size: 12px;
-    border-radius: 5px;
-    border: none;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid #ff9b43;
+    color: #ff9b43;
 }
 
 .webDiv .modify-user-btn:hover {
-    background-color: #ff9b43;
+    background-color: #f7b780;
+    color: #fff;
+}
+
+.webDiv .user-count-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    background-color: transparent;
+    padding: 10px 20px;
+    height: 50px;
+    width: 50px;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 25px;
+    border: 2px solid #4caf50;
+    color: #4caf50;
+}
+.user-count-btn:hover {
+    background-color: #80e27e;
+    color: #fff;
+}
+
+.webDiv .users-list li {
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    list-style: none;
+    color: #000;
+    font-family: league spartan, sans-serif;
+    background-color: transparent;
+    padding: 10px 20px;
+    border-radius: 15px;
+    border: none;
 }
 
 /* --------------- BOTONERA --------------- */
-
 header {
     position: sticky;
     top: 0;
@@ -268,22 +300,22 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
-    padding: 10px;
-    margin: 1%;
-    margin-left: 24%;
-    border-radius: 20px;
-    border: none;
-    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 50%;
-
+    height: 25px;
+    width: 100%;
+    margin: 2%;
+    margin-left: 24%;
 }
 
 nav .button {
     position: relative;
     display: inline-block;
     text-align: center;
-    padding: 10px 20px;
+    padding: 10px 25px;
     background-color: white;
     color: rgb(0, 0, 0);
     font-size: 16px;
@@ -329,7 +361,6 @@ nav .cerrar-sesion {
 }
 
 /* --------------- MODAL --------------- */
-
 .newUser {
     display: flex;
     background-color: transparent;
@@ -364,86 +395,7 @@ nav .cerrar-sesion {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-#abrirModal {
-    background-color: transparent;
-    color: white;
-    margin-left: 69%;
-    cursor: pointer;
-    text-align: center;
-    width: 5%;
-}
-
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modal-contenido {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    width: 300px;
-    border-radius: 8px;
-    position: relative;
-}
-
-.cerrar {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.modal-contenido #formularioUsuario .guardar {
-    background-color: #1a237e;
-    color: white;
-    padding: 10px 20px;
-    cursor: pointer;
-    font-size: 12px;
-    border-radius: 5px;
-    border: none;
-    margin-top: 10px;
-}
-
-.modalmod {
-    display: none;
-    position: fixed;
-    z-index: 1;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.modalmod-contenido {
-    background-color: #fff;
-    margin: 10% auto;
-    padding: 20px;
-    width: 300px;
-    border-radius: 8px;
-    position: relative;
-}
-
-.cerrarmod {
-    position: absolute;
-    top: 10px;
-    right: 15px;
-    font-size: 22px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
+.modal-contenido #formularioUsuario .guardar,
 .modalmod .modalmod-contenido #formularioUsuarioModificar .guardar {
     background-color: #1a237e;
     color: white;
@@ -454,6 +406,7 @@ nav .cerrar-sesion {
     border: none;
     margin-top: 10px;
 }
+
 #barChart,
 #pieChart,
 #lineChart {
@@ -468,10 +421,7 @@ nav .cerrar-sesion {
     padding: 20px;
 }
 
-
-
 /* --------------- BOTONES USUARIOS --------------- */
-
 .btn-group {
     display: flex;
     align-items: center;
@@ -485,7 +435,6 @@ nav .cerrar-sesion {
 }
 
 /* --------------- ESTADÍSTICAS --------------- */
-
 canvas .stats {
     display: flex;
     flex-direction: row;
@@ -499,34 +448,86 @@ canvas .stats {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-
 /* --------------- MÓVIL/TABLET --------------- */
-
 @media (max-width: 721px) {
-    .container {
-        max-width: 90%;
+    body {
+        background-size: cover;
+        background-position: center;
+    }
+
+    #cabecera,
+    nav {
+        max-width: 98%;
+        margin: 2% auto;
+        padding: 10px;
+        border-radius: 10px;
+    }
+
+    #container {
+        width: 98%;
+        grid-template-columns: 1fr;
+        padding: 5px;
     }
 
     .webDiv {
-        max-width: 90%;
-        margin-left: 5%;
+        max-width: 98%;
+        margin: 2% auto;
+        padding: 8px;
     }
 
     nav {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+        height: auto;
+        margin-left: 0;
     }
 
-    nav .button {
+    nav .button,
+    nav .cerrar-sesion {
         width: 100%;
-        text-align: center;
+        margin: 5px 0;
+        font-size: 15px;
+        padding: 10px 0;
     }
 
     nav .right {
         margin-top: 10px;
+        width: 100%;
+        justify-content: flex-end;
     }
 
-    #encabezado h1 {
-        font-size: 24px;
+    #encabezado h1,
+    h1 {
+        font-size: 20px;
+        padding: 0 5px;
+    }
+
+    .button-user,
+    .webDiv .delete-user-btn,
+    .webDiv .modify-user-btn,
+    .webDiv .user-count-btn {
+        width: 100%;
+        min-width: unset;
+        max-width: unset;
+        margin-left: 0;
+        margin-right: 0;
+        font-size: 12px;
+        padding: 10px 0;
+    }
+
+    .modal-contenido,
+    .modalmod-contenido {
+        width: 95%;
+        margin: 30% auto;
+        padding: 10px;
+    }
+
+    #barChart,
+    #pieChart,
+    #lineChart {
+        width: 98%;
+        max-width: 80%;
+        padding: 10px;
+        margin: 20px auto;
     }
 }
