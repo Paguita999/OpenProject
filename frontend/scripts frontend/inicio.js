@@ -231,7 +231,7 @@ function proyectos() {
                     <p><strong>Descripción:</strong> ${project.description.raw}</p>
                     <p><strong>Estado:</strong> ${project._links.status.title}</p>
                     <button class="user-count-btn" ${userCount === 0 ? 'disabled' : ''} style="${userCount === 0 ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
-                        <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;">
+                        <img src="../img/usuario1.png" alt="Usuarios" style="width: 20px; height: 20px;">
                         ${userCount}
                     </button>
                     <div class="users-popup" style="display: none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); 
