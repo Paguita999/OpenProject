@@ -556,4 +556,13 @@ function dashboards() {
         }
     });
 }
-/*-----------------------------------------------------------------------------------------*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    const navButtons = document.querySelectorAll('nav .button');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            navButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});
