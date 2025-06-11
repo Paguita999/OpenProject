@@ -193,7 +193,6 @@ function proyectos() {
             const projectsData = await projectsResponse.json();
             const membershipsData = await membershipsResponse.json();
 
-            
             const membershipsByProject = {};
             membershipsData._embedded.elements.forEach(membership => {
                 const projectHref = membership._links.project.href;
@@ -207,8 +206,23 @@ function proyectos() {
             const container = document.querySelector('#container');
             container.innerHTML = "";
             
+           
+            const overlay = document.createElement('div');
+            overlay.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.5);
+                display: none;
+                z-index: 999;
+            `;
+            document.body.appendChild(overlay);
+            
             const sortedProjects = projectsData._embedded.elements.sort((a, b) => a.id - b.id);
             sortedProjects.forEach(project => {
+                const userCount = membershipsByProject[project.id]?.length || 0;
                 const webDiv = document.createElement('div');
                 webDiv.classList.add('webDiv');
                 webDiv.innerHTML = `
@@ -216,18 +230,31 @@ function proyectos() {
                     <p><strong>Identificador:</strong> ${project.identifier}</p>
                     <p><strong>Descripción:</strong> ${project.description.raw}</p>
                     <p><strong>Estado:</strong> ${project._links.status.title}</p>
-                    <button class="user-count-btn">
-                        <img src="../img/user.png" alt="Usuarios" style="width: 20px; height: 20px;">
-                        ${membershipsByProject[project.id]?.length || 0}
+                    <button class="user-count-btn" ${userCount === 0 ? 'disabled' : ''} style="${userCount === 0 ? 'opacity: 0.5; cursor: not-allowed;' : ''}">
+                        <img src="../img/usuario1.png" alt="Usuarios" style="width: 20px; height: 20px;">
+                        ${userCount}
                     </button>
-                    <div class="users-list" style="display: none;"></div>
+                    <div class="users-popup">
+                    <button class="close-popup" style="position: absolute; right: 10px; top: 10px; border: none; background: none; cursor: pointer; font-size: 20px;">×</button>
+                    </div>
                 `;
 
                 const userCountBtn = webDiv.querySelector('.user-count-btn');
-                const usersList = webDiv.querySelector('.users-list');
+                const usersPopup = webDiv.querySelector('.users-popup');
+                const closeBtn = webDiv.querySelector('.close-popup');
 
-                userCountBtn.addEventListener('click', async () => {
-                    if (usersList.style.display === 'none') {
+                function closeAllPopups() {
+                    document.querySelectorAll('.users-popup').forEach(popup => {
+                        popup.style.display = 'none';
+                    });
+                    overlay.style.display = 'none';
+                }
+
+                if (userCount > 0) {
+                    userCountBtn.addEventListener('click', async (event) => {
+                        event.stopPropagation();
+                        closeAllPopups();
+                        
                         const projectMembers = membershipsByProject[project.id] || [];
                         const membersList = await Promise.all(projectMembers.map(async (membership) => {
                             try {
@@ -238,18 +265,29 @@ function proyectos() {
                                     }
                                 });
                                 const userData = await userResponse.json();
-                                return `<li>${userData.name || userData.login}</li>`;
+                                return `<li >${userData.name || userData.login}</li>`;
                             } catch (error) {
                                 return '<li>Error al cargar usuario</li>';
                             }
                         }));
                         
-                        usersList.innerHTML = `<ul>${membersList.join('')}</ul>`;
-                        usersList.style.display = 'block';
-                    } else {
-                        usersList.style.display = 'none';
+                        usersPopup.innerHTML = `
+                            <h3>Usuarios del Proyecto</h3>
+                            <button class="close-popup" >×</button>
+                            <ul >${membersList.join('')}</ul>
+                        `;
+                        overlay.style.display = 'block';
+                        usersPopup.style.display = 'block';
+                    });
+                }
+
+                usersPopup.addEventListener('click', (event) => {
+                    if (event.target.classList.contains('close-popup')) {
+                        closeAllPopups();
                     }
                 });
+
+                overlay.addEventListener('click', closeAllPopups);
 
                 container.appendChild(webDiv);
             });
@@ -264,11 +302,10 @@ function estadisticas() {
     estadisticasButton.addEventListener('click', async () => {
         const container = document.querySelector('#container');
         container.innerHTML = `
-            <div style="display: flex; justify-content: space-around;">
                 <canvas id='barChart' class='stats' height="500"></canvas>
                 <canvas id='pieChart' class='stats' height="500"></canvas>
                 <canvas id='lineChart' class='stats' height="500"></canvas>
-            </div>`;
+            `;
 
         const apikey = localStorage.getItem("apikey");
 
@@ -556,4 +593,13 @@ function dashboards() {
         }
     });
 }
-/*-----------------------------------------------------------------------------------------*/
+
+document.addEventListener('DOMContentLoaded', function () {
+    const navButtons = document.querySelectorAll('nav .button');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', function () {
+            navButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+        });
+    });
+});

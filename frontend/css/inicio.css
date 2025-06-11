@@ -36,6 +36,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-end;
     background-color: transparent;
     height: 50px;
     width: 100%;
@@ -46,7 +47,9 @@
     border-radius: 25px;
     border: 2px solid #0000ff;
     color: #0000ff;
-    margin-left: 80%;
+    margin-top: 10px; 
+    margin-left: auto;
+    margin-right: 25px;
     gap: 10px;
 }
 
@@ -60,52 +63,7 @@
     height: 30px;
 }
 
-/* --------------- PÁGINA --------------- */
-#cabecera {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #0390f4;
-    padding: 20px;
-    border-radius: 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    max-width: 50%;
-    margin: auto;
-}
-
-#encabezado {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #e3f2fd;
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-body {
-    background-image: url(../img/249.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-attachment: fixed;
-    height: 100%;
-    margin: 0;
-}
-
-h1 {
-    margin: 1%;
-    color: #ffffff;
-    text-align: center;
-    font-family: league spartan, sans-serif;
-    font-size: 200%;
-    font-weight: bold;
-    text-shadow: #000000 1px 1px 1px;
-}
-
-.logo {
-    width: 20px;
-    height: auto;
-}
+/* --------------- CONTENIDO --------------- */
 
 #container {
     width: 800px;
@@ -131,7 +89,7 @@ h1 {
 }
 
 .webDiv {
-    border: none;
+    border: 2px solid #0A3981;
     border-radius: 15px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     background-color: white;
@@ -141,7 +99,7 @@ h1 {
     max-width: 100%;
     padding: 10px;
     margin: 1%;
-    
+
 }
 
 .webDiv .time_entries {
@@ -186,7 +144,8 @@ h1 {
 }
 
 .webDiv h2 {
-    justify-content: left;
+    justify-content: center;
+    text-align: center;
     font-size: 22px;
     font-family: league spartan, sans-serif;
     color: #64605cdb;
@@ -262,6 +221,7 @@ h1 {
     border: 2px solid #4caf50;
     color: #4caf50;
 }
+
 .user-count-btn:hover {
     background-color: #80e27e;
     color: #fff;
@@ -281,34 +241,61 @@ h1 {
     border: none;
 }
 
-/* --------------- BOTONERA --------------- */
+/* --------------- PÁGINA --------------- */
+
+body {
+    background-color: #D4EBF8;
+    background-attachment: fixed;
+    height: 100%;
+    margin: 0;
+}
+
 header {
-    position: sticky;
-    top: 0;
-    padding: 5px;
-    background-image: url(../img/249.jpg);
+    display: flex;
+    justify-content: center;
+    background-color: #006ead;
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
+    padding: 2px;
+    text-align: center;
+    align-items: center;
 }
 
-header h1 {
-    cursor: default;
+h1 {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin: 10px;
+    margin-left: 10px;
+    color: #FBA834;
+    text-align: center;
+    font-family: league spartan, sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    text-shadow: #000000 1px 1px 1px;
+}
+
+.logo {
+    width: 20px;
+    height: auto;
 }
 
 nav {
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
+    text-align: right;
     background-color: #ffffff;
-    padding: 20px;
+    padding: 10px;
     border-radius: 15px;
-    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     max-width: 50%;
-    height: 25px;
-    width: 100%;
-    margin: 2%;
-    margin-left: 24%;
+    height: 20px;
+    width: 45%;
+    margin: 10px 0 10px auto;
+    margin-right: 10px auto 10px auto;
 }
 
 nav .button {
@@ -338,6 +325,10 @@ nav .button::after {
 }
 
 nav .button:hover::after {
+    width: 100%;
+}
+
+nav .button.active::after {
     width: 100%;
 }
 
@@ -530,4 +521,50 @@ canvas .stats {
         padding: 10px;
         margin: 20px auto;
     }
+}
+
+/* NUEVO CÓDIGO PARA POPUP DE USUARIOS */
+.users-popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    border: 2px solid #333;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    z-index: 1000;
+    min-width: 400px;
+    max-height: 80vh;
+    overflow-y: auto;
+    border-radius: 8px;
+}
+
+.users-popup h3 {
+    margin-top: 0;
+    color: #333;
+    font-family: 'League Spartan', sans-serif;
+}
+
+.users-popup ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.users-popup li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+    font-size: 16px;
+}
+
+.close-popup {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-size: 20px;
 }
