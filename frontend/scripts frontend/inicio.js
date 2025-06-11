@@ -41,23 +41,26 @@ function modificarUsuario(userId) {
         fetch(`http://localhost:8080/api/v3/users/${userId}`, {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Basic ' + btoa('apikey:' + apikey)
+            'Content-Type': 'application/json',
+            'Authorization': 'Basic ' + btoa('apikey:' + apikey)
             },
             body: JSON.stringify(usuarioModificado)
         })
             .then(res => {
-                if (res.ok) {
-                    empleados();
-                    const modal = document.getElementById("modalmod");
-                    modal.style.display = "none";
-                } else {
-                    alert('Error al modificar el usuario.');
-                }
+            if (res.ok) {
+                const modal = document.getElementById("modalmod");
+                modal.style.display = "none";
+                formulario.reset();
+                 document.getElementById('empleados').click();
+                
+               
+            } else {
+                alert('Error al modificar el usuario.');
+            }
             })
             .catch(err => {
-                console.error('Error al modificar usuario:', err);
-                alert('Error de red al intentar modificar el usuario.');
+            console.error('Error al modificar usuario:', err);
+            alert('Error de red al intentar modificar el usuario.');
             });
     });
 }
@@ -75,8 +78,11 @@ function borrarUsuario(userId) {
         }
     })
         .then(res => {
-            if (res.ok) {
-                empleados();
+            if (res.ok || res.status === 204) {
+                
+                     document.getElementById('empleados').click();
+                    
+               
             } else {
                 alert('Error al eliminar el usuario.');
             }
@@ -140,11 +146,11 @@ function crearUsuario() {
             .then(response => response.json())
             .then(data => {
                 console.log("Usuario creado:", data);
-                const empleadosButton = document.getElementById('empleados');
-                empleadosButton.click();
                 const modal = document.getElementById("modal");
                 modal.style.display = "none";
-
+                formulario.reset();
+                document.getElementById('empleados').click();
+                
             })
             .catch(error => {
                 console.error("Error al crear usuario:", error);
