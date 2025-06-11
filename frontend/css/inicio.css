@@ -186,7 +186,8 @@ h1 {
 }
 
 .webDiv h2 {
-    justify-content: left;
+    justify-content: center;
+    text-align: center;
     font-size: 22px;
     font-family: league spartan, sans-serif;
     color: #64605cdb;
