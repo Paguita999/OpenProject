@@ -234,9 +234,7 @@ function proyectos() {
                         <img src="../img/usuario1.png" alt="Usuarios" style="width: 20px; height: 20px;">
                         ${userCount}
                     </button>
-                    <div class="users-popup" style="display: none; position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); 
-                    background: white; border: 2px solid #333; padding: 20px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); z-index: 1000; 
-                    min-width: 400px; max-height: 80vh; overflow-y: auto; border-radius: 8px;">
+                    <div class="users-popup">
                     <button class="close-popup" style="position: absolute; right: 10px; top: 10px; border: none; background: none; cursor: pointer; font-size: 20px;">×</button>
                     </div>
                 `;
@@ -267,16 +265,16 @@ function proyectos() {
                                     }
                                 });
                                 const userData = await userResponse.json();
-                                return `<li style="padding: 10px; border-bottom: 1px solid #eee; font-size: 16px;">${userData.name || userData.login}</li>`;
+                                return `<li >${userData.name || userData.login}</li>`;
                             } catch (error) {
                                 return '<li>Error al cargar usuario</li>';
                             }
                         }));
                         
                         usersPopup.innerHTML = `
-                            <h3 style="margin-top: 0; color: #333;">Usuarios del Proyecto</h3>
-                            <button class="close-popup" style="position: absolute; right: 10px; top: 10px; border: none; background: none; cursor: pointer; font-size: 20px;">×</button>
-                            <ul style="list-style: none; padding: 0; margin: 0;">${membersList.join('')}</ul>
+                            <h3>Usuarios del Proyecto</h3>
+                            <button class="close-popup" >×</button>
+                            <ul >${membersList.join('')}</ul>
                         `;
                         overlay.style.display = 'block';
                         usersPopup.style.display = 'block';
@@ -304,9 +302,9 @@ function estadisticas() {
     estadisticasButton.addEventListener('click', async () => {
         const container = document.querySelector('#container');
         container.innerHTML = `
-                <canvas id='barChart' class='stats' ></canvas>
-                <canvas id='pieChart' class='stats' ></canvas>
-                <canvas id='lineChart' class='stats'></canvas>
+                <canvas id='barChart' class='stats' height="500"></canvas>
+                <canvas id='pieChart' class='stats' height="500"></canvas>
+                <canvas id='lineChart' class='stats' height="500"></canvas>
             `;
 
         const apikey = localStorage.getItem("apikey");
