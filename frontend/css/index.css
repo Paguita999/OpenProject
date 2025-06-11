@@ -87,12 +87,16 @@ nav {
     align-items: center;
     background-color: white;
     padding: 10px;
-    margin: 20px auto 0 auto;
+    margin: 1%;
+    margin-left: 24%;
     border-radius: 20px;
     border: none;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
-    position: static;
+    max-width: 50%;
+    position:fixed;
+    top:0px;
+    right:20px;
+    z-index:999;
 }
 
 nav .button {
@@ -123,6 +127,11 @@ nav .button::after {
 
 nav .button:hover::after {
     width: 100%;
+}
+
+nav .right {
+    margin-left: auto;
+    display: flex;
 }
 
 @media (max-width: 600px) {
