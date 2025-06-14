@@ -3,8 +3,6 @@ function modificarUsuario(userId) {
     if (formulario.dataset.listenerAdded === "true") return;
     formulario.dataset.listenerAdded = "true";
 
-
-
     document.getElementById("cerrarModalmod").addEventListener("click", function () {
         document.getElementById("modalmod").style.display = "none";
     });
@@ -296,6 +294,7 @@ function proyectos() {
         }
     });
 }
+
 function estadisticas() {
     const Chart = window.Chart;
     const estadisticasButton = document.getElementById('estadisticas');
@@ -593,6 +592,10 @@ function dashboards() {
         }
     });
 }
+
+// Script per activar el botón de navegación
+// Asegura que el botó actual es el que té la classe 'active'
+// i elimina aquesta classe dels altres botons de navegació
 
 document.addEventListener('DOMContentLoaded', function () {
     const navButtons = document.querySelectorAll('nav .button');

@@ -28,3 +28,4 @@ Se ha optado por implementar OpenProject, una plataforma de código abierto que 
 [API OpenProject] -->[Database]: Recoge datos
 @enduml
 ```
+(Descarregar extensió PlantUML per a poder visualitzar el diagrama)

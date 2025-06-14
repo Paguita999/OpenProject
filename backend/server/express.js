@@ -26,7 +26,6 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname,'..' ,'..', 'frontend', 'html', 'check.html'));
 });
 
-//proyectos
 
 app.get('/api/projects', async (req, res) => {
     const apiKey = req.headers['x-api-key'];
@@ -53,10 +52,6 @@ app.get('/api/projects', async (req, res) => {
         res.status(500).json({ error: 'Server error' });
     }
 });
-
-
-//usuarios
-
 
 app.post('/api/userscreate', async (req, res) => {
   const { nombre, apellido, email, login,password } = req.body;
