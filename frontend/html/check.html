@@ -1,3 +1,7 @@
+<!-- Aquest arxiu comprova si l'usuari té una clau d'API emmagatzemada a localStorage, i si la té, redirigeix a la pàgina d'inici. 
+Si no, redirigeix a la pàgina d'inici de sessió.
+ --> 
+
 <script>
     if (localStorage.getItem("apikey")) {
         window.location.href = '/html/inicio.html';

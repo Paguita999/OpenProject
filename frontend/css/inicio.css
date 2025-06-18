@@ -148,8 +148,7 @@
     text-align: center;
     font-size: 22px;
     font-family: league spartan, sans-serif;
-    color: #64605cdb;
-    text-shadow: #000000 1px 1px 1px;
+    color: #000000db;
 }
 
 .webDiv p {
@@ -267,13 +266,13 @@ h1 {
     flex-direction: row;
     align-items: flex-start;
     margin: 10px;
-    margin-left: 10px;
+    margin-left: 30px;
     color: #FBA834;
     text-align: center;
     font-family: league spartan, sans-serif;
     font-size: 30px;
     font-weight: bold;
-    text-shadow: #000000 1px 1px 1px;
+    text-shadow: #ffffff 1px 1px 1px;
 }
 
 .logo {
@@ -294,7 +293,7 @@ nav {
     max-width: 50%;
     height: 20px;
     width: 45%;
-    margin: 10px 0 10px auto;
+    margin: 10px 10px 10px auto;
     margin-right: 10px auto 10px auto;
 }
 
